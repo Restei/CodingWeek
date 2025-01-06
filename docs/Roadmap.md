@@ -1,14 +1,16 @@
 # Roadmap
 
-## Interfaces à implémenter :
+## Lundi 6
 
-### Lundi 6
+### Fait : (affichage de la vue partie)
+ - Guillaume : layout de l'interface d'une partie (VuePartie)
+ - Russel : grille centrale et cartes sur le plateau (vueGrille, vueCarte)
+ - Clément : Observateur et SujetObserve, VueChrono
+ - Joseph : Partie, GestionnairePartie, Grille, Carte, GestionnaireTimer, Timer
 
-Tenter de faire un mini-jeu (affichage de la vue partie)
-
- - VuePartie : Guillaume et Russel
- - VueChrono : Clément
- - ✅ Observateur et Vue : Clément
- - Partie, GestionnairePartie, Carte, etc. : Joseph
-
-
+### À faire ensuite
+- Corriger bugs liés à `sleep()` dans Timer
+- Vérifier que VueChrono fonctionne et l'ajouter à VuePartie
+- Assigner des actions aux boutons de vuePartie
+- Implémenter les tours de jeu
+- Tests unitaires de tout sauf Grille
