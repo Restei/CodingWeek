@@ -3,8 +3,8 @@ package grp04.jeu.modele;
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 
-
-public class GestionnairePartie {
+// Classe permettent de gérer une partie.
+public class GestionnairePartie extends SujetObserve {
 
     // Début propriétés
 
@@ -69,6 +69,7 @@ public class GestionnairePartie {
                 }
             }
         }
+        NotifierObservateurs();
     }
 
     /**
