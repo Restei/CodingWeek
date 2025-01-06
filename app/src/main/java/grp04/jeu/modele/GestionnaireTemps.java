@@ -4,7 +4,8 @@ import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
 import static java.lang.Thread.sleep;
 
-public class GestionnaireTemps {
+// Classe permettent de gérer les timers.
+public class GestionnaireTemps extends SujetObserve {
 
     // Début propriétés
 
@@ -52,7 +53,7 @@ public class GestionnaireTemps {
                 }
             }
         }
-
+        NotifierObservateurs();
     }
 
     /**
