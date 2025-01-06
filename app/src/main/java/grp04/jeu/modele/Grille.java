@@ -7,7 +7,7 @@ public class Grille {
 
     // Début propriétés
 
-    private List<List<Carte>> grille = new ArrayList<>();
+    private Carte[][] grille;
 
     // Fin propriétés
 
@@ -15,12 +15,8 @@ public class Grille {
     // Début constructeurs
 
     public Grille(int n, int m) {
-        for (int i = 0; i < n; i++) {
-            grille.add(new ArrayList<>());
-            for (int j = 0; j < m; j++) {
-                grille.add(null);
-            }
-        }
+        grille = new Carte[n][m];
+
     }
 
     // Fin constructeurs
@@ -29,11 +25,11 @@ public class Grille {
     // Début méthodes
 
     public void insertCarte(Carte carte, int x, int y) {
-        grille.get(x).set(y, carte);
+        grille[x][y] = carte;
     }
 
     public Carte getCarte(int x, int y) {
-        return grille.get(x).get(y);
+        return grille[x][y];
     }
 
     // Fin méthodes
