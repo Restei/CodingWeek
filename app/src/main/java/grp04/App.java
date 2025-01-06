@@ -9,6 +9,9 @@ public class App {
     }
 
     public static void main(String[] args) {
+        long test1 = 55555;
+        int test2 = 5;
+        boolean test = test1 == test2;
         System.out.println(new App().getGreeting());
     }
 }
