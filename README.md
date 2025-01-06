@@ -5,5 +5,5 @@
 Les instructions sur l'organisation et les attendus de la semaine se trouve dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
 
 Pour lancer l'application, exécuter les commandes :
-Compilation : javac --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media -d bin ./src/main/Java/*.java
+Compilation : javac --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media -d ./app/src/bin ./app/src/main/*.java
 Exécution : java --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media -cp bin main.Java.Main
