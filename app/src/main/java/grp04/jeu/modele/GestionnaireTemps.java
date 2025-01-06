@@ -37,9 +37,10 @@ public class GestionnaireTemps extends SujetObserve {
                 time = partie.getTimer().getTimerEspion();
                 partie.setTime(time/1000);
                 while (time != 0 && partie.getJoueurQuiJoue() == ESPION) {
-                    sleep(1000);
+                    //sleep(1000);
                     time = time - 1000;
                     partie.setTime(time);
+                    NotifierObservateurs();
                 }
             }
             // Si le joueur qui joue a le rôle d'agent, on lance le timer des agents.
@@ -50,10 +51,10 @@ public class GestionnaireTemps extends SujetObserve {
                     sleep(1000);
                     time = time - 1000;
                     partie.setTime(time);
+                    NotifierObservateurs();
                 }
             }
         }
-        NotifierObservateurs();
     }
 
     /**

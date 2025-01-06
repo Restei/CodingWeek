@@ -7,6 +7,10 @@ import java.util.ArrayList;
 public abstract class SujetObserve {
     private ArrayList<Observateur> observateurs;
 
+    public SujetObserve() {
+        observateurs = new ArrayList<>();
+    }
+
     public void NotifierObservateurs() {
         for (Observateur obs : observateurs) {
             obs.reagir();
