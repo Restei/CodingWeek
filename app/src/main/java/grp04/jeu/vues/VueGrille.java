@@ -12,7 +12,7 @@ public class VueGrille extends GridPane implements Observateur{
 
     public VueGrille(Grille grille){
            this.grille = grille;
-           grille.ajouterObservateur(this);
+           //grille.ajouterObservateur(this);
            this.index = 0;
            this.agent = new VueCarte[grille.size()][grille.size()];
            this.espion = new VueCarte[grille.size()][grille.size()];
