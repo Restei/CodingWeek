@@ -6,11 +6,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Main",
+            "name": "GridPaneExperiments",
             "request": "launch",
             "vmArgs": "--module-path JavaFX/lib --add-modules=javafx.controls,javafx.fxml,javafx.media",
-            "mainClass": "main.Java.Main",
-            "projectName": ""
+            "mainClass": "grp04.jeu.GridPaneExperiments",
+            "projectName": "app"
         }
     ]
 }
