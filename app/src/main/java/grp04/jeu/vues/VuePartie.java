@@ -1,5 +1,8 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.modele.Carte;
+import grp04.jeu.modele.Grille;
+import grp04.jeu.modele.TypeCarte;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -73,8 +76,6 @@ public class VuePartie implements Observateur{
         blank.setFont(font_small);
         blank.setTextAlignment(TextAlignment.CENTER);
         bottom.getChildren().add(blank);
-        //VueChrono chrono = new VueChrono();
-        //top.getChildren().add(chrono);
         HBox hint = new HBox();
         TextField word = new TextField();
         word.setPromptText("Indice");
@@ -92,8 +93,20 @@ public class VuePartie implements Observateur{
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(width*0.15);
         
-        //Grille grille = new Grille(3,3);
-        //VueGrille center = new VueGrille(grille);
+
+        Grille g = new Grille(3,3);
+
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier"),0,1);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou"),1,1);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi"),2,1);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
+
+        VueGrille center  = new VueGrille(g);
 
 
 
@@ -104,7 +117,7 @@ public class VuePartie implements Observateur{
         bPane.setBottom(bottom); 
         bPane.setLeft(left); 
         bPane.setRight(right); 
-        //bPane.setCenter(center);
+        bPane.setCenter(center);
         BorderPane.setAlignment(right,Pos.CENTER);
         BorderPane.setAlignment(top,Pos.CENTER);
         BorderPane.setAlignment(left,Pos.CENTER);
