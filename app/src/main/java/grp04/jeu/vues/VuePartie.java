@@ -23,8 +23,9 @@ public class VuePartie implements Observateur{
     private boolean role = false;
     //private GestionnairePartie partie;
     //private GestionnaireTemps temps;
+    //private Grille grille;
 
-    public VuePartie(/*GestionnairePartie partie, GestionnaireTemps temps*/){
+    public VuePartie(/*GestionnairePartie partie, GestionnaireTemps temps, Grille grille*/){
         //this.partie = partie;
         //this.temps = temps;
     }
@@ -91,10 +92,11 @@ public class VuePartie implements Observateur{
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(width*0.15);
         
+        //Grille grille = new Grille(3,3);
+        //VueGrille center = new VueGrille(grille);
 
-        Label center = new Label("Center");
-        center.setTextAlignment(TextAlignment.CENTER);
-        center.setFont(font);
+
+
         VBox left = new VueCarteRestante(/*partie*/).sideBox(false);
         VBox right = new VueCarteRestante(/*partie*/).sideBox(true);
 
@@ -102,7 +104,7 @@ public class VuePartie implements Observateur{
         bPane.setBottom(bottom); 
         bPane.setLeft(left); 
         bPane.setRight(right); 
-        bPane.setCenter(center);
+        //bPane.setCenter(center);
         BorderPane.setAlignment(right,Pos.CENTER);
         BorderPane.setAlignment(top,Pos.CENTER);
         BorderPane.setAlignment(left,Pos.CENTER);
@@ -111,9 +113,15 @@ public class VuePartie implements Observateur{
         BorderPane.setMargin(top, insets);
         BorderPane.setMargin(left, insets);
         BorderPane.setMargin(right, insets);
-        BorderPane.setMargin(center, insets);
+        //BorderPane.setMargin(center, insets);
         BorderPane.setMargin(bottom, insets);
         
+        if (team){
+            bPane.setStyle("-fx-background-color:rgb(109, 211, 236)");
+        }
+        else{
+            bPane.setStyle("-fx-background-color:rgb(255, 124, 124)");
+        }
         //Creating a scene object 
         Scene scene = new Scene(bPane);  
             

@@ -18,9 +18,11 @@ public class GridPaneExperiments extends Application  {
         int width = 1200;
         primaryStage.setHeight(height);
         primaryStage.setWidth(width);
-        //GestionnairePartie gest = new GestionnairePartie();
+        //GestionnairePartie partie = new GestionnairePartie();
+        //GestionnaireTemps temps = new GestionnaireTemps();
+        //Grille grille = new Grille(int taille)
         
-        VuePartie test = new VuePartie(/*gest*/);
+        VuePartie test = new VuePartie(/*partie, temps, grille*/);
         test.ShowGame(primaryStage, height, width);
     }
 
