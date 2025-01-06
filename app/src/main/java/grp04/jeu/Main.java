@@ -1,6 +1,8 @@
 package grp04.jeu;
 
+import grp04.jeu.modele.Carte;
 import grp04.jeu.modele.Grille;
+import grp04.jeu.modele.TypeCarte;
 import grp04.jeu.vues.VueGrille;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,17 +19,17 @@ public class Main extends Application {
 
         Label vuePartie = new Label("hello");
         Grille g = new Grille(3,3);
-        g.get(0,0).setMot("Tour");
 
-        g.get(1,0).setMot("Fou");
-        g.get(2,0).setMot("Reine");
-        g.get(0,1).setMot("Roi");
-        g.get(1,1).setMot("Cavalier");
-        g.get(0,0).setCouleur("B");
-        g.get(1,0).setCouleur("N");
-        g.get(2,0).setCouleur("W");
-        g.get(0,1).setCouleur("R");
-        g.get(1,1).setCouleur("B");
+
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier"),0,1);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou"),1,1);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi"),2,1);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
 
         VueGrille vg  = new VueGrille(g);
         //Partie partie = new Partie();

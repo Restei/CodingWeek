@@ -1,6 +1,7 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.modele.Carte;
+import grp04.jeu.modele.TypeCarte;
 import javafx.scene.control.Button;
 
 import java.util.Objects;
@@ -12,15 +13,15 @@ public class VueCarte extends Button implements Observateur {
 
 
             //Vérifie la couleur de la carte et colorie
-            if (Objects.equals(this.carte.Getcolor(), "R")){
+            if (Objects.equals(this.carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "B")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.BLEU)){
                 this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "N")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.NOIRE)){
                 this.setStyle("-fx-background-color: black;-fx-text-fill: white");
 
             }
@@ -40,15 +41,15 @@ public class VueCarte extends Button implements Observateur {
 
 
             //Vérifie la couleur de la carte et colorie
-            if (Objects.equals(this.carte.Getcolor(), "R")){
+            if (Objects.equals(this.carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "B")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.BLEU)){
                 this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "N")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.NOIRE)){
                 this.setStyle("-fx-background-color: black;-fx-text-fill: white");
 
             }
@@ -59,15 +60,15 @@ public class VueCarte extends Button implements Observateur {
         }
         else{
             //Vérifie la couleur de la carte et colorie
-            if (Objects.equals(this.carte.Getcolor(), "R")){
+            if (Objects.equals(this.carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "B")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.BLEU)){
                 this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.Getcolor(), "N")){
+            else if (Objects.equals(this.carte.getType(), TypeCarte.NOIRE)){
                 this.setStyle("-fx-background-color: black;-fx-text-fill: white");
 
             }
