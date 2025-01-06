@@ -3,23 +3,41 @@ package grp04.jeu.modele;
 import grp04.jeu.vues.Observateur;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Grille extends SujetObserve {
-    Carte[][] grille;
-    public Grille(int i,int j){
-        super();
-        this.grille = new Carte[i][j];
-        for (int k=0;k<i;k++){
-            for (int l=0;l<j;l++){
-                this.grille[k][l]=new Carte();
+public class Grille {
+
+    // Début propriétés
+
+    private List<List<Carte>> grille = new ArrayList<>();
+
+    // Fin propriétés
+
+
+    // Début constructeurs
+
+    public Grille(int n, int m) {
+        for (int i = 0; i < n; i++) {
+            grille.add(new ArrayList<>());
+            for (int j = 0; j < m; j++) {
+                grille.add(null);
             }
         }
     }
-    public int size(){
-        return grille.length;
+
+    // Fin constructeurs
+
+
+    // Début méthodes
+
+    public void insertCarte(Carte carte, int x, int y) {
+        grille.get(x).set(y, carte);
     }
 
-    public Carte get(int i,int j){
-        return grille[i][j];
+    public Carte getCarte(int x, int y) {
+        return grille.get(x).get(y);
     }
+
+    // Fin méthodes
+
 }
