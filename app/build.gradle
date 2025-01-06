@@ -8,10 +8,11 @@ repositories {
     flatDir {
         dirs 'JavaFX/lib' // Indique à Gradle d'utiliser le dossier contenant les JARs
     }
+
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // Ajoute les bibliothèques JavaFX depuis le dossier local
