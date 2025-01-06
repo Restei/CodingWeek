@@ -1,15 +1,12 @@
 package grp04.jeu.modele;
 
-import grp04.jeu.vues.Observateur;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grille extends SujetObserve{
+public class Grille {
 
     // Début propriétés
 
-    //private List<List<Carte>> grille = new ArrayList<>();
     private Carte[][] grille;
 
     private int taille;
@@ -29,12 +26,11 @@ public class Grille extends SujetObserve{
     // Début méthodes
 
     public void insertCarte(Carte carte, int x, int y) {
-        //grille.get(x).set(y, carte);
-        grille[x][y]=carte;
+        grille[x][y] = carte;
     }
 
     public Carte getCarte(int x, int y) {
-        return /*grille.get(x).get(y);*/ grille[x][y];
+        return grille[x][y];
     }
 
     public int size(){
