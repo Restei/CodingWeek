@@ -6,7 +6,9 @@ import java.util.ArrayList;
 // Classe abstraite que les objets pouvant être observés doivent étendre.
 public abstract class SujetObserve {
     private ArrayList<Observateur> observateurs;
-
+    public SujetObserve(){
+        this.observateurs = new ArrayList<>();
+    }
     public void NotifierObservateurs() {
         for (Observateur obs : observateurs) {
             obs.reagir();
