@@ -10,5 +10,7 @@
         "JavaFX\\lib\\javafx.web.jar",
         "JavaFX\\lib\\javafx-swt.jar"
     ],
-    "gradle.nestedProjects": true 
+    "gradle.nestedProjects": true,
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
