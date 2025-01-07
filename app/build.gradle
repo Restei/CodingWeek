@@ -38,7 +38,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-javafx {
-    version = "23"
-    modules = [ 'javafx.controls','javafx.fxml','javafx.media' ]
-}

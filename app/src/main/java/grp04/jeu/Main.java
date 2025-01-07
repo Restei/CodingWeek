@@ -1,7 +1,9 @@
 package grp04.jeu;
 
+import grp04.jeu.vues.MenuPrincipal;
 import grp04.jeu.vues.VuePartie;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
@@ -22,8 +24,15 @@ public class Main extends Application  {
         //GestionnaireTemps temps = new GestionnaireTemps();
         //Grille grille = new Grille(int taille)
         
-        VuePartie test = new VuePartie(/*partie, temps, grille*/);
-        test.ShowGame(primaryStage, height, width);
+        //VuePartie test = new VuePartie(/*partie, temps, grille*/);
+        //test.ShowGame(primaryStage, height, width);
+
+        MenuPrincipal mp = new MenuPrincipal();
+        Scene scene = new Scene(mp);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+
     }
 
 }
