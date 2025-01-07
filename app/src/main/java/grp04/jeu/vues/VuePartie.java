@@ -1,8 +1,6 @@
 package grp04.jeu.vues;
 
-import grp04.jeu.modele.Carte;
-import grp04.jeu.modele.Grille;
-import grp04.jeu.modele.TypeCarte;
+import grp04.jeu.modele.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -39,8 +37,8 @@ public class VuePartie implements Observateur{
         //this.role = this.gest.getRole();
     }
 
-    public void ShowGame(Stage primaryStage, int height, int width){
-
+    public void ShowGame(Stage primaryStage, int height, int width,GestionnairePartie gp){
+        Grille grille = gp.getPartie().getGrille();
         Font font = Font.font("Courier New", 30);
         Font font_small = Font.font("Courier New", 20);
 
@@ -92,21 +90,8 @@ public class VuePartie implements Observateur{
         bottom.getChildren().add(end);
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(width*0.15);
-        
 
-        Grille g = new Grille(3,3);
-
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
-        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
-        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
-        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier"),0,1);
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou"),1,1);
-        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi"),2,1);
-        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
-        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
-
-        VueGrille center  = new VueGrille(g);
+        VueGrille center  = new VueGrille(grille);
 
 
 

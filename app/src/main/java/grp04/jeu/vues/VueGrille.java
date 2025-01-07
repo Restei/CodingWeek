@@ -18,10 +18,9 @@ public class VueGrille extends GridPane implements Observateur{
            this.espion = new VueCarte[grille.size()][grille.size()];
            for (int i =0;i<grille.size();i++) {
                for (int j = 0; j < grille.size(); j++) {
-                   VueCarte carte = (new VueCarte(grille.getCarte(i, j), false));
+                   VueCarte carte = (new VueCarte(grille.getCarte(i, j),i,j));
                    this.add(carte, i, j);
                    agent[i][j]= carte;
-                   espion[i][j] = (new VueCarte(grille.getCarte(i, j), true));
                }
            }
     }

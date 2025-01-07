@@ -1,5 +1,7 @@
 package grp04.jeu.modele;
 
+import javafx.scene.control.Alert;
+
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 
@@ -33,43 +35,56 @@ public class GestionnairePartie extends SujetObserve {
         Carte carte = partie.getGrille().getCarte(i, j);
         TypeEquipe equipe = partie.getEquipeQuiJoue();
         int nbCarte;
+        carte.reveler();
 
-        // Si les agents de l'équipe equipe trouve une carte noire.
+        // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
             }
+            switchRole();
+        }
+        else if (carte.getType() == ROUGE){
+            partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
+            if (partie.getNbCarteRouge()==0) {
+                partie.setGagnant(TypeEquipe.ROUGE);
+            }
+            if (equipe == TypeEquipe.BLEU){
+                switchRole();
+            }
+        }
+        else if (carte.getType() == BLEU){
+           partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
+           if (partie.getNbCarteBleu()==0){
+               partie.setGagnant(TypeEquipe.BLEU);
+           }
+           if (equipe == TypeEquipe.ROUGE){
+               switchRole();
+           }
+        }
+        // Si les agents de l'équipe trouve une carte civile.
+        else {
+            switchRole();
         }
 
-        // Si les agents de l'équipe equipe trouve une carte civile.
-        if (carte.getType() == CIVILE) {
-            if (equipe == TypeEquipe.BLEU) {
-                partie.setEquipeQuiJoue(TypeEquipe.ROUGE);
-            } else {
-                partie.setEquipeQuiJoue(TypeEquipe.BLEU);
-            }
-        }
 
-        // Si les agents de l'équipe equipe trouve une carte rouge.
-        if (carte.getType() == ROUGE) {
-            if (equipe == TypeEquipe.ROUGE) {
-                nbCarte = partie.getNbCarteRouge();
-                partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
-                if (nbCarte == 0) {
-                    partie.setGagnant(TypeEquipe.ROUGE);
-                }
-            }
-            if (equipe == TypeEquipe.BLEU) {
-                nbCarte = partie.getNbCarteBleu();
-                partie.setNbCarteBleu(partie.getNbCarteBleu() - 1);
-                if (nbCarte == 0) {
-                    partie.setGagnant(TypeEquipe.BLEU);
-                }
-            }
-        }
-        NotifierObservateurs();
+
+
+    }
+
+
+    public void switchRole(){
+        partie.switchRole();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
+
+
+        alert.showAndWait();
     }
 
     /**
@@ -104,6 +119,9 @@ public class GestionnairePartie extends SujetObserve {
         return partie.getNbCarteBleu();
     }
 
+    public Partie getPartie(){
+        return this.partie;
+    }
     // Fin méthodes
 
 }
