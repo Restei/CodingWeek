@@ -3,3 +3,10 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore other build output directory
+/app/out
+
+# Ignore IDE settings
+/.idea
+/.vscode
