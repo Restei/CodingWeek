@@ -18,7 +18,11 @@ public class VuePartie extends BorderPane implements Observateur {
     private final GestionnairePartie gestionnairePartie;
 
     private final Label playerLabel;
-
+    private Label wordhint;
+    private Label numberhint;
+    private TextField word;
+    private TextField number;
+    private Button end;
     public VuePartie(GestionnairePartie gestionnairePartie /*, GestionnaireTemps temps, Grille grille*/) {
 
         // inscription auprès de gestionnairePartie
@@ -58,6 +62,8 @@ public class VuePartie extends BorderPane implements Observateur {
         menu.setTextAlignment(TextAlignment.CENTER);
         top.getChildren().add(menu);
 
+
+
         HBox bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
@@ -70,23 +76,32 @@ public class VuePartie extends BorderPane implements Observateur {
         bottom.getChildren().add(blank);
 
         HBox hint = new HBox();
-        TextField word = new TextField();
+        this.word = new TextField();
         word.setPromptText("Indice");
         word.setFont(font_small);
 
+
         hint.getChildren().add(word);
 
-        TextField number = new TextField();
-        number.setPromptText("Nb mots");
-        number.setFont(font_small);
+        this.wordhint = new Label();
+        this.wordhint.setFont(font_small);
+
+        this.number = new TextField();
+
+        this.number.setPromptText("Nb mots");
+        this.number.setFont(font_small);
+
+        this.numberhint = new Label();
+        this.wordhint.setFont(font_small);
+
         hint.getChildren().add(number);
 
         bottom.getChildren().add(hint);
 
-        Button end = new Button("Fin du tour");
-        end.setOnMouseClicked(e -> this.gestionnairePartie.switchRole());
-        end.setFont(font_small);
-        end.setTextAlignment(TextAlignment.CENTER);
+        this.end = new Button("Fin du tour");
+        this.end.setOnMouseClicked(e -> this.gestionnairePartie.switchRole());
+        this.end.setFont(font_small);
+        this.end.setTextAlignment(TextAlignment.CENTER);
 
         bottom.getChildren().add(end);
 
@@ -117,18 +132,27 @@ public class VuePartie extends BorderPane implements Observateur {
     }
 
     public void reagir() {
-
+        HBox hint = new HBox();
+        hint.setSpacing(0);
+        this.wordhint.setText(word.getText());
+        this.numberhint.setText(number.getText());
         if (this.gestionnairePartie.getRole()) {  // si role == agent
             this.playerLabel.setText("Agent");
+            hint.getChildren().addAll(wordhint,numberhint,end);
         } else {
             this.playerLabel.setText("Espion");
+            hint.getChildren().addAll(word,number,end);
         }
-
+        this.setBottom(hint);
+        hint.setAlignment(Pos.CENTER);
+        hint.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
         if (this.gestionnairePartie.getEquipe()) {  // if equipe == bleu
             this.setStyle("-fx-background-color:rgb(109, 211, 236)"); // bleu
         } else {
             this.setStyle("-fx-background-color:rgb(255, 124, 124)"); // rouge
         }
+
+
     }
 
 }
