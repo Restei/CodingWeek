@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Timer timer = new Timer(TypeTimer.INDIVIDUEL, 10000, 3000);
+        Timer timer = new Timer(TypeTimer.EQUIPE, 10000, 3000);
         Partie partie = new Partie(null, timer, 0);
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
         VueChrono vueChrono = new VueChrono(gestionnairePartie);
