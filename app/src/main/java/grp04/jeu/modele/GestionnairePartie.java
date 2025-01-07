@@ -18,7 +18,8 @@ public class GestionnairePartie extends SujetObserve {
 
     private Partie partie;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
-    final AtomicInteger time = new AtomicInteger(0);
+    public final AtomicInteger time = new AtomicInteger(0);
+    private java.util.Timer timer = new java.util.Timer();
 
     // Fin propriétés
 
@@ -98,9 +99,8 @@ public class GestionnairePartie extends SujetObserve {
      * Lance un timer lorsqu'un joueur commence son tour de jeu.
      */
     public void lanceTimer() {
-        time.set(0);
+        boolean chargerTimer = time.get() <= 0;
         TypeTimer type = partie.getTimer().getType();
-        java.util.Timer timer = new java.util.Timer();
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -120,7 +120,9 @@ public class GestionnairePartie extends SujetObserve {
         else {
             time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) / 1000);
         }
-        timer.schedule(taskTimer, 0, 1000);
+        if (chargerTimer) {
+            timer.schedule(taskTimer, 0, 1000);
+        }
     }
 
     /**
@@ -166,6 +168,7 @@ public class GestionnairePartie extends SujetObserve {
     public Partie getPartie(){
         return this.partie;
     }
+
     // Fin méthodes
 
 }
