@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
 public class VueChrono extends HBox implements Observateur {
 
     Timer timer = new Timer(TypeTimer.INDIVIDUEL, 5000, 5000);
-    private GestionnaireTemps gestionnaireTemps = new GestionnaireTemps(new Partie(null, timer, 200));
-    private Label labelTemps;
+    private final GestionnaireTemps gestionnaireTemps;
+    private final Label labelTemps;
 
     public VueChrono(GestionnaireTemps gestionnaireTemps) {
         super();
@@ -34,6 +34,6 @@ public class VueChrono extends HBox implements Observateur {
         int tempsRestant = gestionnaireTemps.getTemps(); // temps restant en s
         int minutesRestantes = tempsRestant / 60;
         int secondesRestantes = tempsRestant % 60;
-        this.labelTemps.setText(minutesRestantes + ":" + secondesRestantes);
+        this.labelTemps.setText(minutesRestantes + ":" + String.format("%02d", secondesRestantes));
     }
 }
