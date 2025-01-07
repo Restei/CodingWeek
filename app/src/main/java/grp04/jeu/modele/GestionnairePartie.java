@@ -1,5 +1,7 @@
 package grp04.jeu.modele;
 
+import javafx.scene.control.Alert;
+
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 
@@ -33,8 +35,9 @@ public class GestionnairePartie extends SujetObserve {
         Carte carte = partie.getGrille().getCarte(i, j);
         TypeEquipe equipe = partie.getEquipeQuiJoue();
         int nbCarte;
+        carte.reveler();
 
-        // Si les agents de l'équipe equipe trouve une carte noire.
+        // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
@@ -43,7 +46,7 @@ public class GestionnairePartie extends SujetObserve {
             }
         }
 
-        // Si les agents de l'équipe equipe trouve une carte civile.
+        // Si les agents de l'équipe trouve une carte civile.
         if (carte.getType() == CIVILE) {
             if (equipe == TypeEquipe.BLEU) {
                 partie.setEquipeQuiJoue(TypeEquipe.ROUGE);
@@ -52,7 +55,7 @@ public class GestionnairePartie extends SujetObserve {
             }
         }
 
-        // Si les agents de l'équipe equipe trouve une carte rouge.
+        // Si les agents de l'équipe trouve une carte rouge.
         if (carte.getType() == ROUGE) {
             if (equipe == TypeEquipe.ROUGE) {
                 nbCarte = partie.getNbCarteRouge();
@@ -69,7 +72,15 @@ public class GestionnairePartie extends SujetObserve {
                 }
             }
         }
-        NotifierObservateurs();
+        partie.switchRole();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
+
+
+        alert.showAndWait();
+
     }
 
     /**
@@ -104,6 +115,9 @@ public class GestionnairePartie extends SujetObserve {
         return partie.getNbCarteBleu();
     }
 
+    public Partie getPartie(){
+        return this.partie;
+    }
     // Fin méthodes
 
 }
