@@ -60,15 +60,24 @@ public class GestionnairePartie extends SujetObserve {
                 if (nbCarte == 0) {
                     partie.setGagnant(TypeEquipe.ROUGE);
                 }
+            } else {
+                partie.setEquipeQuiJoue(TypeEquipe.BLEU);
             }
+        }
+
+        // Si les agents de l'équipe equipe trouve une carte bleu.
+        if (carte.getType() == BLEU) {
             if (equipe == TypeEquipe.BLEU) {
                 nbCarte = partie.getNbCarteBleu();
                 partie.setNbCarteBleu(partie.getNbCarteBleu() - 1);
                 if (nbCarte == 0) {
                     partie.setGagnant(TypeEquipe.BLEU);
                 }
+            } else {
+                partie.setEquipeQuiJoue(TypeEquipe.ROUGE);
             }
         }
+
         NotifierObservateurs();
     }
 

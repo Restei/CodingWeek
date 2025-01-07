@@ -9,7 +9,8 @@ public class Grille {
 
     private Carte[][] grille;
 
-    private int taille;
+    private int taille; //
+
     // Fin propriétés
 
 
