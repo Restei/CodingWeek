@@ -39,16 +39,16 @@ public class VuePartie extends BorderPane implements Observateur {
         top.setSpacing(Utils.getInstance().getWindowWidth() * 0.3);
 
         // vue chrono
-        Button temp = new Button("Temp");
-        temp.setFont(font);
-        temp.setTextAlignment(TextAlignment.CENTER);
+        VueChrono temp = new VueChrono(gestionnairePartie);
+
+
         top.getChildren().add(temp);
         // TODO :
         //VueChrono chrono = new VueChrono();
         //top.getChildren().add(chrono);
 
         // Rôle du joueur actuel
-        this.playerLabel = new Label();
+        this.playerLabel = new Label("Espion");
         this.playerLabel.setTextAlignment(TextAlignment.CENTER);
         this.playerLabel.setFont(font);
         top.getChildren().add(this.playerLabel);
@@ -90,8 +90,8 @@ public class VuePartie extends BorderPane implements Observateur {
 
         bottom.getChildren().add(end);
 
-        VBox left = new VueCarteRestante(gestionnairePartie).sideBox(true);
-        VBox right = new VueCarteRestante(gestionnairePartie).sideBox(false);
+        VBox left = new VueCarteRestante(gestionnairePartie,true);
+        VBox right = new VueCarteRestante(gestionnairePartie,false);
 
         VueGrille center = new VueGrille(gestionnairePartie);
         center.setAlignment(Pos.CENTER);

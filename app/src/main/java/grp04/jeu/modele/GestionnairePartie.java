@@ -85,9 +85,10 @@ public class GestionnairePartie extends SujetObserve {
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
-
+        time.set(0);
         alert.showAndWait();
         NotifierObservateurs();
+        lanceTimer();
     }
 
     /**

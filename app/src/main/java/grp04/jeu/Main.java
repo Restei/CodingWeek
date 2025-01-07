@@ -28,7 +28,8 @@ public class Main extends Application {
         grille.insertCarte(new Carte(TypeCarte.BLEU, "Fou", grille), 1, 2);
         grille.insertCarte(new Carte(TypeCarte.ROUGE, "Cavalier", grille), 2, 2);
 
-        Partie partie = new Partie(grille, null, 10);
+        Timer timer = new Timer(TypeTimer.INDIVIDUEL,50000,50000);
+        Partie partie = new Partie(grille, timer, 2);
 
 
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
