@@ -1,9 +1,6 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.modele.GestionnaireTemps;
-import grp04.jeu.modele.Partie;
-import grp04.jeu.modele.Timer;
-import grp04.jeu.modele.TypeTimer;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -12,7 +9,6 @@ import javafx.scene.image.ImageView;
 // HBox contenant l'image d'un sablier et le temps restant à jouer
 public class VueChrono extends HBox implements Observateur {
 
-    Timer timer = new Timer(TypeTimer.INDIVIDUEL, 5000, 5000);
     private final GestionnaireTemps gestionnaireTemps;
     private final Label labelTemps;
 
