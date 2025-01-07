@@ -26,7 +26,6 @@ public class Grille extends SujetObserve{
 
     public void insertCarte(Carte carte, int x, int y) {
         grille[x][y] = carte;
-
     }
 
     public Carte getCarte(int x, int y) {
