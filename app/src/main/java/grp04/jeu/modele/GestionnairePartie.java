@@ -44,35 +44,40 @@ public class GestionnairePartie extends SujetObserve {
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
             }
+            switchRole();
         }
-
+        else if (carte.getType() == ROUGE){
+            partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
+            if (partie.getNbCarteRouge()==0) {
+                partie.setGagnant(TypeEquipe.ROUGE);
+            }
+            if (equipe == TypeEquipe.BLEU){
+                switchRole();
+            }
+        }
+        else if (carte.getType() == BLEU){
+           partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
+           if (partie.getNbCarteBleu()==0){
+               partie.setGagnant(TypeEquipe.BLEU);
+           }
+           if (equipe == TypeEquipe.ROUGE){
+               switchRole();
+           }
+        }
         // Si les agents de l'équipe trouve une carte civile.
-        if (carte.getType() == CIVILE) {
-            if (equipe == TypeEquipe.BLEU) {
-                partie.setEquipeQuiJoue(TypeEquipe.ROUGE);
-            } else {
-                partie.setEquipeQuiJoue(TypeEquipe.BLEU);
-            }
+        else {
+            switchRole();
         }
 
-        // Si les agents de l'équipe trouve une carte rouge.
-        if (carte.getType() == ROUGE) {
-            if (equipe == TypeEquipe.ROUGE) {
-                nbCarte = partie.getNbCarteRouge();
-                partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
-                if (nbCarte == 0) {
-                    partie.setGagnant(TypeEquipe.ROUGE);
-                }
-            }
-            if (equipe == TypeEquipe.BLEU) {
-                nbCarte = partie.getNbCarteBleu();
-                partie.setNbCarteBleu(partie.getNbCarteBleu() - 1);
-                if (nbCarte == 0) {
-                    partie.setGagnant(TypeEquipe.BLEU);
-                }
-            }
-        }
+
+
+
+    }
+
+
+    public void switchRole(){
         partie.switchRole();
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
@@ -80,7 +85,6 @@ public class GestionnairePartie extends SujetObserve {
 
 
         alert.showAndWait();
-
     }
 
     /**
