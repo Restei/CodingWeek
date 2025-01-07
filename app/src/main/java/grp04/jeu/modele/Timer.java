@@ -8,17 +8,17 @@ public class Timer {
     // Début propriétés
 
     private TypeTimer type;
-    private long timerEspion = 0;
-    private long timerAgent = 0;
-    private long timerEquipeBleu = 0;
-    private long timerEquipeRouge = 0;
+    private int timerEspion = 0;
+    private int timerAgent = 0;
+    private int timerEquipeBleu = 0;
+    private int timerEquipeRouge = 0;
 
     // Fin propriétés
 
 
     // Début constructeur
 
-    public Timer(TypeTimer type, long timerEspionBleu, long timerAgentRouge) {
+    public Timer(TypeTimer type, int timerEspionBleu, int timerAgentRouge) {
         if (type == INDIVIDUEL) {
             this.type = INDIVIDUEL;
             timerEspion = timerEspionBleu;
@@ -35,15 +35,15 @@ public class Timer {
 
     // Début méthodes
 
-    public long getTimerAgent() {
+    public int getTimerAgent() {
         return timerAgent;
     }
 
-    public long getTimerEspion() {
+    public int getTimerEspion() {
         return timerEspion;
     }
 
-    public long getTimerEquipe(TypeEquipe typeEquipe) {
+    public int getTimerEquipe(TypeEquipe typeEquipe) {
         if (typeEquipe == BLEU) {
             return timerEquipeBleu;
         } else {

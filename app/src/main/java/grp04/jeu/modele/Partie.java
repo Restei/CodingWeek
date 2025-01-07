@@ -2,6 +2,7 @@ package grp04.jeu.modele;
 
 import static grp04.jeu.modele.TypeEquipe.*;
 import static grp04.jeu.modele.TypeJoueur.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Partie {
 
@@ -14,7 +15,7 @@ public class Partie {
     private int nbCarteRouge;
     private int nbCarteBleu;
     private TypeEquipe gagnant = null;
-    private long time = 0;
+    public int time = 0;
 
     // Fin propriétés
 
@@ -77,12 +78,12 @@ public class Partie {
         this.gagnant = gagnant;
     }
 
-    public long getTime() {
+    public  int getTime() {
         return time;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setTime(int time) {
+        this.time= time;
     }
 
     // Fin méthodes

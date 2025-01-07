@@ -1,7 +1,13 @@
 package grp04.jeu.modele;
 
+import javafx.application.Platform;
+
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
+import static grp04.jeu.modele.TypeTimer.*;
 
 // Classe permettent de gérer une partie.
 public class GestionnairePartie extends SujetObserve {
@@ -9,6 +15,7 @@ public class GestionnairePartie extends SujetObserve {
     // Début propriétés
 
     private Partie partie;
+    final AtomicInteger time = new AtomicInteger(0);
 
     // Fin propriétés
 
@@ -82,6 +89,48 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     /**
+     * Lance un timer lorsqu'un joueur commence son tour de jeu.
+     */
+    public void lanceTimer() {
+        TypeTimer type = partie.getTimer().getType();
+        java.util.Timer timer = new java.util.Timer();
+
+        // Si le jeu à un timer en mode individuelle.
+        if (type == INDIVIDUEL) {
+            // Si le joueur qui joue a un rôle d'espion, on lance le timer des espions.
+            if (partie.getJoueurQuiJoue() == ESPION) {
+                time.set(partie.getTimer().getTimerEspion()/1000);
+                TimerTask taskEspion = new TimerTask() {
+                    @Override
+                    public void run() {
+                        time.set(time.get()-1);
+                        Platform.runLater(() -> NotifierObservateurs());
+                        if (time.get() == 0 || partie.getJoueurQuiJoue() == AGENT) {
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.schedule(taskEspion, 0, 1000);
+            }
+            // Si le joueur qui joue a le rôle d'agent, on lance le timer des agents.
+            if (partie.getJoueurQuiJoue() == AGENT) {
+                time.set(partie.getTimer().getTimerAgent()/1000);
+                TimerTask taskAgent = new TimerTask() {
+                    @Override
+                    public void run() {
+                        time.set(time.get()-1);
+                        Platform.runLater(() -> NotifierObservateurs());
+                        if (time.get() == 0 || partie.getJoueurQuiJoue() == ESPION) {
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.schedule(taskAgent, 0, 1000);
+            }
+        }
+    }
+
+    /**
      * Permet de retourner l'équipe qui joue.
      * @return false si l'équipe est rouge, true si l'équipe est bleu.
      */
@@ -111,6 +160,14 @@ public class GestionnairePartie extends SujetObserve {
      */
     public int getNbCarteBleu() {
         return partie.getNbCarteBleu();
+    }
+
+    /**
+     * Retourne le temps en seconde à afficher.
+     * @return time
+     */
+    public int getTemps() {
+        return this.time.get();
     }
 
     // Fin méthodes

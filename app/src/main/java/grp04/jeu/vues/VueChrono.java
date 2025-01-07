@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.GestionnaireTemps;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,13 +10,13 @@ import javafx.scene.image.ImageView;
 // HBox contenant l'image d'un sablier et le temps restant à jouer
 public class VueChrono extends HBox implements Observateur {
 
-    private final GestionnaireTemps gestionnaireTemps;
+    private final GestionnairePartie gestionnairePartie;
     private final Label labelTemps;
 
-    public VueChrono(GestionnaireTemps gestionnaireTemps) {
+    public VueChrono(GestionnairePartie gestionnairePartie) {
         super();
-        this.gestionnaireTemps = gestionnaireTemps;
-        this.gestionnaireTemps.ajouterObservateur(this);
+        this.gestionnairePartie = gestionnairePartie;
+        this.gestionnairePartie.ajouterObservateur(this);
         this.labelTemps = new Label();
 
         Image chronoImage = new Image("chrono.png");
@@ -27,7 +28,8 @@ public class VueChrono extends HBox implements Observateur {
 
     @Override
     public void reagir() {
-        int tempsRestant = gestionnaireTemps.getTemps(); // temps restant en s
+        int tempsRestant = gestionnairePartie.getTemps();
+        // temps restant en s
         int minutesRestantes = tempsRestant / 60;
         int secondesRestantes = tempsRestant % 60;
         this.labelTemps.setText(minutesRestantes + ":" + String.format("%02d", secondesRestantes));
