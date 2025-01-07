@@ -3,7 +3,6 @@ package grp04.jeu;
 import grp04.jeu.modele.*;
 import grp04.jeu.vues.VuePartie;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 

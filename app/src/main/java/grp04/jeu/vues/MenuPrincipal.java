@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -68,7 +67,7 @@ public class MenuPrincipal extends VBox {
         credits.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             {
-                final Canvas canvas = new Canvas(Utils.getInstance().getWindowWidth(),Utils.getInstance().getWindowHeigth());
+                ;
             }
         });
         credits.setFont(font);
