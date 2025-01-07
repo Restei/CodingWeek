@@ -9,12 +9,11 @@ public class Partie {
     private GestionnairePartie gestionnaire;
     private Grille grille;
     private Timer timer;
-    private TypeEquipe equipeQuiJoue;
-    private TypeJoueur joueurQuiJoue;
+    private TypeEquipe equipeQuiJoue = ROUGE;
+    private TypeJoueur joueurQuiJoue = ESPION;
     private int nbCarteRouge;
     private int nbCarteBleu;
     private TypeEquipe gagnant = null;
-    private long time = 0;
 
     // Fin propriétés
 
@@ -26,8 +25,6 @@ public class Partie {
         this.timer = timer;
         this.nbCarteRouge = nbCarte + 1;
         this.nbCarteBleu = nbCarte;
-        equipeQuiJoue = ROUGE;
-        joueurQuiJoue = ESPION;
     }
 
     public Partie(Grille grille, Timer timer, int nbCarte,GestionnairePartie gestionnaire) {
@@ -36,9 +33,6 @@ public class Partie {
         this.nbCarteRouge = nbCarte + 1;
         this.nbCarteBleu = nbCarte;
         this.gestionnaire=gestionnaire;
-        equipeQuiJoue = ROUGE;
-        joueurQuiJoue = ESPION;
-
     }
 
     // Fin constructeurs
@@ -90,14 +84,6 @@ public class Partie {
         this.gagnant = gagnant;
     }
 
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
     public void setGestionnaire(GestionnairePartie gestionnaire){
         this.gestionnaire = gestionnaire;
     }
@@ -120,6 +106,7 @@ public class Partie {
             }
         }
     }
+
     // Fin méthodes
 
 }
