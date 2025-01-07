@@ -19,7 +19,6 @@ public class GestionnairePartie extends SujetObserve {
     private Partie partie;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
-    private java.util.Timer timer = new java.util.Timer();
 
     // Fin propriétés
 
@@ -101,6 +100,7 @@ public class GestionnairePartie extends SujetObserve {
     public void lanceTimer() {
         boolean chargerTimer = time.get() <= 0;
         TypeTimer type = partie.getTimer().getType();
+        java.util.Timer timer = new java.util.Timer();
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
