@@ -37,7 +37,7 @@ public class GestionnaireTemps extends SujetObserve {
                 time = partie.getTimer().getTimerEspion();
                 partie.setTime(time/1000);
                 while (time != 0 && partie.getJoueurQuiJoue() == ESPION) {
-                    sleep(1000);
+                    waiting();
                     time = time - 1000;
                     partie.setTime(time);
                     NotifierObservateurs();
@@ -48,7 +48,7 @@ public class GestionnaireTemps extends SujetObserve {
                 time = partie.getTimer().getTimerAgent();
                 partie.setTime(time/1000);
                 while (time != 0 && partie.getJoueurQuiJoue() == AGENT) {
-                    sleep(1000);
+                    waiting();
                     time = time - 1000;
                     partie.setTime(time);
                     NotifierObservateurs();
@@ -63,6 +63,16 @@ public class GestionnaireTemps extends SujetObserve {
      */
     public int getTemps() {
         return (int)(partie.getTime()/1000);
+    }
+
+    private void waiting() throws InterruptedException {
+        try
+        {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e)
+        {
+        }
     }
 
     // Fin méthodes
