@@ -2,6 +2,7 @@ package grp04.jeu.vues;
 
 import java.time.format.TextStyle;
 
+import grp04.jeu.modele.GestionnairePartie;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -12,16 +13,17 @@ public class VueCarteRestante implements Observateur {
     
     private int red_cards;
     private int blue_cards;
-    //private GestionnairePartie gest;
+    private GestionnairePartie gest;
 
-    public VueCarteRestante(/*GestionnairePartie gest*/){
-        //this.gest = gest;
+    public VueCarteRestante(GestionnairePartie gest){
+        this.gest = gest;
+        this.gest.ajouterObservateur(this);
     }
 
     public void reagir(){
 
-        //this.red_cards = this.gest.getNbCarteRouge();
-        //this.blue_cards = this.gest.getNbCarteBleu();
+        this.red_cards = this.gest.getNbCarteRouge();
+        this.blue_cards = this.gest.getNbCarteBleu();
 
     }
 

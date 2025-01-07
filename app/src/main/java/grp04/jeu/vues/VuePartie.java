@@ -22,12 +22,12 @@ public class VuePartie implements Observateur{
 
     private boolean team = false;
     private boolean role = false;
-    //private GestionnairePartie partie;
+    private GestionnairePartie partie;
     //private GestionnaireTemps temps;
     //private Grille grille;
 
-    public VuePartie(/*GestionnairePartie partie, GestionnaireTemps temps, Grille grille*/){
-        //this.partie = partie;
+    public VuePartie(GestionnairePartie partie /*, GestionnaireTemps temps, Grille grille*/){
+        this.partie = partie;
         //this.temps = temps;
     }
 
@@ -37,8 +37,8 @@ public class VuePartie implements Observateur{
         //this.role = this.gest.getRole();
     }
 
-    public void ShowGame(Stage primaryStage, int height, int width,GestionnairePartie gp){
-        Grille grille = gp.getPartie().getGrille();
+    public void ShowGame(Stage primaryStage, int height, int width){
+        Grille grille = partie.getPartie().getGrille();
         Font font = Font.font("Courier New", 30);
         Font font_small = Font.font("Courier New", 20);
 
@@ -85,18 +85,19 @@ public class VuePartie implements Observateur{
         hint.getChildren().add(number);
         bottom.getChildren().add(hint);
         Button end = new Button("Fin du tour");
+        end.setOnMouseClicked(e -> this.partie.switchRole());
         end.setFont(font_small);
         end.setTextAlignment(TextAlignment.CENTER);
         bottom.getChildren().add(end);
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(width*0.15);
 
-        VueGrille center  = new VueGrille(grille);
+        VueGrille center  = new VueGrille(partie);
 
 
 
-        VBox left = new VueCarteRestante(/*partie*/).sideBox(false);
-        VBox right = new VueCarteRestante(/*partie*/).sideBox(true);
+        VBox left = new VueCarteRestante(partie).sideBox(false);
+        VBox right = new VueCarteRestante(partie).sideBox(true);
 
         bPane.setTop(top);
         bPane.setBottom(bottom); 

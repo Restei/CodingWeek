@@ -1,27 +1,29 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.modele.Carte;
+import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.TypeCarte;
 import javafx.scene.control.Button;
 
 import java.util.Objects;
 
 public class VueCarte extends Button implements Observateur {
-    private final Carte carte;
+
     private int ligne;
     private int colonne;
-
+    private GestionnairePartie gestionnaire;
     public void reagir(){
-        if (this.carte.getRevele() || this.carte.getRole()){
-            if (Objects.equals(this.carte.getType(), TypeCarte.ROUGE)){
+        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
+        if (carte.getRevele() || carte.getRole()){
+            if (Objects.equals(carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.getType(), TypeCarte.BLEU)){
+            else if (Objects.equals(carte.getType(), TypeCarte.BLEU)){
                 this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.getType(), TypeCarte.NOIRE)){
+            else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)){
                 this.setStyle("-fx-background-color: black;-fx-text-fill: white");
 
             }
@@ -33,24 +35,25 @@ public class VueCarte extends Button implements Observateur {
             this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
         }
     }
-    public VueCarte(Carte carte,int ligne,int colonne){
-        this.carte=carte;
+    public VueCarte(GestionnairePartie gestionnaire,int ligne,int colonne){
+        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
+        this.gestionnaire = gestionnaire;
         this.ligne = ligne;
         this.colonne = colonne;
-        carte.ajouterObservateur(this);
+        gestionnaire.ajouterObservateur(this);
         this.setPrefSize(100,100);
         this.setText(carte.getMot());
         if ( carte.getRevele() || carte.getRole()) {
             //Vérifie la couleur de la carte et colorie
-            if (Objects.equals(this.carte.getType(), TypeCarte.ROUGE)){
+            if (Objects.equals(carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.getType(), TypeCarte.BLEU)){
+            else if (Objects.equals(carte.getType(), TypeCarte.BLEU)){
                 this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
 
             }
-            else if (Objects.equals(this.carte.getType(), TypeCarte.NOIRE)){
+            else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)){
                 this.setStyle("-fx-background-color: black;-fx-text-fill: white");
 
             }
@@ -61,6 +64,6 @@ public class VueCarte extends Button implements Observateur {
         else {
             this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
         }
-        this.setOnMouseClicked(e -> {this.carte.getGrille().getPartie().getGestionnaire().jouer(ligne,colonne);});
+        this.setOnMouseClicked(e -> {if (!carte.getRole()) gestionnaire.jouer(ligne,colonne);});
     }
 }

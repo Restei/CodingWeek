@@ -36,7 +36,7 @@ public class GestionnairePartie extends SujetObserve {
         TypeEquipe equipe = partie.getEquipeQuiJoue();
         int nbCarte;
         carte.reveler();
-
+        NotifierObservateurs();
         // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
             if (equipe == TypeEquipe.BLEU) {
@@ -68,16 +68,12 @@ public class GestionnairePartie extends SujetObserve {
         else {
             switchRole();
         }
-
-
-
-
     }
 
 
     public void switchRole(){
         partie.switchRole();
-
+        NotifierObservateurs();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
