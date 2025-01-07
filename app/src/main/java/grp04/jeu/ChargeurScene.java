@@ -4,7 +4,9 @@ import grp04.jeu.modele.Carte;
 import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.Grille;
 import grp04.jeu.modele.Partie;
+import grp04.jeu.modele.Timer;
 import grp04.jeu.modele.TypeCarte;
+import grp04.jeu.modele.TypeTimer;
 
 // AKA GM
 
@@ -27,15 +29,15 @@ public class ChargeurScene {
     }
 
     public void chargerMenuPrincipal(){
-        MenuPrincipal mainMenu = new MenuPrincipal();
+        MenuPrincipal mainMenu = new MenuPrincipal(this);
         Scene scene = new Scene(mainMenu);
         montrerScene(scene);
     }
 
     public void pseudoGame(){
         Grille g = new Grille(3);
-        Partie partie = new Partie(g,null,10);
-        g.setPartie(partie);
+        Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
+        Partie partie = new Partie(g,timer,10);
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
         partie.setGestionnaire(gestionnairePartie);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour",g),0,0);
@@ -48,6 +50,9 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou",g),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier",g),2,2);
         
+        VuePartie vuePartie = new VuePartie(gestionnairePartie);
+        Scene scene = new Scene(vuePartie);
+
         montrerScene(scene);
     }
 

@@ -8,8 +8,8 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
-            "vmArgs": "--module-path JavaFXWindows/lib --add-modules=javafx.controls,javafx.fxml,javafx.media",
             "mainClass": "grp04.jeu.Main",
+            "vmArgs": "--module-path JavaFX/lib --add-modules=javafx.controls,javafx.fxml,javafx.media",
             "projectName": "app"
         }
     ]

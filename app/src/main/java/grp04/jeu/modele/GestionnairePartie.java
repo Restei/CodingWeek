@@ -104,6 +104,7 @@ public class GestionnairePartie extends SujetObserve {
                 time.set(time.get()-1);
                 Platform.runLater(() -> NotifierObservateurs());
                 if (time.get() <= 0) {
+                    time.set(0);
                     timer.cancel();
                 }
             }

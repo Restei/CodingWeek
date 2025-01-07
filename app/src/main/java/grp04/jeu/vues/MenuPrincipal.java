@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.ChargeurScene;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,11 +12,12 @@ import javafx.scene.text.Font;
 
 public class MenuPrincipal extends VBox {
 
-    public MenuPrincipal(){
+    public MenuPrincipal(ChargeurScene chargeurScene){
 
         Font font = Font.font("Courier New", 28);
         Font title = Font.font("Courier New", 50);
         Label titre = new Label("LinguaCrypt");
+
         titre.setFont(title);
         this.getChildren().add(titre);
         
@@ -25,12 +27,7 @@ public class MenuPrincipal extends VBox {
 
 
         Button newGame = new Button("Nouvelle partie");
-        newGame.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) 
-            { 
-                ; 
-            }
-        });
+        newGame.setOnAction(event -> chargeurScene.pseudoGame());
         newGame.setFont(font);
         newGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
         newGame.setPrefWidth(500);
