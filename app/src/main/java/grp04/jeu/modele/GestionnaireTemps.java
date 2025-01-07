@@ -1,5 +1,7 @@
 package grp04.jeu.modele;
 
+import java.util.TimerTask;
+
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
 import static java.lang.Thread.sleep;
@@ -36,23 +38,22 @@ public class GestionnaireTemps extends SujetObserve {
             if (partie.getJoueurQuiJoue() == ESPION) {
                 time = partie.getTimer().getTimerEspion();
                 partie.setTime(time/1000);
-                while (time != 0 && partie.getJoueurQuiJoue() == ESPION) {
-                    waiting();
-                    time = time - 1000;
-                    partie.setTime(time);
-                    NotifierObservateurs();
-                }
+                TimerTask taskEspion = new TimerTask() {
+                    public void run() {
+                        partie.setTime(partie.getTime() - 1);
+                        System.err.println(partie.getTime());
+                        NotifierObservateurs();
+                    }
+                };
+                java.util.Timer timer = new java.util.Timer();
+                timer.schedule(taskEspion, 1000, 1000);
+                //while (time != 0 && partie.getJoueurQuiJoue() == ESPION) {}
             }
             // Si le joueur qui joue a le rôle d'agent, on lance le timer des agents.
             if (partie.getJoueurQuiJoue() == AGENT) {
                 time = partie.getTimer().getTimerAgent();
                 partie.setTime(time/1000);
-                while (time != 0 && partie.getJoueurQuiJoue() == AGENT) {
-                    waiting();
-                    time = time - 1000;
-                    partie.setTime(time);
-                    NotifierObservateurs();
-                }
+                //while (time != 0 && partie.getJoueurQuiJoue() == AGENT) {}
             }
         }
     }
@@ -63,16 +64,6 @@ public class GestionnaireTemps extends SujetObserve {
      */
     public int getTemps() {
         return (int)(partie.getTime()/1000);
-    }
-
-    private void waiting() throws InterruptedException {
-        try
-        {
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e)
-        {
-        }
     }
 
     // Fin méthodes

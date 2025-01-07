@@ -23,7 +23,7 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setCenter(vueChrono);
 
-        gestionnaireTemps.lanceTimer();
+        //gestionnaireTemps.lanceTimer();
         Scene scene = new Scene(root, 1200, 800);
         stage.setScene(scene);
         stage.setTitle("LinguaCrypt : VuePartie");
