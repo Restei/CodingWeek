@@ -82,7 +82,6 @@ public class GestionnairePartie extends SujetObserve {
 
     }
 
-
     public void switchRole(){
         partie.switchRole();
 
@@ -99,6 +98,7 @@ public class GestionnairePartie extends SujetObserve {
      * Lance un timer lorsqu'un joueur commence son tour de jeu.
      */
     public void lanceTimer() {
+        time.set(0);
         TypeTimer type = partie.getTimer().getType();
         java.util.Timer timer = new java.util.Timer();
         TimerTask taskTimer = new TimerTask() {
@@ -114,15 +114,11 @@ public class GestionnairePartie extends SujetObserve {
 
         // Si le jeu à un timer en mode individuelle.
         if (type == INDIVIDUEL) {
-            if (time.get() <= 0) {
-                time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()) / 1000);
-            }
+            time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()) / 1000);
         }
         // Si le jeu à un timer en mode equipe
         else {
-            if (time.get() <= 0) {
-                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) / 1000);
-            }
+            time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) / 1000);
         }
         timer.schedule(taskTimer, 0, 1000);
     }
