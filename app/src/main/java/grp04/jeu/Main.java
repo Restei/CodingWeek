@@ -1,33 +1,44 @@
 package grp04.jeu;
 
 import grp04.jeu.modele.*;
-import grp04.jeu.vues.VueChrono;
+import grp04.jeu.vues.VuePartie;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-
 import javafx.stage.Stage;
 
-public class Main extends Application {
 
+public class Main extends Application  {
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 
     @Override
-    public void start(Stage stage) throws Exception {
-
-        Timer timer = new Timer(TypeTimer.EQUIPE, 10000, 3000);
-        Partie partie = new Partie(null, timer, 0);
+    public void start(Stage primaryStage) throws Exception {
+        Grille g = new Grille(3);
+        Partie partie = new Partie(g,null,10);
+        g.setPartie(partie);
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
-        VueChrono vueChrono = new VueChrono(gestionnairePartie);
+        partie.setGestionnaire(gestionnairePartie);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour",g),0,0);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine",g),1,0);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame",g),2,0);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier",g),0,1);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou",g),1,1);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi",g),2,1);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour",g),0,2);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou",g),1,2);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier",g),2,2);
+        primaryStage.setTitle("LinguaCrypt");
+        int height = 800;
+        int width = 1200;
+        primaryStage.setHeight(height);
+        primaryStage.setWidth(width);
+        //GestionnairePartie partie = new GestionnairePartie();
+        //GestionnaireTemps temps = new GestionnaireTemps();
+        //Grille grille = new Grille(int taille)
 
-        BorderPane root = new BorderPane();
-        root.setCenter(vueChrono);
-
-        gestionnairePartie.lanceTimer();
-        Scene scene = new Scene(root, 1200, 800);
-        stage.setScene(scene);
-        stage.setTitle("LinguaCrypt : VuePartie");
-        stage.setResizable(false);
-        stage.show();
+        VuePartie test = new VuePartie(/*partie, temps, grille*/);
+        test.ShowGame(primaryStage, height, width,gestionnairePartie);
     }
+
 }

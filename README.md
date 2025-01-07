@@ -5,4 +5,5 @@
 Les instructions sur l'organisation et les attendus de la semaine se trouve dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
 
 Pour lancer l'application, exécuter la commande :
-Jar : java -jar --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media .\grp04.jar
+Windows : java -jar --module-path JavaFXWindows\lib --add-modules=javafx.controls,javafx.fxml,javafx.media .\grp04.jar
+Linux : java -jar --module-path JavaFXLinux\lib --add-modules=javafx.controls,javafx.fxml,javafx.media .\grp04.jar

@@ -2,12 +2,11 @@ package grp04.jeu.modele;
 
 import static grp04.jeu.modele.TypeEquipe.*;
 import static grp04.jeu.modele.TypeJoueur.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Partie {
 
     // Début proriétés
-
+    private GestionnairePartie gestionnaire;
     private Grille grille;
     private Timer timer;
     private TypeEquipe equipeQuiJoue = ROUGE;
@@ -26,6 +25,14 @@ public class Partie {
         this.timer = timer;
         this.nbCarteRouge = nbCarte + 1;
         this.nbCarteBleu = nbCarte;
+    }
+
+    public Partie(Grille grille, Timer timer, int nbCarte,GestionnairePartie gestionnaire) {
+        this.grille = grille;
+        this.timer = timer;
+        this.nbCarteRouge = nbCarte + 1;
+        this.nbCarteBleu = nbCarte;
+        this.gestionnaire=gestionnaire;
     }
 
     // Fin constructeurs
@@ -75,6 +82,29 @@ public class Partie {
 
     public void setGagnant(TypeEquipe gagnant) {
         this.gagnant = gagnant;
+    }
+
+    public void setGestionnaire(GestionnairePartie gestionnaire){
+        this.gestionnaire = gestionnaire;
+    }
+
+    public GestionnairePartie getGestionnaire(){
+        return this.gestionnaire;
+    }
+    public void switchRole(){
+        this.getGrille().switchRole();
+        if (joueurQuiJoue == ESPION){
+            joueurQuiJoue = AGENT;
+        }
+        else{
+            joueurQuiJoue = ESPION;
+            if (equipeQuiJoue == ROUGE){
+                equipeQuiJoue = BLEU;
+            }
+            else {
+                equipeQuiJoue = ROUGE;
+            }
+        }
     }
 
     // Fin méthodes
