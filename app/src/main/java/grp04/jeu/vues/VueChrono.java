@@ -1,7 +1,6 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.modele.GestionnairePartie;
-import grp04.jeu.modele.GestionnaireTemps;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;

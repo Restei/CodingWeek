@@ -97,36 +97,20 @@ public class GestionnairePartie extends SujetObserve {
 
         // Si le jeu à un timer en mode individuelle.
         if (type == INDIVIDUEL) {
-            // Si le joueur qui joue a un rôle d'espion, on lance le timer des espions.
-            if (partie.getJoueurQuiJoue() == ESPION) {
-                time.set(partie.getTimer().getTimerEspion()/1000);
-                TimerTask taskEspion = new TimerTask() {
-                    @Override
-                    public void run() {
-                        time.set(time.get()-1);
-                        Platform.runLater(() -> NotifierObservateurs());
-                        if (time.get() == 0 || partie.getJoueurQuiJoue() == AGENT) {
-                            timer.cancel();
-                        }
-                    }
-                };
-                timer.schedule(taskEspion, 0, 1000);
+            if (time.get() <= 0) {
+                time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()) / 1000);
             }
-            // Si le joueur qui joue a le rôle d'agent, on lance le timer des agents.
-            if (partie.getJoueurQuiJoue() == AGENT) {
-                time.set(partie.getTimer().getTimerAgent()/1000);
-                TimerTask taskAgent = new TimerTask() {
-                    @Override
-                    public void run() {
-                        time.set(time.get()-1);
-                        Platform.runLater(() -> NotifierObservateurs());
-                        if (time.get() == 0 || partie.getJoueurQuiJoue() == ESPION) {
-                            timer.cancel();
-                        }
+            TimerTask taskTimer = new TimerTask() {
+                @Override
+                public void run() {
+                    time.set(time.get()-1);
+                    Platform.runLater(() -> NotifierObservateurs());
+                    if (time.get() <= 0) {
+                        timer.cancel();
                     }
-                };
-                timer.schedule(taskAgent, 0, 1000);
-            }
+                }
+            };
+            timer.schedule(taskTimer, 0, 1000);
         }
     }
 

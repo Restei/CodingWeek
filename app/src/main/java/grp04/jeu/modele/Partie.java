@@ -15,7 +15,6 @@ public class Partie {
     private int nbCarteRouge;
     private int nbCarteBleu;
     private TypeEquipe gagnant = null;
-    public int time = 0;
 
     // Fin propriétés
 
@@ -76,14 +75,6 @@ public class Partie {
 
     public void setGagnant(TypeEquipe gagnant) {
         this.gagnant = gagnant;
-    }
-
-    public  int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time= time;
     }
 
     // Fin méthodes

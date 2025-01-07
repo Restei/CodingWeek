@@ -35,12 +35,12 @@ public class Timer {
 
     // Début méthodes
 
-    public int getTimerAgent() {
-        return timerAgent;
-    }
-
-    public int getTimerEspion() {
-        return timerEspion;
+    public int getTimerJoueur(TypeJoueur joueur) {
+        if (joueur == TypeJoueur.AGENT) {
+            return timerAgent;
+        } else {
+            return timerEspion;
+        }
     }
 
     public int getTimerEquipe(TypeEquipe typeEquipe) {
