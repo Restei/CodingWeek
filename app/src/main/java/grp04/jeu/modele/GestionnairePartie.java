@@ -92,6 +92,7 @@ public class GestionnairePartie extends SujetObserve {
 
 
         alert.showAndWait();
+        lanceTimer();
     }
 
     /**
