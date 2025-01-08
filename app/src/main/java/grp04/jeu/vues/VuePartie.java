@@ -35,8 +35,8 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
         // polices utilisées
-        Font font = Font.font("Courier New", 30);
-        Font font_small = Font.font("Courier New", 20);
+        Font font = Utils.getInstance().getFont(1);
+        Font font_small = Utils.getInstance().getFont(2);
 
         // sous-composants
         Insets insets = new Insets(10);

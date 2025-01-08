@@ -10,6 +10,9 @@ public class Utils {
     private int windowHeight = 720;
     private Font font = Font.font("Courier New", 30);
     private Font smallfont = Font.font("Courier New", 20);
+
+    private String mainMenuButtonColor = "-fx-background-color:rgb(109, 236, 126)";
+
     public int getWindowWidth() {
         return windowWidth;
     }
@@ -43,5 +46,9 @@ public class Utils {
                 valeur = this.smallfont;
         }
         return valeur;
+    }
+
+    public String getMainMenuButtonColor() {
+        return mainMenuButtonColor;
     }
 }

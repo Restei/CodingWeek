@@ -55,7 +55,7 @@ public class ChargeurScene {
         Overlay overlay = new Overlay(this);
         VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
         overlay.setFond(vuePartie);
-        Scene scene = new Scene(vuePartie);
+        Scene scene = new Scene(overlay);
 
         montrerScene(scene);
     }
