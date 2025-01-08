@@ -49,6 +49,8 @@ public class Utils {
             case 3:
                 valeur = this.title;
                 break;
+            default:
+                valeur = this.smallfont;
 
         }
         return valeur;
