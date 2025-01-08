@@ -35,12 +35,7 @@ public class MenuPrincipal extends VBox {
         
 
         Button loadGame = new Button("Charger partie");
-        loadGame.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) 
-            { 
-                ; 
-            }
-        });
+        loadGame.setOnAction(event -> chargeurScene.menuSauvegarde());
         loadGame.setFont(font);
         loadGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
         loadGame.setPrefWidth(500);

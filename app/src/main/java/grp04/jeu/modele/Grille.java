@@ -1,8 +1,5 @@
 package grp04.jeu.modele;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Grille extends SujetObserve{
 
     // Début propriétés
