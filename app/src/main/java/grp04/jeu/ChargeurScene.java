@@ -76,4 +76,8 @@ public class ChargeurScene {
         montrerScene(scene);
     }
 
+    public void lancerPatie(Partie partie/*, Statistique statistique */){
+        
+    }
+
 }

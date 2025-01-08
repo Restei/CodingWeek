@@ -6,25 +6,22 @@ import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireSauvegarde;
 import grp04.jeu.modele.Partie;
+import grp04.jeu.modele.Sauvegarde;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class VueMenuSauvegarde extends VBox{
 
-    private ChargeurScene chargeurScene;
     private String valeurARetourner = null;
 
     public VueMenuSauvegarde(ChargeurScene chargeurScene){
-        this.chargeurScene = chargeurScene;
-
         Font font = Utils.getInstance().getFont(0);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -40,9 +37,6 @@ public class VueMenuSauvegarde extends VBox{
         scrollPane.setMaxWidth(Utils.getInstance().getWindowWidth()*0.8);
         this.getChildren().add(scrollPane);
         this.setAlignment(Pos.CENTER);
-
-        TextField textField=new TextField("Test");
-        vBox.getChildren().add(textField);
 
 
         HBox hBox = new HBox();
@@ -71,7 +65,14 @@ public class VueMenuSauvegarde extends VBox{
                 public void handle(ActionEvent e) 
                 {
                     if (valeurARetourner != null){
-                        
+                        try {
+                            Sauvegarde sauvegarde = GestionnaireSauvegarde.charger(valeurARetourner);
+                            Partie partie = sauvegarde.dataPartie();
+                            //Statistique statistque = sauvegarde.dataStatistique();
+                            chargeurScene.lancerPatie(partie/*, statistique */);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
             });
