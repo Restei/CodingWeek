@@ -2,10 +2,7 @@ package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
-import grp04.jeu.modele.CreateurPartie;
-import grp04.jeu.modele.Partie;
-import grp04.jeu.modele.Theme;
-import grp04.jeu.modele.TypeTimer;
+import grp04.jeu.modele.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,10 +11,10 @@ import javafx.scene.layout.VBox;
 
 public class MenuNouvellePartie extends VBox {
 
-    private ChargeurScene chargeurScene;
+    private GestionnaireMenuNewGame menu;
 
-    public MenuNouvellePartie(ChargeurScene chargeurScene){
-        this.chargeurScene = chargeurScene;
+    public MenuNouvellePartie(GestionnaireMenuNewGame menu){
+        this.menu = menu;
 
         //Taille, Nb Carte, Nb noires , TypeTimer type , Timer Espion, Timer agent, Theme
         setSpacing(10);
@@ -34,13 +31,13 @@ public class MenuNouvellePartie extends VBox {
 
         //Paramètres modifiable
 
-        BoutonIncr taille = new BoutonIncr(this,"taille :",3,10);
-        BoutonIncr NbCartes = new BoutonIncr(this,"NbCartes :",2,49);
-        BoutonIncr NbNoires = new BoutonIncr(this,"NbNoires :",2,97);
-        BoutonIncr typetime = new BoutonIncr(this,"Type de timer :",1,2);
-        BoutonIncr timerespion = new BoutonIncr(this,"temps espion :",30,300);
-        BoutonIncr timeragent = new BoutonIncr(this,"temps agent :",60,300);
-        BoutonIncr theme = new BoutonIncr(this,"theme :" ,0,1000);
+        BoutonIncr taille = new BoutonIncr(menu,"taille");
+        BoutonIncr NbCartes = new BoutonIncr(menu,"NbCartes");
+        BoutonIncr NbNoires = new BoutonIncr(menu,"NbNoires");
+        BoutonIncr typetime = new BoutonIncr(menu,"typetime");
+        BoutonIncr timerespion = new BoutonIncr(menu,"timer espion");
+        BoutonIncr timeragent = new BoutonIncr(menu,"timer agent");
+        BoutonIncr theme = new BoutonIncr(menu,"theme");
 
         //Ajout des paramètre à la vue
 
@@ -52,24 +49,10 @@ public class MenuNouvellePartie extends VBox {
         Button retour = new Button("RETOUR");
         Button creer = new Button("CREER");
         retour.setFont(Utils.getInstance().getFont(2));
-        retour.setOnMouseClicked(e-> chargeurScene.chargerMenuPrincipal());
+        retour.setOnMouseClicked(e-> menu.retourmenuprincipale());
 
         creer.setFont(Utils.getInstance().getFont(2));
-        creer.setOnMouseClicked(e-> {
-            Theme themes = new Theme("test");
-            themes.addMot("a");
-            themes.addMot("h");
-            themes.addMot("i");
-            themes.addMot("b");
-            themes.addMot("c");
-            themes.addMot("d");
-            themes.addMot("e");
-            themes.addMot("f");
-            themes.addMot("g");
-            Partie partie = CreateurPartie.createurPartie(3,2,2, TypeTimer.INDIVIDUEL,30,30,themes);
-            chargeurScene.pseudoGame();
-
-        });
+        creer.setOnMouseClicked(e-> menu.creationpartie());
 
         controle.getChildren().addAll(retour, creer);
         controle.setAlignment(Pos.CENTER);

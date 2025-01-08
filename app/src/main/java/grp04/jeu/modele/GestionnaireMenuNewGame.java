@@ -13,13 +13,22 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     TypeTimer type;
     int timerEspionBleu;
     int timerAgentRouge;
-    Theme theme = null;
+    Theme theme;
 
     // Fin propriétés
 
     // Début constructeurs
 
-    public GestionnaireMenuNewGame() {}
+    public GestionnaireMenuNewGame(ChargeurScene chargeurscene) {
+        this.chargeurScene = chargeurscene;
+        this.taille = 3;
+        this.nbCarte = 2;
+        this.nbCarteNoire = 2;
+        this.type = TypeTimer.INDIVIDUEL;
+        this.timerAgentRouge = 60;
+        this.timerEspionBleu = 30;
+        this.theme = null;
+    }
 
     // Fin constructeurs
 
@@ -28,7 +37,11 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void creationpartie() {
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, theme);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
-        chargeurScene.chargerNouvellePartie(partie, statistique);
+        chargeurScene.pseudoGame();
+    }
+
+    public void retourmenuprincipale(){
+        chargeurScene.chargerMenuPrincipal();
     }
 
     public void incrTaille() {
@@ -97,18 +110,19 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         } else {
             type = TypeTimer.INDIVIDUEL;
         }
+        NotifierObservateurs();
     }
 
-    public int getTaille() {
-        return taille;
+    public String getTaille() {
+        return Integer.toString(taille);
     }
 
-    public int getNbCarte() {
-        return nbCarte;
+    public String getNbCarte() {
+        return Integer.toString(nbCarte);
     }
 
-    public int getNbCarteNoire() {
-        return nbCarteNoire;
+    public String getNbCarteNoire() {
+        return Integer.toString(nbCarteNoire);
     }
 
     public String getType() {
@@ -129,12 +143,12 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         return "A faire"; // To do
     }
 
-    public int getTimerEspionBleu() {
-        return timerEspionBleu;
+    public String getTimerEspionBleu() {
+        return Integer.toString(timerEspionBleu);
     }
 
-    public int getTimerAgentRouge() {
-        return timerAgentRouge;
+    public String getTimerAgentRouge() {
+        return Integer.toString(timerAgentRouge);
     }
 
     // Fin méthodes
