@@ -5,13 +5,15 @@ import grp04.jeu.modele.*;
 // AKA GM
 
 import grp04.jeu.vues.MenuPrincipal;
+import grp04.jeu.vues.Overlay;
+import grp04.jeu.vues.VueMenuSauvegarde;
 import grp04.jeu.vues.VuePartie;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ChargeurScene {
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
     
     public ChargeurScene(Stage primStage){
         this.primaryStage=primStage;
@@ -23,11 +25,13 @@ public class ChargeurScene {
     }
 
     public void chargerMenuPrincipal(){
-        MenuPrincipal mainMenu = new MenuPrincipal(this);
-        Scene scene = new Scene(mainMenu);
+        Overlay overlay = new Overlay(this);
+        overlay.setFond(new MenuPrincipal(this));
+        Scene scene = new Scene(overlay);
         montrerScene(scene);
     }
 
+    // démonstration
     public void pseudoGame(){
         Grille g = new Grille(3);
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
@@ -43,8 +47,10 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
         
-        VuePartie vuePartie = new VuePartie(gestionnairePartie);
-        Scene scene = new Scene(vuePartie);
+        Overlay overlay = new Overlay(this);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        overlay.setFond(vuePartie);
+        Scene scene = new Scene(overlay);
 
         montrerScene(scene);
     }
@@ -69,12 +75,16 @@ public class ChargeurScene {
         VueMenuListeMots vueMenuListeMots = new VueMenuListeMots();
         Scene scene = new Scene(vueMenuListeMots);
         montrerScene(scene);
-    }
+    }*/
     
     public void menuSauvegarde(){
-        VueMenuSauvegarde vueMenuSauvegarde = new VueMenuSauvegarde();
+        VueMenuSauvegarde vueMenuSauvegarde = new VueMenuSauvegarde(this);
         Scene scene = new Scene(vueMenuSauvegarde);
         montrerScene(scene);
-    }*/
+    }
+
+    public void lancerPatie(Partie partie/*, Statistique statistique */){
+        
+    }
 
 }
