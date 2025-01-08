@@ -52,7 +52,9 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
         
-        VuePartie vuePartie = new VuePartie(gestionnairePartie);
+        Overlay overlay = new Overlay(this);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        overlay.setFond(vuePartie);
         Scene scene = new Scene(vuePartie);
 
         montrerScene(scene);
