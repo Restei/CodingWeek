@@ -3,21 +3,21 @@ package grp04.jeu.modele;
 public class Carte extends SujetObserve {
 
     // Début propriétés
+
     private TypeCarte type;
     private String mot;
     private boolean revele;
     private boolean espion;
-    private Grille grille;
+
     // Fin propriétés
 
 
     // Début Constructeurs
 
-    public Carte(TypeCarte type, String mot,Grille grille) {
+    public Carte(TypeCarte type, String mot) {
         super();
         this.type = type;
         this.mot = mot;
-        this.grille = grille;
         this.espion = true;
         this.revele = false;
     }
@@ -59,10 +59,6 @@ public class Carte extends SujetObserve {
     //fonction qui renvoie true si c'est un espion et faux sinon
 
         return this.espion;
-    }
-
-    public Grille getGrille(){
-        return this.grille;
     }
 
     // Fin méthodes
