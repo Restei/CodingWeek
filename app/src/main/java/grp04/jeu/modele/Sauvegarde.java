@@ -6,19 +6,19 @@ public class Sauvegarde implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Partie partie;
-    //private Statistique Statistique;
+    private Statistique statistique;
 
-    public Sauvegarde(Partie partie/*, Statistique statistique */){
+    public Sauvegarde(Partie partie, Statistique statistique){
         this.partie = partie;
-        //this.statistique=statistique;
+        this.statistique=statistique;
     }
 
     public Partie dataPartie(){
         return this.partie;
     }
     
-    /*public Statistique dataStatistique(){
+    public Statistique dataStatistique(){
         return this.statistique;
-    }*/
+    }
     
 }
