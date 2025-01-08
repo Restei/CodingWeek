@@ -61,8 +61,9 @@ public class ChargeurScene {
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
         Overlay overlay = new Overlay(this);
         VuePartie vuePartie = new VuePartie(gestionnairePartie,overlay);
-        //overlay.setFond(vuePartie);
-        Scene scene = new Scene(vuePartie);
+        overlay.setFond(vuePartie);
+
+        Scene scene = new Scene(overlay);
         montrerScene(scene);
     }
 

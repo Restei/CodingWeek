@@ -37,7 +37,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void creationpartie() {
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, theme);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
-        chargeurScene.pseudoGame();
+        chargeurScene.chargerNouvellePartie(partie,statistique);
     }
 
     public void retourmenuprincipale(){
