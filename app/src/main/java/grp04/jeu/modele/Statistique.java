@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public class Statistique {
+import java.io.Serializable;
+
+public class Statistique implements Serializable {
 
     // Début Propriétés
 

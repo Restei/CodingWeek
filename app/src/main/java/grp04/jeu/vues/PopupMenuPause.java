@@ -6,12 +6,14 @@ import grp04.jeu.modele.GestionnairePartie;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class PopupMenuPause extends VBox {
 
     private final GestionnairePartie gestionnairePartie;
     private final Overlay overlay;
+    private TextField nomSauvegarde;
 
     private final ChargeurScene chargeurScene;
 
@@ -39,9 +41,18 @@ public class PopupMenuPause extends VBox {
             this.gestionnairePartie.reprendreChrono();
         });
 
+        this.nomSauvegarde = new TextField();
+        nomSauvegarde.setPromptText("Nom de la sauvegarde");
+        nomSauvegarde.setFont(Utils.getInstance().getFont(2));
+
         Button sauvegarder = new Button("Sauvegarder");
         sauvegarder.setStyle(Utils.getInstance().getMainMenuButtonColor());
         sauvegarder.setFont(Utils.getInstance().getFont(2));
+        sauvegarder.setOnAction(event -> {
+            if (!nomSauvegarde.getText().isEmpty()) {
+                gestionnairePartie.sauvegarderPartie(nomSauvegarde.getText());
+            }
+        });
 
         Button quitter = new Button("Menu Principal");
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
@@ -53,7 +64,7 @@ public class PopupMenuPause extends VBox {
         });
 
 
-        this.getChildren().addAll(titre, space, reprendre, sauvegarder, quitter);
+        this.getChildren().addAll(titre, space, reprendre, nomSauvegarde, sauvegarder, quitter);
     }
 
 

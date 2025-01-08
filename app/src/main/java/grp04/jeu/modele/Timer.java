@@ -1,9 +1,11 @@
 package grp04.jeu.modele;
 
+import java.io.Serializable;
+
 import static grp04.jeu.modele.TypeEquipe.*;
 import static grp04.jeu.modele.TypeTimer.*;
 
-public class Timer {
+public class Timer implements Serializable {
 
     // Début propriétés
 

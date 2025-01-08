@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public enum TypeJoueur {
+import java.io.Serializable;
+
+public enum TypeJoueur implements Serializable {
 
     ESPION,
     AGENT

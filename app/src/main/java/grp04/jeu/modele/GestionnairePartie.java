@@ -203,6 +203,10 @@ public class GestionnairePartie extends SujetObserve {
         timer.schedule(taskTimer, 0, 1000);
     }
 
+    public void sauvegarderPartie(String nomSauvegarde) {
+        GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);
+    }
+
     // Fin méthodes
 
 }
