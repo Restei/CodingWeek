@@ -18,10 +18,9 @@ public class VuePartie extends BorderPane implements Observateur {
     private final GestionnairePartie gestionnairePartie;
 
     private final Label playerLabel;
-    private Label wordhint;
-    private Label numberhint;
-    private TextField word;
-    private TextField number;
+    private Label bottomhint;
+    private HBox bottomtextfield;
+
     private Button end;
     public VuePartie(GestionnairePartie gestionnairePartie /*, GestionnaireTemps temps, Grille grille*/) {
 
@@ -31,8 +30,8 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
         // polices utilisées
-        Font font = Font.font("Courier New", 30);
-        Font font_small = Font.font("Courier New", 20);
+        Font font = Utils.getInstance().getFont(1);
+        Font font_small = Utils.getInstance().getFont(2);
 
         // sous-composants
         Insets insets = new Insets(10);
@@ -47,11 +46,9 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
         top.getChildren().add(temp);
-        // TODO :
-        //VueChrono chrono = new VueChrono();
-        //top.getChildren().add(chrono);
 
         // Rôle du joueur actuel
+
         this.playerLabel = new Label("Espion");
         this.playerLabel.setTextAlignment(TextAlignment.CENTER);
         this.playerLabel.setFont(font);
@@ -67,41 +64,43 @@ public class VuePartie extends BorderPane implements Observateur {
         HBox bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);
         bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+        bottom.setStyle("-fx-background-color: rgb(230,230,230)"); //blanc-gris
 
         // espacement
         Label blank = new Label("               ");
         blank.setFont(font_small);
         blank.setTextAlignment(TextAlignment.CENTER);
-
         bottom.getChildren().add(blank);
 
-        HBox hint = new HBox();
-        this.word = new TextField();
-        word.setPromptText("Indice");
-        word.setFont(font_small);
-
-
-        hint.getChildren().add(word);
-
-        this.wordhint = new Label();
-        this.wordhint.setFont(font_small);
-
-        this.number = new TextField();
-
-        this.number.setPromptText("Nb mots");
-        this.number.setFont(font_small);
-
-        this.numberhint = new Label();
-        this.wordhint.setFont(font_small);
-
-        hint.getChildren().add(number);
-
-        bottom.getChildren().add(hint);
-
+        //Creation du bouton de fin de tour
         this.end = new Button("Fin du tour");
         this.end.setOnMouseClicked(e -> this.gestionnairePartie.switchRole());
         this.end.setFont(font_small);
         this.end.setTextAlignment(TextAlignment.CENTER);
+
+        //Creation du champ  d'indices
+        this.bottomtextfield = new HBox();
+
+        TextField word = new TextField();
+        word.setPromptText("Indice");
+        word.setFont(font_small);
+
+
+        this.bottomhint = new Label();
+        this.bottomhint.setFont(font_small);
+        this.bottomhint.setPrefHeight(this.end.getHeight());
+
+        TextField number = new TextField();
+        number.setPromptText("Nb mots");
+        number.setFont(font_small);
+
+
+
+        this.bottomtextfield.getChildren().add(word);
+        this.bottomtextfield.getChildren().add(number);
+        bottom.getChildren().add(this.bottomtextfield);
+
+
 
         bottom.getChildren().add(end);
 
@@ -116,6 +115,7 @@ public class VuePartie extends BorderPane implements Observateur {
         this.setLeft(left);
         this.setRight(right);
         this.setCenter(center);
+
 
         BorderPane.setAlignment(right, Pos.CENTER);
         BorderPane.setAlignment(top, Pos.CENTER);
@@ -132,20 +132,39 @@ public class VuePartie extends BorderPane implements Observateur {
     }
 
     public void reagir() {
-        HBox hint = new HBox();
-        hint.setSpacing(0);
-        this.wordhint.setText(word.getText());
-        this.numberhint.setText(number.getText());
+
+        //Recréation de bottom
+        HBox bottom = new HBox();
+        bottom.setAlignment(Pos.CENTER);
+        bottom.setStyle("-fx-background-color: rgb(200,200,200)");
+
+        //bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+
+        // espacement
+        Label blank = new Label("               ");
+        blank.setFont(Utils.getInstance().getFont(2));
+        blank.setTextAlignment(TextAlignment.CENTER);
+
+        //
+        TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
+        TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
+        number.setText(number.getText().replaceAll("[^\\d]", ""));
+        word.setText(word.getText().replaceAll("[^\\w]", ""));
+        this.bottomtextfield.getChildren().clear();
+        this.bottomtextfield.getChildren().addAll(word,number);
+
+
         if (this.gestionnairePartie.getRole()) {  // si role == agent
             this.playerLabel.setText("Agent");
-            hint.getChildren().addAll(wordhint,numberhint,end);
+            this.bottomhint.setText("Indice : " +word.getText() + number.getText());
+                        bottom.getChildren().addAll(this.bottomhint,end);
         } else {
             this.playerLabel.setText("Espion");
-            hint.getChildren().addAll(word,number,end);
+
+            bottom.getChildren().addAll(this.bottomtextfield,end);
         }
-        this.setBottom(hint);
-        hint.setAlignment(Pos.CENTER);
-        hint.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+        this.setBottom(bottom);
+
         if (this.gestionnairePartie.getEquipe()) {  // if equipe == bleu
             this.setStyle("-fx-background-color:rgb(109, 211, 236)"); // bleu
         } else {
