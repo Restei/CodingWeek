@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -95,7 +96,7 @@ public class VuePartie extends BorderPane implements Observateur {
         number.setFont(font_small);
 
 
-
+        this.bottomtextfield.setPrefHeight(this.end.getHeight());
         this.bottomtextfield.getChildren().add(word);
         this.bottomtextfield.getChildren().add(number);
         bottom.getChildren().add(this.bottomtextfield);
@@ -109,7 +110,7 @@ public class VuePartie extends BorderPane implements Observateur {
 
         VueGrille center = new VueGrille(gestionnairePartie);
         center.setAlignment(Pos.CENTER);
-
+        bottom.setMinHeight(50);
         this.setTop(top);
         this.setBottom(bottom);
         this.setLeft(left);
@@ -137,8 +138,7 @@ public class VuePartie extends BorderPane implements Observateur {
         HBox bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);
         bottom.setStyle("-fx-background-color: rgb(200,200,200)");
-
-        //bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+        bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
 
         // espacement
         Label blank = new Label("               ");
@@ -152,17 +152,19 @@ public class VuePartie extends BorderPane implements Observateur {
         word.setText(word.getText().replaceAll("[^\\w]", ""));
         this.bottomtextfield.getChildren().clear();
         this.bottomtextfield.getChildren().addAll(word,number);
+        bottom.setMinHeight(50);
 
 
         if (this.gestionnairePartie.getRole()) {  // si role == agent
             this.playerLabel.setText("Agent");
             this.bottomhint.setText("Indice : " +word.getText() + number.getText());
-                        bottom.getChildren().addAll(this.bottomhint,end);
+            bottom.getChildren().addAll(this.bottomhint,end);
         } else {
             this.playerLabel.setText("Espion");
 
             bottom.getChildren().addAll(this.bottomtextfield,end);
         }
+
         this.setBottom(bottom);
 
         if (this.gestionnairePartie.getEquipe()) {  // if equipe == bleu
