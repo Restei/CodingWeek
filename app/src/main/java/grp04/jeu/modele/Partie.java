@@ -1,9 +1,11 @@
 package grp04.jeu.modele;
 
+import java.io.Serializable;
+
 import static grp04.jeu.modele.TypeEquipe.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 
-public class Partie {
+public class Partie implements Serializable {
 
     // Début proriétés
     private Grille grille;

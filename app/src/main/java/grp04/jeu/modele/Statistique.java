@@ -1,23 +1,26 @@
 package grp04.jeu.modele;
 
-public class Statistique {
+import java.io.Serializable;
+
+public class Statistique implements Serializable {
 
     // Début Propriétés
 
-    int nbCarteCivileTrouveParRouge = 0;
-    int nbCarteCivileTrouveParBleu = 0;
-    int TempsTotalEspionRouge = 0;
-    int TempsTotalEspionBleu = 0;
-    int TempsTotalAgentRouge = 0;
-    int TempsTotalAgentBleu = 0;
-    int nbCarteBleuRestante;
-    int nbCarteRougeRestante;
-    int nbCarteRougeTrouveParBleu = 0;
-    int nbCarteBleuTrouveParRouge = 0;
-    int nbCarteAssassinTrouveParBleu = 0;
-    int nbCarteAssassinTrouveParRouge = 0;
-    int nbTourJoueParRouge = 0;
-    int nbTourJoueParBleu = 0;
+    private int nbCarteCivileTrouveParRouge = 0;
+    private int nbCarteCivileTrouveParBleu = 0;
+    private int TempsTotalEspionRouge = 0;
+    private int TempsTotalEspionBleu = 0;
+    private int TempsTotalAgentRouge = 0;
+    private int TempsTotalAgentBleu = 0;
+    private int nbCarteBleuRestante;
+    private int nbCarteRougeRestante;
+    private int nbCarteRougeTrouveParBleu = 0;
+    private int nbCarteBleuTrouveParRouge = 0;
+    private int nbCarteAssassinTrouveParBleu = 0;
+    private int nbCarteAssassinTrouveParRouge = 0;
+    private int nbTourJoueParRouge = 0;
+    private int nbTourJoueParBleu = 0;
+    private TypeEquipe gagnant;
 
     // Fin propriétés
 
@@ -132,6 +135,14 @@ public class Statistique {
         } else {
             nbTourJoueParBleu++;
         }
+    }
+
+    public TypeEquipe getGagnant() {
+        return gagnant;
+    }
+
+    public void setGagnant(TypeEquipe gagnant) {
+        this.gagnant = gagnant;
     }
 
     // Fin méthodes

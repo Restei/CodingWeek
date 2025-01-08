@@ -12,17 +12,26 @@ public class CreateurPartie {
 
         // Génération de la grille
         Grille grille = new Grille(taille);
-        List<String> mots = theme.getMots();
         Random random = new Random();
         Timer timer = new Timer(type, timerEspionBleu, timerAgentRouge);
+        List<String> mots;
+        if (theme != null) {
+            mots = theme.getMots();
+        } else {
+            mots = new ArrayList<>();
+            for (int k = 0; k < taille * taille; k++) {
+                mots.add("mot" + k);
+            }
+        }
 
         if (nbCarte + nbCarteNoire > taille * taille) {
             System.err.println("Erreur createurPartie : nbCarte + nbCarteNoire > taille * taille");
         }
+        /*
         if (mots.size() < taille * taille) {
             System.err.println("Erreur createurPartie : mots.size() < taille * taille");
         }
-
+*/
         // Liste permettent de tirer aléatoirement sans remise les indices des mots du thème.
         List<Integer> listeIndiceMots = new ArrayList<>();
         for (int k = 0; k < mots.size(); k++) {
@@ -35,7 +44,6 @@ public class CreateurPartie {
                 listeIndiceGrille.add(new Integer[]{i, j});
             }
         }
-
         // On place aléatoirement les cartes rouges.
         for (int k = 0; k < nbCarte + 1; k++) {
             // On sélectionne une paire (indieceLigne, indiceColonne) aléatoirement parmis celle restante.
@@ -46,6 +54,7 @@ public class CreateurPartie {
             Integer[] indices = listeIndiceGrille.remove(indiceMots);
             grille.insertCarte(carte, indices[0], indices[1]);
         }
+
 
         // On place aléatoirement les cartes bleu.
         for (int k = 0; k < nbCarte; k++) {

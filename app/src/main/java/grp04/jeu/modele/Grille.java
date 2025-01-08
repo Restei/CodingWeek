@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public class Grille extends SujetObserve{
+import java.io.Serializable;
+
+public class Grille extends SujetObserve implements Serializable {
 
     // Début propriétés
 

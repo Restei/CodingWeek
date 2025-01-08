@@ -28,7 +28,7 @@ public class MenuPrincipal extends VBox {
 
 
         Button newGame = new Button("Nouvelle partie");
-        newGame.setOnAction(event -> chargeurScene.pseudoGame());
+        newGame.setOnAction(event -> chargeurScene.menuNouvellePartie());
         newGame.setFont(font);
         newGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
         newGame.setPrefWidth(500);

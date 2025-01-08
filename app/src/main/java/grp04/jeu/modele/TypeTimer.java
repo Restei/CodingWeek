@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public enum TypeTimer {
+import java.io.Serializable;
+
+public enum TypeTimer implements Serializable {
 
     EQUIPE,
     INDIVIDUEL

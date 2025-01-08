@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
@@ -17,16 +18,19 @@ public class GestionnairePartie extends SujetObserve {
     // Début propriétés
 
     private Partie partie;
+    private Statistique statistique;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
+    private int sauvTime;
 
     // Fin propriétés
 
 
     // Début constructeurs
 
-    public GestionnairePartie(Partie partie) {
+    public GestionnairePartie(Partie partie, Statistique statistique) {
         this.partie = partie;
+        this.statistique = statistique;
     }
 
     // Fin constructeurs
@@ -160,11 +164,47 @@ public class GestionnairePartie extends SujetObserve {
      * @return time
      */
     public int getTemps() {
-        return this.time.get();
+        if (sauvTime == 0) {
+            return this.time.get();
+        }
+        return sauvTime;
     }
 
     public Partie getPartie(){
         return this.partie;
+    }
+
+    /**
+     * Permet de mettre en pause le chrono.
+     */
+    public void pauseChrono() {
+        sauvTime = time.get();
+        time.set(0);
+    }
+
+    /**
+     * Permet de relancer le chrono.
+     */
+    public void reprendreChrono() {
+        time.set(sauvTime);
+        sauvTime = 0;
+        java.util.Timer timer = new java.util.Timer();
+        TimerTask taskTimer = new TimerTask() {
+            @Override
+            public void run() {
+                time.set(time.get()-1);
+                Platform.runLater(() -> NotifierObservateurs());
+                if (time.get() <= 0) {
+                    time.set(0);
+                    timer.cancel();
+                }
+            }
+        };
+        timer.schedule(taskTimer, 0, 1000);
+    }
+
+    public void sauvegarderPartie(String nomSauvegarde) {
+        GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);
     }
 
     // Fin méthodes
