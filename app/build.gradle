@@ -31,7 +31,7 @@ javafx {
 }
 
 application {
-    mainClass = 'grp04.jeu.App'
+    mainClass = 'grp04.jeu.Main'
 }
 
 tasks.named('test') {

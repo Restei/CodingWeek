@@ -5,14 +5,13 @@ public class Grille extends SujetObserve{
     // Début propriétés
 
     private Carte[][] grille;
+
     // Fin propriétés
 
 
     // Début constructeurs
 
-
     public Grille(int n) {
-
         this.grille = new Carte[n][n];
     }
 
