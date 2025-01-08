@@ -1,9 +1,10 @@
 package grp04.jeu.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Theme {
+public class Theme implements Serializable {
 
     // Début propriétés
 

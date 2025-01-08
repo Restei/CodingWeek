@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 
 public class MenuPrincipal extends VBox {
 
-    public MenuPrincipal(ChargeurScene chargeurScene){
+    public MenuPrincipal(ChargeurScene chargeurScene, Overlay overlay){
 
         Font font = Font.font("Courier New", 28);
         Font title = Font.font("Courier New", 50);
@@ -47,7 +47,7 @@ public class MenuPrincipal extends VBox {
         addWord.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             { 
-                ; 
+                chargeurScene.menuListeMots(); 
             }
         });
         addWord.setFont(font);
@@ -60,7 +60,7 @@ public class MenuPrincipal extends VBox {
         credits.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             {
-                ;
+                overlay.ajouterEtAfficherPopup(new PopupCredits(chargeurScene));
             }
         });
         credits.setFont(font);

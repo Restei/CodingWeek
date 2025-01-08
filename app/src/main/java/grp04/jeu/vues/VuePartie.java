@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 
 public class VuePartie extends BorderPane implements Observateur {
     private final GestionnairePartie gestionnairePartie;
+    private final ChargeurScene chargeurScene;
     private final Overlay overlay;
 
     private final Label playerLabel;
@@ -25,13 +27,14 @@ public class VuePartie extends BorderPane implements Observateur {
 
     private Button end;
 
-    public VuePartie(GestionnairePartie gestionnairePartie, Overlay overlay) {
+    public VuePartie(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay) {
 
         // inscription auprès de gestionnairePartie
         this.gestionnairePartie = gestionnairePartie;
         this.gestionnairePartie.ajouterObservateur(this);
 
         this.overlay = overlay; // utilisé pour afficher les menus
+        this.chargeurScene = chargeurScene;
 
 
         // polices utilisées
@@ -62,7 +65,11 @@ public class VuePartie extends BorderPane implements Observateur {
         Button menu = new Button("Menu");
         menu.setFont(font);
         menu.setTextAlignment(TextAlignment.CENTER);
-        menu.setOnAction(e -> this.overlay.ajouterEtAfficherPopup(new Label("POPUP PAUSE PLACEHOLDER")));
+        menu.setOnAction(e -> {
+            PopupMenuPause popupMenuPause = new PopupMenuPause(this.gestionnairePartie, this.chargeurScene, this.overlay);
+            this.overlay.ajouterEtAfficherPopup(popupMenuPause);
+            this.gestionnairePartie.pauseChrono();
+        } );
         top.getChildren().add(menu);
 
         HBox bottom = new HBox();

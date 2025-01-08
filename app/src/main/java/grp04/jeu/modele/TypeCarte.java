@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public enum TypeCarte {
+import java.io.Serializable;
+
+public enum TypeCarte implements Serializable {
 
     BLEU,
     ROUGE,

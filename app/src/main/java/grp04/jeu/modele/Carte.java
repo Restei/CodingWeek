@@ -1,6 +1,8 @@
 package grp04.jeu.modele;
 
-public class Carte extends SujetObserve {
+import java.io.Serializable;
+
+public class Carte extends SujetObserve implements Serializable {
 
     // Début propriétés
 

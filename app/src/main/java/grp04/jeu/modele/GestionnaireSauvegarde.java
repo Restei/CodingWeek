@@ -59,12 +59,12 @@ public class GestionnaireSauvegarde {
         }
     
     
-        public static void sauvegarder(String name,Partie partie, Statistique statistique){
-            Sauvegarde sauvegarde = new Sauvegarde(partie,statistique);
+        public static void sauvegarder(String name, Partie partie, Statistique statistique){
+            Sauvegarde sauvegarde = new Sauvegarde(partie, statistique);
             try {
                 FileOutputStream fileOut = new FileOutputStream("sauvegardes/"+name+".sav");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(sauvegarde );
+                out.writeObject(sauvegarde);
                 out.close();
                 fileOut.close();
             } catch (IOException i) {
