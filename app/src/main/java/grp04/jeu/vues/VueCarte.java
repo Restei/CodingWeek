@@ -15,6 +15,9 @@ public class VueCarte extends Button implements Observateur {
     public void reagir(){
         Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
         if (carte.getRevele() || carte.getRole()){
+            if (carte.getRevele()){
+                this.setText("");
+            }
             if (Objects.equals(carte.getType(), TypeCarte.ROUGE)){
                 this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
