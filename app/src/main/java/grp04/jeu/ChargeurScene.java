@@ -12,7 +12,7 @@ import grp04.jeu.modele.TypeTimer;
 
 import grp04.jeu.vues.MenuPrincipal;
 import grp04.jeu.vues.Overlay;
-import grp04.jeu.vues.VueMenuSauvegarde;
+//import grp04.jeu.vues.VueMenuSauvegarde;
 import grp04.jeu.vues.VuePartie;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
