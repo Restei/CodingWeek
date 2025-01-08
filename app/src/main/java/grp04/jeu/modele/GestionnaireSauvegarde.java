@@ -59,8 +59,8 @@ public class GestionnaireSauvegarde {
         }
     
     
-        public static void sauvegarder(String name,Partie partie/*, Statistique statistique */){
-            Sauvegarde sauvegarde = new Sauvegarde(partie/* ,statistique */ );
+        public static void sauvegarder(String name,Partie partie, Statistique statistique){
+            Sauvegarde sauvegarde = new Sauvegarde(partie,statistique);
             try {
                 FileOutputStream fileOut = new FileOutputStream("sauvegardes/"+name+".sav");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);

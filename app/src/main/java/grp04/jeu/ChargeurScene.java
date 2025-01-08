@@ -31,8 +31,9 @@ public class ChargeurScene {
     }
 
     public void chargerMenuPrincipal(){
-        MenuPrincipal mainMenu = new MenuPrincipal(this);
-        Scene scene = new Scene(mainMenu);
+        Overlay overlay = new Overlay(this);
+        overlay.setFond(new MenuPrincipal(this));
+        Scene scene = new Scene(overlay);
         montrerScene(scene);
     }
 
