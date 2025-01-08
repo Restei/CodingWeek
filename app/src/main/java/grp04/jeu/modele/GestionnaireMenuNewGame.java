@@ -126,7 +126,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         if (theme == null) {
             return "Theme de démo";
         }
-        return "A faire"; // To do
+        return "A faire"; // TODO
     }
 
     public int getTimerEspionBleu() {

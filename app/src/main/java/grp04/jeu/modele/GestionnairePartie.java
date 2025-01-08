@@ -164,7 +164,10 @@ public class GestionnairePartie extends SujetObserve {
      * @return time
      */
     public int getTemps() {
-        return this.time.get();
+        if (sauvTime == 0) {
+            return this.time.get();
+        }
+        return sauvTime;
     }
 
     public Partie getPartie(){
@@ -184,6 +187,7 @@ public class GestionnairePartie extends SujetObserve {
      */
     public void reprendreChrono() {
         time.set(sauvTime);
+        sauvTime = 0;
         java.util.Timer timer = new java.util.Timer();
         TimerTask taskTimer = new TimerTask() {
             @Override
