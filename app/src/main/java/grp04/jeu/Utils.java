@@ -1,12 +1,15 @@
 package grp04.jeu;
 
+import javafx.scene.text.Font;
+
 public class Utils {
 
     private static Utils instance;
 
     private int windowWidth = 1200;
-    private int windowHeight = 800;
-
+    private int windowHeight = 720;
+    private Font font = Font.font("Courier New", 30);
+    private Font smallfont = Font.font("Courier New", 20);
     public int getWindowWidth() {
         return windowWidth;
     }
@@ -26,4 +29,19 @@ public class Utils {
         }
     }
 
+    public Font getFont(int font) {
+        /* renvoie un font voulue
+        * argument : int font
+        * font = 1 => font
+        * font = 2 => smallfont   */
+        Font valeur;
+        switch(font){
+            case 1:
+                valeur = this.font;
+                break;
+            default:
+                valeur = this.smallfont;
+        }
+        return valeur;
+    }
 }
