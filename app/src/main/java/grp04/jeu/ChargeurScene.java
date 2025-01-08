@@ -47,10 +47,11 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
-        
+
         Overlay overlay = new Overlay(this);
-        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, this, overlay);
         overlay.setFond(vuePartie);
+
         Scene scene = new Scene(overlay);
 
         montrerScene(scene);
@@ -60,7 +61,7 @@ public class ChargeurScene {
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
 
         Overlay overlay = new Overlay(this);
-        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, this, overlay);
         overlay.setFond(vuePartie);
 
         Scene scene = new Scene(vuePartie);
@@ -88,7 +89,7 @@ public class ChargeurScene {
     }
 
     public void lancerPatie(Partie partie/*, Statistique statistique */){
-        
+
     }
 
 
