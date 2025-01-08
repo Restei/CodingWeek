@@ -44,3 +44,4 @@
 - Faire en sorte que le tour du joueur s'arrête si le timer tombe à 0
 - Ajouter la partie modification et sélection des thèmes
 - Finir les tests unitaires
+- Lancer une partie chargée lorsqu'on appuie sur "charger"
