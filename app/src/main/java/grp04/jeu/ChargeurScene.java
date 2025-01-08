@@ -1,12 +1,6 @@
 package grp04.jeu;
 
-import grp04.jeu.modele.Carte;
-import grp04.jeu.modele.GestionnairePartie;
-import grp04.jeu.modele.Grille;
-import grp04.jeu.modele.Partie;
-import grp04.jeu.modele.Timer;
-import grp04.jeu.modele.TypeCarte;
-import grp04.jeu.modele.TypeTimer;
+import grp04.jeu.modele.*;
 
 // AKA GM
 
@@ -38,7 +32,7 @@ public class ChargeurScene {
         Grille g = new Grille(3);
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
         Partie partie = new Partie(g,timer,10);
-        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
+        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, null);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
         g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
         g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
@@ -49,6 +43,15 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
         
+        VuePartie vuePartie = new VuePartie(gestionnairePartie);
+        Scene scene = new Scene(vuePartie);
+
+        montrerScene(scene);
+    }
+
+    public void chargerNouvellePartie(Partie partie, Statistique statistique){
+        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
+
         VuePartie vuePartie = new VuePartie(gestionnairePartie);
         Scene scene = new Scene(vuePartie);
 

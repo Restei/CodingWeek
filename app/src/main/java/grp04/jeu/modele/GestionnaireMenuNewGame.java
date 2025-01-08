@@ -13,7 +13,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     TypeTimer type;
     int timerEspionBleu;
     int timerAgentRouge;
-    Theme theme;
+    Theme theme = null;
 
     // Fin propriétés
 
@@ -24,6 +24,10 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     // Fin constructeurs
 
     // Début méthodes
+
+    public void creationpartie() {
+        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, theme);
+    }
 
     public void incrTaille() {
         taille++;
@@ -117,7 +121,10 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void themePrecedent() {}
 
     public String getTheme() {
-        return "Theme";
+        if (theme == null) {
+            return "Theme de démo";
+        }
+        return "A faire"; // To do
     }
 
     public int getTimerEspionBleu() {
