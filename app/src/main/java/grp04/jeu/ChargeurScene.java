@@ -39,16 +39,15 @@ public class ChargeurScene {
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
         Partie partie = new Partie(g,timer,10);
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
-        partie.setGestionnaire(gestionnairePartie);
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour",g),0,0);
-        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine",g),1,0);
-        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame",g),2,0);
-        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier",g),0,1);
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou",g),1,1);
-        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi",g),2,1);
-        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour",g),0,2);
-        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou",g),1,2);
-        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier",g),2,2);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Cavalier"),0,1);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Fou"),1,1);
+        g.insertCarte(new Carte(TypeCarte.NOIRE,"Roi"),2,1);
+        g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
+        g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
+        g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
         
         VuePartie vuePartie = new VuePartie(gestionnairePartie);
         Scene scene = new Scene(vuePartie);

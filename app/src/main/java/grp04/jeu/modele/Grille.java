@@ -1,21 +1,17 @@
 package grp04.jeu.modele;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Grille extends SujetObserve{
 
     // Début propriétés
 
     private Carte[][] grille;
+
     // Fin propriétés
 
 
     // Début constructeurs
 
-
     public Grille(int n) {
-
         this.grille = new Carte[n][n];
     }
 
