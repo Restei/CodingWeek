@@ -31,3 +31,16 @@
 - Implémentation de la class Overlay
 - Tests unitaires de tout
 - Création de la partie (grille de cartes)
+
+## Mercredi 8
+- Réalisation des overlay (permet de mettre de façon générique un overlay) : Clément
+- Réalisation de la fonctionnalité permettant de créer une partie : Joseph et Russel
+- Mettre des actions sur les boutons du menu principal : Guillaume et Russel
+- Réalisation des sauvegardes : Guillaume
+- Réalisation de test unitaire de Grille et Theme : Joseph
+
+### À faire ensuite
+- Faire un affichage lors de la victoire d'une équipe
+- Faire en sorte que le tour du joueur s'arrête si le timer tombe à 0
+- Ajouter la partie modification et sélection des thèmes
+- Finir les tests unitaires
