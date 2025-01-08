@@ -27,18 +27,25 @@ public class PopupMenuPause extends VBox {
         this.setAlignment(Pos.CENTER);
 
         Label titre = new Label("Pause");
+        titre.setFont(Utils.getInstance().getFont(1)); // grand texte
 
+        Label space = new Label(" ");  // ugly
 
         Button reprendre = new Button("Reprendre");
-        reprendre.setStyle(""); // TODO Utils.qqch
+        reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
+        reprendre.setFont(Utils.getInstance().getFont(2));
         reprendre.setOnAction(event -> {
             this.overlay.fermerDernierPopup();
             // this.gestionnairePartie.reprendreChrono();
         });
 
         Button sauvegarder = new Button("Sauvegarder");
+        sauvegarder.setStyle(Utils.getInstance().getMainMenuButtonColor());
+        sauvegarder.setFont(Utils.getInstance().getFont(2));
 
         Button quitter = new Button("Menu Principal");
+        quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
+        quitter.setFont(Utils.getInstance().getFont(2));
         quitter.setOnAction(event -> {
             // TODO demander avant de quitter si pas sauvegardé
             this.chargeurScene.chargerMenuPrincipal();
@@ -46,7 +53,7 @@ public class PopupMenuPause extends VBox {
         });
 
 
-        this.getChildren().addAll(titre, reprendre, sauvegarder, quitter);
+        this.getChildren().addAll(titre, space, reprendre, sauvegarder, quitter);
     }
 
 
