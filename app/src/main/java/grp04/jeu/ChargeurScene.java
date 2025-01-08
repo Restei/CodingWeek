@@ -35,11 +35,12 @@ public class ChargeurScene {
         montrerScene(scene);
     }
 
-    public void pseudoGame(){
+    public void pseudoGame(Partie partie){
         Grille g = new Grille(3);
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
-        Partie partie = new Partie(g,timer,10);
-        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
+        Partie partiee = new Partie(g,timer,10);
+        //GestionnairePartie gestionnairePartie = new GestionnairePartie(partiee);
+
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
         g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
         g.insertCarte(new Carte(TypeCarte.BLEU,"Dame"),2,0);
@@ -49,7 +50,8 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour"),0,2);
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
-        
+
+        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
         VuePartie vuePartie = new VuePartie(gestionnairePartie);
         Scene scene = new Scene(vuePartie);
 

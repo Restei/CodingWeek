@@ -2,6 +2,10 @@ package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
+import grp04.jeu.modele.CreateurPartie;
+import grp04.jeu.modele.Partie;
+import grp04.jeu.modele.Theme;
+import grp04.jeu.modele.TypeTimer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,7 +55,21 @@ public class MenuNouvellePartie extends VBox {
         retour.setOnMouseClicked(e-> chargeurScene.chargerMenuPrincipal());
 
         creer.setFont(Utils.getInstance().getFont(2));
-        creer.setOnMouseClicked(e-> chargeurScene.pseudoGame());
+        creer.setOnMouseClicked(e-> {
+            Theme themes = new Theme("test");
+            themes.addMot("a");
+            themes.addMot("h");
+            themes.addMot("i");
+            themes.addMot("b");
+            themes.addMot("c");
+            themes.addMot("d");
+            themes.addMot("e");
+            themes.addMot("f");
+            themes.addMot("g");
+            Partie partie = CreateurPartie.createurPartie(3,2,2, TypeTimer.INDIVIDUEL,30,30,themes);
+            chargeurScene.pseudoGame(partie);
+
+        });
 
         controle.getChildren().addAll(retour, creer);
         controle.setAlignment(Pos.CENTER);
