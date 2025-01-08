@@ -16,6 +16,7 @@ import javafx.scene.text.TextAlignment;
 
 public class VuePartie extends BorderPane implements Observateur {
     private final GestionnairePartie gestionnairePartie;
+    private final Overlay overlay;
 
     private final Label playerLabel;
     private Label wordhint;
@@ -23,11 +24,14 @@ public class VuePartie extends BorderPane implements Observateur {
     private TextField word;
     private TextField number;
     private Button end;
-    public VuePartie(GestionnairePartie gestionnairePartie /*, GestionnaireTemps temps, Grille grille*/) {
+
+    public VuePartie(GestionnairePartie gestionnairePartie, Overlay overlay) {
 
         // inscription auprès de gestionnairePartie
         this.gestionnairePartie = gestionnairePartie;
         this.gestionnairePartie.ajouterObservateur(this);
+
+        this.overlay = overlay; // utilisé pour afficher les menus
 
 
         // polices utilisées
@@ -60,9 +64,8 @@ public class VuePartie extends BorderPane implements Observateur {
         Button menu = new Button("Menu");
         menu.setFont(font);
         menu.setTextAlignment(TextAlignment.CENTER);
+        menu.setOnAction(e -> this.overlay.ajouterEtAfficherPopup(new Label("POPUP PAUSE PLACEHOLDER")));
         top.getChildren().add(menu);
-
-
 
         HBox bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);

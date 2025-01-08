@@ -11,13 +11,14 @@ import grp04.jeu.modele.TypeTimer;
 // AKA GM
 
 import grp04.jeu.vues.MenuPrincipal;
+import grp04.jeu.vues.Overlay;
 import grp04.jeu.vues.VuePartie;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ChargeurScene {
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
     
     public ChargeurScene(Stage primStage){
         this.primaryStage=primStage;
@@ -34,6 +35,7 @@ public class ChargeurScene {
         montrerScene(scene);
     }
 
+    // démonstration
     public void pseudoGame(){
         Grille g = new Grille(3);
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
@@ -49,9 +51,13 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.CIVILE,"Tour",g),0,2);
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou",g),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier",g),2,2);
-        
-        VuePartie vuePartie = new VuePartie(gestionnairePartie);
-        Scene scene = new Scene(vuePartie);
+
+
+        Overlay overlay = new Overlay(this);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        overlay.setFond(vuePartie);
+
+        Scene scene = new Scene(overlay);
 
         montrerScene(scene);
     }
