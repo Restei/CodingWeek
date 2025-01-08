@@ -26,7 +26,8 @@ public class ChargeurScene {
 
     public void chargerMenuPrincipal(){
         Overlay overlay = new Overlay(this);
-        overlay.setFond(new MenuPrincipal(this));
+        MenuPrincipal menuPrincipal = new MenuPrincipal(this, overlay);
+        overlay.setFond(menuPrincipal);
         Scene scene = new Scene(overlay);
         montrerScene(scene);
     }
@@ -86,5 +87,7 @@ public class ChargeurScene {
     public void lancerPatie(Partie partie/*, Statistique statistique */){
         
     }
+
+
 
 }
