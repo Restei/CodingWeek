@@ -1,6 +1,7 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
+import grp04.jeu.Utils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +30,7 @@ public class MenuPrincipal extends VBox {
         Button newGame = new Button("Nouvelle partie");
         newGame.setOnAction(event -> chargeurScene.pseudoGame());
         newGame.setFont(font);
-        newGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        newGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
         newGame.setPrefWidth(500);
         this.getChildren().add(newGame);
         
@@ -42,7 +43,7 @@ public class MenuPrincipal extends VBox {
             }
         });
         loadGame.setFont(font);
-        loadGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        loadGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
         loadGame.setPrefWidth(500);
         this.getChildren().add(loadGame);
         
@@ -55,7 +56,7 @@ public class MenuPrincipal extends VBox {
             }
         });
         addWord.setFont(font);
-        addWord.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        addWord.setStyle(Utils.getInstance().getMainMenuButtonColor());
         addWord.setPrefWidth(500);
         this.getChildren().add(addWord);
         
@@ -68,7 +69,7 @@ public class MenuPrincipal extends VBox {
             }
         });
         credits.setFont(font);
-        credits.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        credits.setStyle(Utils.getInstance().getMainMenuButtonColor());
         credits.setPrefWidth(500);
         this.getChildren().add(credits);
         
@@ -81,7 +82,7 @@ public class MenuPrincipal extends VBox {
             }
         });
         quit.setFont(font);
-        quit.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        quit.setStyle(Utils.getInstance().getMainMenuButtonColor());
         quit.setPrefWidth(500);
         this.getChildren().add(quit);
 
