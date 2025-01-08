@@ -11,6 +11,7 @@ import grp04.jeu.modele.TypeTimer;
 // AKA GM
 
 import grp04.jeu.vues.MenuPrincipal;
+import grp04.jeu.vues.MenuNouvellePartie;
 import grp04.jeu.vues.VuePartie;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -56,12 +57,12 @@ public class ChargeurScene {
         montrerScene(scene);
     }
 
-    /*public void menuNouvellePartie(){
-        VueMenuNouvellePartie vueMenuNouvellePartie = new VueMenuNouvellePartie();
+    public void menuNouvellePartie(){
+        MenuNouvellePartie vueMenuNouvellePartie = new MenuNouvellePartie(this);
         Scene scene = new Scene(vueMenuNouvellePartie);
         montrerScene(scene);
     }
-
+/*
     
     public void menuListeMots(){
         VueMenuListeMots vueMenuListeMots = new VueMenuListeMots();

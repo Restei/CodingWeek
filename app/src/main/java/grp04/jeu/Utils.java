@@ -8,7 +8,8 @@ public class Utils {
 
     private int windowWidth = 1200;
     private int windowHeight = 720;
-    private Font font = Font.font("Courier New", 30);
+    private Font title = Font.font("Courier New", 50);
+    private Font header = Font.font("Courier New", 30);
     private Font smallfont = Font.font("Courier New", 20);
     public int getWindowWidth() {
         return windowWidth;
@@ -34,13 +35,18 @@ public class Utils {
         * argument : int font
         * font = 1 => font
         * font = 2 => smallfont   */
-        Font valeur;
+        Font valeur = null;
         switch(font){
             case 1:
-                valeur = this.font;
+                valeur = this.header;
                 break;
-            default:
+            case 2:
                 valeur = this.smallfont;
+                break;
+            case 3:
+                valeur = this.title;
+                break;
+
         }
         return valeur;
     }
