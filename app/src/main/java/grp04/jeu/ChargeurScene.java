@@ -59,7 +59,10 @@ public class ChargeurScene {
     public void chargerNouvellePartie(Partie partie, Statistique statistique){
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
 
-        VuePartie vuePartie = new VuePartie(gestionnairePartie);
+        Overlay overlay = new Overlay(this);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie, overlay);
+        overlay.setFond(vuePartie);
+
         Scene scene = new Scene(vuePartie);
 
         montrerScene(scene);
