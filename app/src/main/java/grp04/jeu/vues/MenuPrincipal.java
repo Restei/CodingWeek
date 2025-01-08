@@ -1,6 +1,7 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
+import grp04.jeu.Utils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +13,7 @@ import javafx.scene.text.Font;
 
 public class MenuPrincipal extends VBox {
 
-    public MenuPrincipal(ChargeurScene chargeurScene){
+    public MenuPrincipal(ChargeurScene chargeurScene, Overlay overlay){
 
         Font font = Font.font("Courier New", 28);
         Font title = Font.font("Courier New", 50);
@@ -29,20 +30,15 @@ public class MenuPrincipal extends VBox {
         Button newGame = new Button("Nouvelle partie");
         newGame.setOnAction(event -> chargeurScene.pseudoGame());
         newGame.setFont(font);
-        newGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        newGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
         newGame.setPrefWidth(500);
         this.getChildren().add(newGame);
         
 
         Button loadGame = new Button("Charger partie");
-        loadGame.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) 
-            { 
-                ; 
-            }
-        });
+        loadGame.setOnAction(event -> chargeurScene.menuSauvegarde());
         loadGame.setFont(font);
-        loadGame.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        loadGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
         loadGame.setPrefWidth(500);
         this.getChildren().add(loadGame);
         
@@ -51,11 +47,11 @@ public class MenuPrincipal extends VBox {
         addWord.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             { 
-                ; 
+                chargeurScene.menuListeMots(); 
             }
         });
         addWord.setFont(font);
-        addWord.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        addWord.setStyle(Utils.getInstance().getMainMenuButtonColor());
         addWord.setPrefWidth(500);
         this.getChildren().add(addWord);
         
@@ -64,11 +60,11 @@ public class MenuPrincipal extends VBox {
         credits.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             {
-                ;
+                overlay.ajouterEtAfficherPopup(new PopupCredits(chargeurScene));
             }
         });
         credits.setFont(font);
-        credits.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        credits.setStyle(Utils.getInstance().getMainMenuButtonColor());
         credits.setPrefWidth(500);
         this.getChildren().add(credits);
         
@@ -81,7 +77,7 @@ public class MenuPrincipal extends VBox {
             }
         });
         quit.setFont(font);
-        quit.setStyle("-fx-background-color:rgb(109, 236, 126)");
+        quit.setStyle(Utils.getInstance().getMainMenuButtonColor());
         quit.setPrefWidth(500);
         this.getChildren().add(quit);
 
