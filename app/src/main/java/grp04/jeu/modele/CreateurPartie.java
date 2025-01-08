@@ -79,9 +79,6 @@ public class CreateurPartie {
         }
 
         // On complète les cases vide de la grille avec des cartes civiles.
-        for (Integer[] liste : listeIndiceGrille) {
-            System.out.println(liste[0] + " " + liste[1]);
-        }
         for (Integer[] tabLigneColonne : listeIndiceGrille) {
             // On séléctionne un mot aléatoirement parmis ceux restant.
             int indiceMots = random.nextInt(listeIndiceMots.size());
