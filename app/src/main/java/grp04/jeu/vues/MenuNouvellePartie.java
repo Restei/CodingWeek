@@ -67,7 +67,7 @@ public class MenuNouvellePartie extends VBox {
             themes.addMot("f");
             themes.addMot("g");
             Partie partie = CreateurPartie.createurPartie(3,2,2, TypeTimer.INDIVIDUEL,30,30,themes);
-            chargeurScene.pseudoGame(partie);
+            chargeurScene.pseudoGame();
 
         });
 

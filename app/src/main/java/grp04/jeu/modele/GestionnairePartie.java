@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
@@ -17,6 +18,7 @@ public class GestionnairePartie extends SujetObserve {
     // Début propriétés
 
     private Partie partie;
+    private Statistique statistique;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
 
@@ -25,8 +27,9 @@ public class GestionnairePartie extends SujetObserve {
 
     // Début constructeurs
 
-    public GestionnairePartie(Partie partie) {
+    public GestionnairePartie(Partie partie, Statistique statistique) {
         this.partie = partie;
+        this.statistique = statistique;
     }
 
     // Fin constructeurs

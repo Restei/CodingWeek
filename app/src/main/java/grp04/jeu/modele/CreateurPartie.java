@@ -12,9 +12,17 @@ public class CreateurPartie {
 
         // Génération de la grille
         Grille grille = new Grille(taille);
-        List<String> mots = theme.getMots();
         Random random = new Random();
         Timer timer = new Timer(type, timerEspionBleu, timerAgentRouge);
+        List<String> mots;
+        if (theme != null) {
+            mots = theme.getMots();
+        } else {
+            mots = new ArrayList<>();
+            for (int k = 0; k < taille * taille; k++) {
+                mots.add("mot" + k);
+            }
+        }
 
         if (nbCarte + nbCarteNoire > taille * taille) {
             System.err.println("Erreur createurPartie : nbCarte + nbCarteNoire > taille * taille");

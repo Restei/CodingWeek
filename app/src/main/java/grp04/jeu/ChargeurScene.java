@@ -1,12 +1,6 @@
 package grp04.jeu;
 
-import grp04.jeu.modele.Carte;
-import grp04.jeu.modele.GestionnairePartie;
-import grp04.jeu.modele.Grille;
-import grp04.jeu.modele.Partie;
-import grp04.jeu.modele.Timer;
-import grp04.jeu.modele.TypeCarte;
-import grp04.jeu.modele.TypeTimer;
+import grp04.jeu.modele.*;
 
 // AKA GM
 
@@ -35,11 +29,11 @@ public class ChargeurScene {
         montrerScene(scene);
     }
 
-    public void pseudoGame(Partie partie){
+    public void pseudoGame(){
         Grille g = new Grille(3);
         Timer timer = new Timer(TypeTimer.INDIVIDUEL,10000,10000);
         Partie partiee = new Partie(g,timer,10);
-        //GestionnairePartie gestionnairePartie = new GestionnairePartie(partiee);
+        GestionnairePartie gestionnairePartie = new GestionnairePartie(partiee,null);
 
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Tour"),0,0);
         g.insertCarte(new Carte(TypeCarte.NOIRE,"Reine"),1,0);
@@ -51,7 +45,15 @@ public class ChargeurScene {
         g.insertCarte(new Carte(TypeCarte.BLEU,"Fou"),1,2);
         g.insertCarte(new Carte(TypeCarte.ROUGE,"Cavalier"),2,2);
 
-        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie);
+        VuePartie vuePartie = new VuePartie(gestionnairePartie);
+        Scene scene = new Scene(vuePartie);
+
+        montrerScene(scene);
+    }
+
+    public void chargerNouvellePartie(Partie partie, Statistique statistique){
+        GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
+
         VuePartie vuePartie = new VuePartie(gestionnairePartie);
         Scene scene = new Scene(vuePartie);
 
@@ -63,8 +65,8 @@ public class ChargeurScene {
         Scene scene = new Scene(vueMenuNouvellePartie);
         montrerScene(scene);
     }
-/*
-    
+
+ /*
     public void menuListeMots(){
         VueMenuListeMots vueMenuListeMots = new VueMenuListeMots();
         Scene scene = new Scene(vueMenuListeMots);
