@@ -47,7 +47,7 @@ public class MenuPrincipal extends VBox {
         addWord.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             { 
-                ; 
+                chargeurScene.menuListeMots(); 
             }
         });
         addWord.setFont(font);

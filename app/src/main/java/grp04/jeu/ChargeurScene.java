@@ -7,6 +7,7 @@ import grp04.jeu.modele.*;
 import grp04.jeu.vues.MenuPrincipal;
 import grp04.jeu.vues.Overlay;
 import grp04.jeu.vues.VueMenuSauvegarde;
+import grp04.jeu.vues.VueMenuThemes;
 import grp04.jeu.vues.VuePartie;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -73,14 +74,14 @@ public class ChargeurScene {
         VueMenuNouvellePartie vueMenuNouvellePartie = new VueMenuNouvellePartie();
         Scene scene = new Scene(vueMenuNouvellePartie);
         montrerScene(scene);
-    }
+    }*/
 
     
     public void menuListeMots(){
-        VueMenuListeMots vueMenuListeMots = new VueMenuListeMots();
-        Scene scene = new Scene(vueMenuListeMots);
+        VueMenuThemes vueMenuThemes = new VueMenuThemes(this);
+        Scene scene = new Scene(vueMenuThemes);
         montrerScene(scene);
-    }*/
+    }
     
     public void menuSauvegarde(){
         VueMenuSauvegarde vueMenuSauvegarde = new VueMenuSauvegarde(this);
