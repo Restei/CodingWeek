@@ -2,7 +2,6 @@ package grp04.jeu.vues;
 
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireMenuNewGame;
-import grp04.jeu.modele.TypeTimer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

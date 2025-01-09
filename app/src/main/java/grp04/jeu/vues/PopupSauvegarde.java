@@ -12,7 +12,7 @@ public class PopupSauvegarde extends VBox{
     public PopupSauvegarde(Overlay overlay){
 
         Label label = new Label("Partie sauvegardée avec succès !");
-        label.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
+        label.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
         
         Button reprendre = new Button("Ok");
@@ -29,7 +29,7 @@ public class PopupSauvegarde extends VBox{
 
         this.setAlignment(Pos.CENTER);
         this.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
-        this.setMaxSize(Utils.getInstance().getWindowWidth()*0.5, Utils.getInstance().getWindowHeight()*0.2);
+        this.setMaxSize(Utils.getInstance().getWindowWidth()*0.7, Utils.getInstance().getWindowHeight()*0.2);
         this.setStyle("-fx-background-color:rgb(255, 255, 255)");
         this.setPadding(new Insets(Utils.getInstance().getWindowWidth()*0.05));
     }

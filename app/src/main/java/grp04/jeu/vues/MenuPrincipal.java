@@ -35,25 +35,25 @@ public class MenuPrincipal extends VBox {
         newGame.setOnAction(event -> chargeurScene.menuNouvellePartie());
         newGame.setFont(headerFont);
         newGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        newGame.setPrefWidth(500);
+        newGame.setPrefWidth(Utils.getInstance().getWindowWidth()*0.5);
 
         Button loadGame = new Button("Charger partie");
         loadGame.setOnAction(event -> chargeurScene.menuSauvegarde());
         loadGame.setFont(headerFont);
         loadGame.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        loadGame.setPrefWidth(500);
+        loadGame.setPrefWidth(Utils.getInstance().getWindowWidth()*0.5);
 
         Button addWord = new Button("Accéder à la liste de mots");
         addWord.setOnAction(event -> chargeurScene.menuListeMots());
         addWord.setFont(headerFont);
         addWord.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        addWord.setPrefWidth(500);
+        addWord.setPrefWidth(Utils.getInstance().getWindowWidth()*0.5);
 
         Button credits = new Button("Crédits");
         credits.setOnAction(event -> overlay.ajouterEtAfficherPopup(new PopupCredits(chargeurScene)));
         credits.setFont(headerFont);
         credits.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        credits.setPrefWidth(500);
+        credits.setPrefWidth(Utils.getInstance().getWindowWidth()*0.5);
 
         Button quit = new Button("Quitter");
         quit.setOnAction(event -> Platform.exit());
@@ -69,7 +69,7 @@ public class MenuPrincipal extends VBox {
         //quit.setFont(font);
         quit.setFont(headerFont);
         quit.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        quit.setPrefWidth(500);
+        quit.setPrefWidth(Utils.getInstance().getWindowWidth()*0.5);
 
         // Espacement après les boutons
         Region bottomSpacing = new Region();
