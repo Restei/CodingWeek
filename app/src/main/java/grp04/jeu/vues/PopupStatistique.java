@@ -31,6 +31,7 @@ public class PopupStatistique extends VBox  {
         this.setAlignment(Pos.CENTER);
 
         Statistique statistique = gestionnairePartie.getStatistique();
+        this.gestionnairePartie.pauseChrono();
         //Initalisation des partie de la vue
 
         Label Titre = new Label("Victoire de l'équipe :" + statistique.getGagnant());
@@ -43,7 +44,7 @@ public class PopupStatistique extends VBox  {
         DefaiteAssassin.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
         if (statistique.getNbCarteAssassinTrouve(TypeEquipe.BLEU)+ statistique.getNbCarteAssassinTrouve(TypeEquipe.ROUGE)>0){
-            DefaiteAssassin.setText(statistique.getPerdant());
+            DefaiteAssassin.setText("L'équipe " + statistique.getPerdant() + " a pioché une carte assassin");
         }
 
         HBox Milieu = new HBox();

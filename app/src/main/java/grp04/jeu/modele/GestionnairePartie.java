@@ -78,7 +78,7 @@ public class GestionnairePartie extends SujetObserve {
                statistique.setGagnant(TypeEquipe.BLEU);
            }
            if (equipe == TypeEquipe.ROUGE){
-               statistique.incrementNbCarteRougeTrouveParBleu();
+               statistique.incrementNbCarteBleuTrouveParRouge();
                switchRole();
            }
         }
@@ -90,6 +90,8 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     public void switchRole(){
+        int total_time = partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
+        statistique.incrTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(),total_time- time.get());
         if (partie.getJoueurQuiJoue() == AGENT) {
             statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
         }
@@ -102,9 +104,7 @@ public class GestionnairePartie extends SujetObserve {
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
-        if (partie.getTimer().getType() == INDIVIDUEL) {
-            time.set(0);
-        }
+        time.set(0);
         alert.showAndWait();
         NotifierObservateurs();
         lanceTimer();
@@ -120,7 +120,6 @@ public class GestionnairePartie extends SujetObserve {
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
-                statistique.incrTempsTotal(partie.getEquipeQuiJoue(),partie.getJoueurQuiJoue());
                 time.set(time.get()-1);
                 Platform.runLater(() -> NotifierObservateurs());
                 if (time.get() < 0) {
@@ -242,6 +241,9 @@ public class GestionnairePartie extends SujetObserve {
         lanceTimer();
     }
 
+    public int getChrono(){
+        return time.get();
+    }
     // Fin méthodes
 
 }

@@ -8,10 +8,10 @@ public class Statistique implements Serializable {
 
     private int nbCarteCivileTrouveParRouge = 0;
     private int nbCarteCivileTrouveParBleu = 0;
-    private int TempsTotalEspionRouge = 0; //TODO
-    private int TempsTotalEspionBleu = 0; //TODO
-    private int TempsTotalAgentRouge = 0; //TODO
-    private int TempsTotalAgentBleu = 0; //TODO
+    private int TempsTotalEspionRouge = 0;
+    private int TempsTotalEspionBleu = 0;
+    private int TempsTotalAgentRouge = 0;
+    private int TempsTotalAgentBleu = 0;
     private int nbCarteBleuRestante;
     private int nbCarteRougeRestante;
     private int nbCarteRougeTrouveParBleu = 0;
@@ -63,17 +63,17 @@ public class Statistique implements Serializable {
         return TempsTotalEspionBleu;
     }
 
-    public void incrTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur) {
+    public void incrTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur,int temps) {
         if (typeEquipe == TypeEquipe.ROUGE) {
             if (typeJoueur == TypeJoueur.AGENT) {
-                TempsTotalAgentRouge++;
+                TempsTotalAgentRouge+= temps;
             }
-            TempsTotalEspionRouge++;
+            TempsTotalEspionRouge+=temps;
         }
         if (typeJoueur == TypeJoueur.AGENT) {
-            TempsTotalAgentBleu++;
+            TempsTotalAgentBleu+=temps;
         }
-        TempsTotalEspionBleu++;
+        TempsTotalEspionBleu+=temps;
     }
 
     public int getNbCarteRestante(TypeEquipe typeEquipe) {
@@ -142,8 +142,8 @@ public class Statistique implements Serializable {
     }
 
     public String getPerdant() {
-        if (gagnant==TypeEquipe.BLEU) return "Rouge";
-        return "Bleu";
+        if (gagnant==TypeEquipe.BLEU) return "rouge";
+        return "bleu";
     }
 
 
