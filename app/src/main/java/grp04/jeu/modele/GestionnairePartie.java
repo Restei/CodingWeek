@@ -15,8 +15,8 @@ public class GestionnairePartie extends SujetObserve {
 
     // Début propriétés
 
-    private Partie partie;
-    private Statistique statistique;
+    private final Partie partie;
+    private final Statistique statistique;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
     private int sauvTime;
@@ -202,6 +202,10 @@ public class GestionnairePartie extends SujetObserve {
 
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);
+    }
+
+    public void debutPartie() {
+        lanceTimer();
     }
 
     // Fin méthodes
