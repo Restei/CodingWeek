@@ -90,7 +90,7 @@ public class GestionnairePartie extends SujetObserve {
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
-        if (partie.getTimer().getType() == INDIVIDUEL) {
+        if (partie.getTimer().getType() == INDIVIDUEL || partie.getJoueurQuiJoue() == ESPION) {
             time.set(0);
         }
         alert.showAndWait();
