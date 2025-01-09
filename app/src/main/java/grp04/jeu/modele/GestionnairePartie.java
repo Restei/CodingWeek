@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
-import static java.lang.System.exit;
 
 // Classe permettent de gérer une partie déjà créer.
 public class GestionnairePartie extends SujetObserve {
