@@ -17,8 +17,10 @@ public class GestionnaireThemes {
             File dossierSaves = new File("themes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
-                System.err.println("Le dossier 'themes/' est introuvable !");
-                return liste;
+                if (!dossierSaves.mkdir()) {
+                    System.err.println("Le dossier 'themes/' est introuvable, et n'a pas pu être créé !");
+                    return liste;
+                }
             }
     
             File[] fichiers = dossierSaves.listFiles((dir, name) ->
