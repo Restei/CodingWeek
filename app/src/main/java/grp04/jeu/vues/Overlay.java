@@ -10,15 +10,11 @@ import javafx.scene.paint.Color;
 
 public class Overlay extends StackPane {
 
-    private final ChargeurScene chargeurScene;
-
-
     /**
      * Crée un Overlay permettant d'afficher des popups supplémentaires devant un fond.
      */
     public Overlay(ChargeurScene chargeurScene) {
         super();
-        this.chargeurScene = chargeurScene;
     }
 
     /**

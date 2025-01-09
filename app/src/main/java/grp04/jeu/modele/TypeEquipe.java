@@ -1,8 +1,7 @@
 package grp04.jeu.modele;
 
-import java.io.Serializable;
 
-public enum TypeEquipe implements Serializable {
+public enum TypeEquipe  {
 
     BLEU,
     ROUGE

@@ -1,6 +1,5 @@
 package grp04.jeu.vues;
 
-import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Pos;
@@ -11,11 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class MenuNouvellePartie extends VBox {
 
-    private GestionnaireMenuNewGame menu;
-
     public MenuNouvellePartie(GestionnaireMenuNewGame menu){
-        this.menu = menu;
-
         //Taille, Nb Carte, Nb noires , TypeTimer type , Timer Espion, Timer agent, Theme
         setSpacing(10);
 

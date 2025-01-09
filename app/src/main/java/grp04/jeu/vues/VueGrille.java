@@ -1,9 +1,6 @@
 package grp04.jeu.vues;
 import grp04.jeu.modele.GestionnairePartie;
 
-import grp04.jeu.modele.Grille;
-import grp04.jeu.modele.SujetObserve;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class VueGrille extends GridPane{

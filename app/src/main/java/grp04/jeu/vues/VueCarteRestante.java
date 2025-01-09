@@ -1,7 +1,5 @@
 package grp04.jeu.vues;
 
-import java.time.format.TextStyle;
-
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
 import javafx.geometry.Pos;
