@@ -30,7 +30,7 @@ public class PopupChangerJoueur extends VBox{
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
         reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         reprendre.setOnAction(event -> {
-            gestionnairePartie.lanceTimer();
+            gestionnairePartie.lancerTimerIfEquipeEtEspion();
             overlay.fermerDernierPopup();
         });
         reprendre.setDefaultButton(true);

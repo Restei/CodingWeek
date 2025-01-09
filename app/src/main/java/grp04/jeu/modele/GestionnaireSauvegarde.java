@@ -19,7 +19,7 @@ public class GestionnaireSauvegarde {
             File dossierSaves = new File("sauvegardes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
-                System.err.println("Le dossier 'sauvegardes/' est introuvable");
+                System.err.println("Le dossier 'sauvegardes/' est introuvable !");
                 return liste;
             }
     

@@ -19,6 +19,7 @@ public class PopupMenuPause extends VBox {
 
         this.overlay = overlay;
         this.gestionnairePartie = gestionnairePartie;
+        this.gestionnairePartie.pauseChrono();
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setMaxSize(Utils.getInstance().getWindowWidth() * 0.8, Utils.getInstance().getWindowHeight() * 0.8);
         this.setSpacing(40);

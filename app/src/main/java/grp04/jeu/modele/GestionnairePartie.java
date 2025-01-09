@@ -8,8 +8,6 @@ import grp04.jeu.vues.Overlay;
 import grp04.jeu.vues.PopupChangerJoueur;
 
 import static grp04.jeu.modele.TypeCarte.*;
-import static grp04.jeu.modele.TypeEquipe.BLEU;
-import static grp04.jeu.modele.TypeEquipe.ROUGE;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
 
@@ -107,10 +105,15 @@ public class GestionnairePartie extends SujetObserve {
             partie.switchRole();
         }
         partie.switchRole();
+        if (partie.getTimer().getType() == INDIVIDUEL || partie.getJoueurQuiJoue() == ESPION) {
+            time.set(-1);
+        }
+        if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == AGENT) {
+            pauseChrono();
+        }
         PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
         overlay.ajouterEtAfficherPopup(popupChangerJoueur);
         NotifierObservateurs();
-        time.set(0);
     }
 
     /**
@@ -142,7 +145,7 @@ public class GestionnairePartie extends SujetObserve {
         // Si le jeu à un timer en mode equipe
         else {
             if (time.get() <= 0 || partie.getJoueurQuiJoue() == ESPION) {
-                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) + 1);
+                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue())+1);
             }
         }
         if (chargerTimer) {
@@ -198,11 +201,11 @@ public class GestionnairePartie extends SujetObserve {
                     }
                 }
                 else{
-                    if (partie.getEquipeQuiJoue()==ROUGE){
-                        return partie.getTimer().getTimerEquipe(ROUGE);
+                    if (partie.getEquipeQuiJoue() == TypeEquipe.ROUGE){
+                        return partie.getTimer().getTimerEquipe(TypeEquipe.ROUGE);
                     }
                     else{
-                        return partie.getTimer().getTimerEquipe(BLEU);
+                        return partie.getTimer().getTimerEquipe(TypeEquipe.BLEU);
                     }
                 }
             }
@@ -245,6 +248,17 @@ public class GestionnairePartie extends SujetObserve {
             }
         };
         timer.schedule(taskTimer, 0, 1000);
+    }
+
+    /**
+     * Permet de lancer un nouveau timer si c'est au tour de    l'espion de l'équipe adverse, ou de seulement relancer le chrono si le joueur suivant est un agent, en mode timer équipe.
+     */
+    public void lancerTimerIfEquipeEtEspion() {
+        if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == AGENT) {
+            reprendreChrono();
+        } else {
+            lanceTimer();
+        }
     }
 
     public Statistique getStatistique(){
