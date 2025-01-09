@@ -227,6 +227,16 @@ public class GestionnairePartie extends SujetObserve {
         timer.schedule(taskTimer, 0, 1000);
     }
 
+    public Statistique getStatistique(){
+        return this.statistique;
+    }
+
+    /** Retourne les statistique */
+
+    public void setStatistique(Statistique statistique) {
+        this.statistique = statistique;
+    }
+
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);
     }

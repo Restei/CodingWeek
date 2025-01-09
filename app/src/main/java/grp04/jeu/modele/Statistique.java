@@ -141,6 +141,16 @@ public class Statistique implements Serializable {
         return gagnant;
     }
 
+    public String getPerdant() {
+        if (gagnant==TypeEquipe.BLEU) return "Rouge";
+        return "Bleu";
+    }
+
+
+    public int getNbTourJoue(){
+        return Math.max(this.nbTourJoueParBleu, this.nbTourJoueParRouge);
+    }
+
     public void setGagnant(TypeEquipe gagnant) {
         this.gagnant = gagnant;
     }
