@@ -90,6 +90,7 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     public void switchRole(){
+        statistique.setTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(), time.get());
         if (partie.getJoueurQuiJoue() == AGENT) {
             statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
         }
