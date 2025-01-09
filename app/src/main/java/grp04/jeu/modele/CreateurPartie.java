@@ -8,16 +8,13 @@ import static grp04.jeu.modele.TypeCarte.*;
 
 public class CreateurPartie {
 
-    public static Partie createurPartie(int taille, int nbCarte, int nbCarteNoire, TypeTimer type, int timerEspionBleu, int timerAgentRouge, Theme theme) {
+    public static Partie createurPartie(int taille, int nbCarte, int nbCarteNoire, TypeTimer type, int timerEspionBleu, int timerAgentRouge, List<String> mots) {
 
         // Génération de la grille
         Grille grille = new Grille(taille);
         Random random = new Random();
         Timer timer = new Timer(type, timerEspionBleu, timerAgentRouge);
-        List<String> mots;
-        if (theme != null) {
-            mots = theme.getMots();
-        } else {
+        if (mots.isEmpty()) {
             mots = new ArrayList<>();
             for (int k = 0; k < taille * taille; k++) {
                 mots.add("mot" + k);
