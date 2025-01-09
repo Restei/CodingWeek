@@ -107,8 +107,8 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void switchType() {
         if (type == TypeTimer.INDIVIDUEL) {
             type = TypeTimer.EQUIPE;
-            timerAgentRouge = 10; //TODO
-            timerEspionBleu = 11; //TODO
+            timerAgentRouge = 90;
+            timerEspionBleu = 90;
         } else {
             type = TypeTimer.INDIVIDUEL;
             timerAgentRouge = 60;
