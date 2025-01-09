@@ -90,7 +90,9 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     public void switchRole(){
-        int total_time = partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
+        int total_time;
+        if (partie.getTimer().getType() == INDIVIDUEL) total_time= partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
+        else total_time=partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue());
         statistique.incrTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(),total_time- time.get());
         if (partie.getJoueurQuiJoue() == AGENT) {
             statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
@@ -241,9 +243,7 @@ public class GestionnairePartie extends SujetObserve {
         lanceTimer();
     }
 
-    public int getChrono(){
-        return time.get();
-    }
+
     // Fin méthodes
 
 }
