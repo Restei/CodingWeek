@@ -24,8 +24,8 @@ import javafx.scene.text.Font;
 public class VueMenuThemes extends VBox{
 
     public VueMenuThemes(ChargeurScene chargeurScene){
-        Font font = Utils.getInstance().getFont(1);
-        Font smallfont = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font smallfont = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         Button escape = new Button("Retour");
         HBox top = new HBox();
@@ -90,7 +90,7 @@ public class VueMenuThemes extends VBox{
     
 
     private Label elementListe(String name, VBox vBox){
-        Font font = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
         Label button = new Label(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");

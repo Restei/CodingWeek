@@ -38,8 +38,8 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
         // polices utilisées
-        Font font = Utils.getInstance().getFont(1);
-        Font font_small = Utils.getInstance().getFont(2);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font font_small = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         // sous-composants
         Insets insets = new Insets(10);
@@ -152,7 +152,7 @@ public class VuePartie extends BorderPane implements Observateur {
 
         // espacement
         Label blank = new Label("               ");
-        blank.setFont(Utils.getInstance().getFont(2));
+        blank.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         blank.setTextAlignment(TextAlignment.CENTER);
 
         //
