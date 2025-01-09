@@ -205,7 +205,7 @@ public class VueMenuThemes extends VBox{
     
 
     private Button elementListe(String name, VBox vBox, TextField wordField){
-        Font font = Utils.getInstance().getFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
         Button button = new Button(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");

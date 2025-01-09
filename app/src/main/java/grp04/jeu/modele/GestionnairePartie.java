@@ -64,7 +64,7 @@ public class GestionnairePartie extends SujetObserve {
             }
             switchRole();
         }
-        else if (carte.getType() == ROUGE){
+        else if (carte.getType() == TypeCarte.ROUGE){
             statistique.dencrementNbCarteRestante(TypeEquipe.ROUGE);
             partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
             if (partie.getNbCarteRouge()==0) {
@@ -76,7 +76,7 @@ public class GestionnairePartie extends SujetObserve {
                 switchRole();
             }
         }
-        else if (carte.getType() == BLEU){
+        else if (carte.getType() == TypeCarte.BLEU){
            statistique.dencrementNbCarteRestante(TypeEquipe.BLEU);
            partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
            if (partie.getNbCarteBleu()==0){
