@@ -25,7 +25,7 @@ public class PopupCredits extends VBox{
         HBox hbox=new HBox();
         VBox vBoxL = new VBox();
         VBox vBoxR = new VBox();
-        Label left = new Label("Joseph Balsan\nClément Escudet--Cotinat");
+        Label left = new Label("Joseph Balsan\nClément Escude--Cotinat");
         Label right = new Label("Guillaume Hisleur\nRussel Tchiakaka");
         left.setFont(smallfont);
         right.setFont(smallfont);

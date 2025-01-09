@@ -8,7 +8,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -22,7 +24,7 @@ public class VuePartie extends BorderPane implements Observateur {
     private Label bottomhint;
     private HBox bottomtextfield;
 
-
+    private Button end;
 
     public VuePartie(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay) {
 
@@ -114,7 +116,7 @@ public class VuePartie extends BorderPane implements Observateur {
         number.setFont(font_small);
 
 
-        this.bottomtextfield.setPrefHeight(end.getHeight());
+        this.bottomtextfield.setPrefHeight(this.end.getHeight());
         this.bottomtextfield.getChildren().add(word);
         this.bottomtextfield.getChildren().add(number);
 

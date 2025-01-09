@@ -2,22 +2,33 @@ package grp04.jeu.vues;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireThemes;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class VueMenuThemes extends VBox{
+
+    private String valeurSelectionnee;
+    private ArrayList<String> wordList = new ArrayList<String>();
+    private ArrayList<String> themeliste = new ArrayList<String>();
+
 
     public VueMenuThemes(ChargeurScene chargeurScene){
         Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
@@ -37,31 +48,138 @@ public class VueMenuThemes extends VBox{
         top.getChildren().add(title);
         top.getChildren().add(escape);
 
+
+
+        TextField wordField = new TextField();
+        wordField.setPromptText("Ecrire ou choisir un mot");
+        wordField.setFont(smallfont);
+        wordField.setPrefWidth(Utils.getInstance().getWindowWidth()*0.6);
+
+
+
+
         ScrollPane scrollPane = new ScrollPane();
+        Label theme = new Label("Sélectionnez un thème :");
+        theme.setFont(smallfont);
 
         ComboBox<String> comboBox = new ComboBox<String>();
-        ArrayList<String> liste = new ArrayList<String>();
-        liste = GestionnaireThemes.themes();
-        for (String name : liste){
+        themeliste = GestionnaireThemes.themes();
+        for (String name : themeliste){
             comboBox.getItems().add(name);
         }
         comboBox.setPrefWidth(Utils.getInstance().getWindowWidth()*0.4);
-        comboBox.setOnAction(event->scrollPane.setContent(words(comboBox.getValue())));
+        comboBox.setOnAction(event->scrollPane.setContent(words(comboBox.getValue(), wordField)));
 
-
-        scrollPane.setPrefHeight(Utils.getInstance().getWindowHeight()*0.3);
+        scrollPane.setPrefHeight(Utils.getInstance().getWindowHeight()*0.4);
         scrollPane.setMaxWidth(Utils.getInstance().getWindowWidth()*0.8);
 
+
+        HBox wordEdit = new HBox();
+
+        Button addWord = new Button("Ajouter mot");
+        addWord.setFont(smallfont);
+        addWord.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent e){
+                if (!wordField.getText().trim().isEmpty() && comboBox.getValue()!=null){
+                    if (!wordList.contains(wordField.getText().toUpperCase())){
+                        GestionnaireThemes.ajouterMot(wordField.getText(), comboBox.getValue());
+                        scrollPane.setContent(words(comboBox.getValue(), wordField));
+                        wordField.setText("");
+                    }
+                }
+            }
+        });
+
+
+        wordEdit.getChildren().add(wordField);
+        wordEdit.getChildren().add(addWord);
+        wordEdit.setAlignment(Pos.CENTER);
+        wordEdit.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
+
+        HBox bottom = new HBox();
+
+
+        Button deleteWord = new Button("Supprimer mot");
+        deleteWord.setFont(smallfont);
+        deleteWord.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event){
+                if (valeurSelectionnee!=null){
+                    try {
+                        String filePath = "themes/"+comboBox.getValue();
+                        String result = fileToString(filePath);
+                        //Replacing the word with desired one
+                        result = result.replaceAll(valeurSelectionnee+"\n", "");
+                        //Rewriting the contents of the file
+                        PrintWriter writer = new PrintWriter(new File(filePath));
+                        writer.append(result);
+                        writer.flush();
+                        writer.close();
+                    } catch (Exception e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                    }
+                    scrollPane.setContent(words(comboBox.getValue(), wordField));
+                }
+            }
+        });
+
+
+        Button addTheme = new Button("Ajouter thème");
+        addTheme.setFont(smallfont);
+        addTheme.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event){
+                if (!wordField.getText().trim().isEmpty() && !themeliste.contains(wordField.getText())){
+                    try{
+                        File myObj = new File("themes/"+wordField.getText());
+                        myObj.createNewFile();
+                        comboBox.getItems().add(wordField.getText());
+                        comboBox.setValue(wordField.getText());
+                        valeurSelectionnee=wordField.getText();
+                        scrollPane.setContent(words(wordField.getText(), wordField));
+                        wordField.setText("");
+                    }catch (IOException e) {
+                        System.out.println("An error occurred.");
+                        e.printStackTrace();
+                      }
+                }
+            }
+        });
+
+        Button deleteTheme = new Button("Supprimer thème");
+        deleteTheme.setFont(smallfont);
+        deleteTheme.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event){
+                if (comboBox.getValue()!=null){
+                    File file = new File("themes/"+comboBox.getValue());
+                    file.delete();
+                    comboBox.getItems().remove(comboBox.getValue());
+                    valeurSelectionnee=comboBox.getValue();
+                    scrollPane.setContent(words(comboBox.getValue(), wordField));
+                }
+            }
+        });
+
+
+        bottom.getChildren().add(deleteWord);
+        bottom.getChildren().add(addTheme);
+        bottom.getChildren().add(deleteTheme);
+        bottom.setAlignment(Pos.CENTER);
+        bottom.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
+
+
         this.getChildren().add(top);
+        this.getChildren().add(theme);
         this.getChildren().add(comboBox);
         this.getChildren().add(scrollPane);
+        this.getChildren().add(wordEdit);
+        this.getChildren().add(bottom);
         this.setAlignment(Pos.CENTER);
-        this.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
+        this.setSpacing(Utils.getInstance().getWindowWidth()*0.02);
 
 
     }
 
-    private VBox words(String filename){
+    private VBox words(String filename, TextField wordField){
         
         VBox vBox = new VBox();
         ArrayList<String> liste = new ArrayList<String>();
@@ -72,26 +190,50 @@ public class VueMenuThemes extends VBox{
                 liste.add(myReader.nextLine());
             }
             myReader.close();
+            wordList = liste;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
         
         for (String name : liste){
-            vBox.getChildren().add(elementListe(name, vBox));
+            vBox.getChildren().add(elementListe(name, vBox, wordField));
         }
         return vBox;
 
     }
     
 
-    private Label elementListe(String name, VBox vBox){
-        Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
-        Label button = new Label(name);
+    private Button elementListe(String name, VBox vBox, TextField wordField){
+        Font font = Utils.getInstance().getFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        Button button = new Button(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");
-        button.setPrefWidth(Utils.getInstance().getWindowWidth()*0.798);
+        button.setMaxWidth(Utils.getInstance().getWindowWidth()*0.798);
+        button.setMinWidth(Utils.getInstance().getWindowWidth()*0.797);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e)
+                {
+                    valeurSelectionnee=button.getText();
+                    wordField.setText(name);
+                    for (Node temp : vBox.getChildren()) {
+                        temp.setStyle("-fx-background-color: transparent;");
+                    }
+                    button.setStyle("-fx-background-color: lightgrey;");
+                }
+            });
         return button;
     }
 
+    private String fileToString(String filePath) throws Exception{
+        String input = null;
+        Scanner sc = new Scanner(new File(filePath));
+        StringBuffer sb = new StringBuffer();
+        while (sc.hasNextLine()) {
+           input = sc.nextLine();
+           sb.append(input+"\n");
+        }
+        sc.close();
+        return sb.toString();
+     }
 }

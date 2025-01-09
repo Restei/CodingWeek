@@ -5,8 +5,12 @@ import javafx.application.Platform;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javafx.scene.control.Alert;
+import grp04.jeu.vues.Overlay;
+import grp04.jeu.vues.PopupChangerJoueur;
+
 import static grp04.jeu.modele.TypeCarte.*;
+import static grp04.jeu.modele.TypeEquipe.BLEU;
+import static grp04.jeu.modele.TypeEquipe.ROUGE;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
 
@@ -20,15 +24,17 @@ public class GestionnairePartie extends SujetObserve {
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
     private int sauvTime;
+    private Overlay overlay;
 
     // Fin propriétés
 
 
     // Début constructeurs
 
-    public GestionnairePartie(Partie partie, Statistique statistique) {
+    public GestionnairePartie(Partie partie, Statistique statistique, Overlay overlay) {
         this.partie = partie;
         this.statistique = statistique;
+        this.overlay = overlay;
     }
 
     // Fin constructeurs
@@ -100,14 +106,11 @@ public class GestionnairePartie extends SujetObserve {
         if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == ESPION && time.get() <= 0) {
             partie.switchRole();
         }
+        PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
+        overlay.ajouterEtAfficherPopup(popupChangerJoueur);
         partie.switchRole();
         NotifierObservateurs();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
         time.set(0);
-        alert.showAndWait();
         NotifierObservateurs();
         lanceTimer();
     }
@@ -118,7 +121,7 @@ public class GestionnairePartie extends SujetObserve {
     public void lanceTimer() {
         boolean chargerTimer = time.get() <= 0;
         TypeTimer type = partie.getTimer().getType();
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -187,6 +190,24 @@ public class GestionnairePartie extends SujetObserve {
      */
     public int getTemps() {
         if (sauvTime == 0) {
+            if (time.get() < 0) {
+                if (partie.getTimer().getType()==INDIVIDUEL){
+                    if (partie.getJoueurQuiJoue()==AGENT){
+                        return partie.getTimer().getTimerJoueur(AGENT);
+                    }
+                    else{
+                        return partie.getTimer().getTimerJoueur(ESPION);
+                    }
+                }
+                else{
+                    if (partie.getEquipeQuiJoue()==ROUGE){
+                        return partie.getTimer().getTimerEquipe(ROUGE);
+                    }
+                    else{
+                        return partie.getTimer().getTimerEquipe(BLEU);
+                    }
+                }
+            }
             return this.time.get();
         }
         return sauvTime;
@@ -210,7 +231,7 @@ public class GestionnairePartie extends SujetObserve {
     public void reprendreChrono() {
         time.set(sauvTime);
         sauvTime = 0;
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -242,7 +263,6 @@ public class GestionnairePartie extends SujetObserve {
     public void debutPartie() {
         lanceTimer();
     }
-
 
     // Fin méthodes
 

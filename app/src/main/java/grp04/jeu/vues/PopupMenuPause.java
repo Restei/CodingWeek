@@ -15,14 +15,10 @@ public class PopupMenuPause extends VBox {
     private final Overlay overlay;
     private TextField nomSauvegarde;
 
-    private final ChargeurScene chargeurScene;
-
     public PopupMenuPause(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay) {
 
         this.overlay = overlay;
         this.gestionnairePartie = gestionnairePartie;
-        this.chargeurScene = chargeurScene;
-
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setMaxSize(Utils.getInstance().getWindowWidth() * 0.8, Utils.getInstance().getWindowHeight() * 0.8);
         this.setSpacing(40);
@@ -44,6 +40,7 @@ public class PopupMenuPause extends VBox {
         this.nomSauvegarde = new TextField();
         nomSauvegarde.setPromptText("Nom de la sauvegarde");
         nomSauvegarde.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        nomSauvegarde.setMaxWidth(Utils.getInstance().getWindowWidth() * 0.5);
 
         Button sauvegarder = new Button("Sauvegarder");
         sauvegarder.setStyle(Utils.getInstance().getMainMenuButtonColor());
@@ -51,6 +48,8 @@ public class PopupMenuPause extends VBox {
         sauvegarder.setOnAction(event -> {
             if (!nomSauvegarde.getText().isEmpty()) {
                 gestionnairePartie.sauvegarderPartie(nomSauvegarde.getText());
+                PopupSauvegarde popupSauvegarde = new PopupSauvegarde(overlay);
+                overlay.ajouterEtAfficherPopup(popupSauvegarde);
             }
         });
 
@@ -58,9 +57,8 @@ public class PopupMenuPause extends VBox {
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
         quitter.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         quitter.setOnAction(event -> {
-            // TODO demander avant de quitter si pas sauvegardé
-            this.chargeurScene.chargerMenuPrincipal();
-
+            PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene, 1);
+            overlay.ajouterEtAfficherPopup(popupQuitter);
         });
 
 
