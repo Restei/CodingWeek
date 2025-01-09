@@ -25,13 +25,13 @@ public class PopupMenuPause extends VBox {
         this.setAlignment(Pos.CENTER);
 
         Label titre = new Label("Pause");
-        titre.setFont(Utils.getInstance().getFont(1)); // grand texte
+        titre.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER)); // grand texte
 
         Label space = new Label(" ");  // ugly
 
         Button reprendre = new Button("Reprendre");
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        reprendre.setFont(Utils.getInstance().getFont(2));
+        reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         reprendre.setOnAction(event -> {
             this.overlay.fermerDernierPopup();
             this.gestionnairePartie.reprendreChrono();
@@ -39,12 +39,12 @@ public class PopupMenuPause extends VBox {
 
         this.nomSauvegarde = new TextField();
         nomSauvegarde.setPromptText("Nom de la sauvegarde");
-        nomSauvegarde.setFont(Utils.getInstance().getFont(2));
+        nomSauvegarde.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         nomSauvegarde.setMaxWidth(Utils.getInstance().getWindowWidth() * 0.5);
 
         Button sauvegarder = new Button("Sauvegarder");
         sauvegarder.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        sauvegarder.setFont(Utils.getInstance().getFont(2));
+        sauvegarder.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         sauvegarder.setOnAction(event -> {
             if (!nomSauvegarde.getText().isEmpty()) {
                 gestionnairePartie.sauvegarderPartie(nomSauvegarde.getText());
@@ -56,7 +56,7 @@ public class PopupMenuPause extends VBox {
 
         Button quitter = new Button("Menu Principal");
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        quitter.setFont(Utils.getInstance().getFont(2));
+        quitter.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         quitter.setOnAction(event -> {
             PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene, 1);
             overlay.ajouterEtAfficherPopup(popupQuitter);

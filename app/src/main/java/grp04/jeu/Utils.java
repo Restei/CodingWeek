@@ -33,27 +33,26 @@ public class Utils {
         }
     }
 
-    public Font getFont(int font) {
-        /* renvoie un font voulue
-        * argument : int font
-        * font = 1 => font
-        * font = 2 => smallfont   */
-        Font valeur = null;
-        switch(font){
-            case 1:
-                valeur = this.header;
-                break;
-            case 2:
-                valeur = this.smallfont;
-                break;
-            case 3:
-                valeur = this.title;
-                break;
-            default:
-                valeur = this.smallfont;
+    public enum FontType {
+        TITLE, // 3
+        HEADER,  // 1
+        SMALL_FONT  // 2
+    }
 
-        }
-        return valeur;
+    /** Renvoie une police
+     * @param font type de police demandé
+     */
+    public Font getFont(FontType font) {
+        return switch (font) {
+            case FontType.HEADER -> this.header;
+            case SMALL_FONT -> this.smallfont;
+            case TITLE -> this.title;
+            default -> {
+                System.err.println("[Utils.getfont()] attention : police chargée par défaut");
+                yield this.smallfont;
+            }
+        };
+
     }
 
     public String getMainMenuButtonColor() {

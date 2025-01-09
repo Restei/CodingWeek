@@ -28,6 +28,7 @@ public class VueChrono extends HBox implements Observateur {
     @Override
     public void reagir() {
         int tempsRestant = gestionnairePartie.getTemps();
+
         // temps restant en s
         int minutesRestantes = tempsRestant / 60;
         int secondesRestantes = tempsRestant % 60;

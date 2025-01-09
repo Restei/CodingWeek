@@ -8,9 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -24,7 +22,6 @@ public class VuePartie extends BorderPane implements Observateur {
     private Label bottomhint;
     private HBox bottomtextfield;
 
-    private Button end;
 
     public VuePartie(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay) {
 
@@ -36,9 +33,20 @@ public class VuePartie extends BorderPane implements Observateur {
         this.chargeurScene = chargeurScene;
 
 
+
+        // Espacement
+
+        Region regiongauche = new Region();
+        HBox.setHgrow(regiongauche, Priority.ALWAYS);
+
+
+        Region regionmilieu = new Region();
+        HBox.setHgrow(regionmilieu, Priority.ALWAYS);
+
+
         // polices utilisées
-        Font font = Utils.getInstance().getFont(1);
-        Font font_small = Utils.getInstance().getFont(2);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font font_small = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         // sous-composants
         Insets insets = new Insets(10);
@@ -65,28 +73,28 @@ public class VuePartie extends BorderPane implements Observateur {
         menu.setFont(font);
         menu.setTextAlignment(TextAlignment.CENTER);
         menu.setOnAction(e -> {
+            Statistique statistique = gestionnairePartie.getStatistique();
+            Partie partie = gestionnairePartie.getPartie();
+            gestionnairePartie.switchRole();
             PopupMenuPause popupMenuPause = new PopupMenuPause(this.gestionnairePartie, this.chargeurScene, this.overlay);
             this.overlay.ajouterEtAfficherPopup(popupMenuPause);
-            this.gestionnairePartie.pauseChrono();
+
         } );
         top.getChildren().add(menu);
 
+        // creation de barre d'indice
         HBox bottom = new HBox();
-        bottom.setAlignment(Pos.CENTER);
-        bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+
+        Label indice = new Label("Indice :");
+        indice.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+
         bottom.setStyle("-fx-background-color: rgb(230,230,230)"); //blanc-gris
 
-        // espacement
-        Label blank = new Label("               ");
-        blank.setFont(font_small);
-        blank.setTextAlignment(TextAlignment.CENTER);
-        bottom.getChildren().add(blank);
-
         //Creation du bouton de fin de tour
-        this.end = new Button("Fin du tour");
-        this.end.setOnMouseClicked(e -> {this.gestionnairePartie.switchRole();});
-        this.end.setFont(font_small);
-        this.end.setTextAlignment(TextAlignment.CENTER);
+        Button end = new Button("Fin du tour");
+        end.setOnMouseClicked(e -> this.gestionnairePartie.switchRole());
+        end.setFont(font_small);
+        end.setTextAlignment(TextAlignment.CENTER);
 
         //Creation du champ  d'indices
         this.bottomtextfield = new HBox();
@@ -98,21 +106,21 @@ public class VuePartie extends BorderPane implements Observateur {
 
         this.bottomhint = new Label();
         this.bottomhint.setFont(font_small);
-        this.bottomhint.setPrefHeight(this.end.getHeight());
+        this.bottomhint.setPrefHeight(end.getHeight());
 
         TextField number = new TextField();
         number.setPromptText("Nb mots");
         number.setFont(font_small);
 
 
-        this.bottomtextfield.setPrefHeight(this.end.getHeight());
+        this.bottomtextfield.setPrefHeight(end.getHeight());
         this.bottomtextfield.getChildren().add(word);
         this.bottomtextfield.getChildren().add(number);
-        bottom.getChildren().add(this.bottomtextfield);
 
 
 
-        bottom.getChildren().add(end);
+
+        bottom.getChildren().addAll(indice,regiongauche,this.bottomtextfield,regionmilieu,end);
 
         VBox left = new VueCarteRestante(gestionnairePartie,true);
         VBox right = new VueCarteRestante(gestionnairePartie,false);
@@ -136,7 +144,7 @@ public class VuePartie extends BorderPane implements Observateur {
         BorderPane.setMargin(left, insets);
         BorderPane.setMargin(right, insets);
         BorderPane.setMargin(center, insets);
-        BorderPane.setMargin(bottom, insets);
+
 
 
     }
@@ -144,34 +152,25 @@ public class VuePartie extends BorderPane implements Observateur {
     public void reagir() {
 
         //Recréation de bottom
-        HBox bottom = new HBox();
-        bottom.setAlignment(Pos.CENTER);
-        bottom.setStyle("-fx-background-color: rgb(200,200,200)");
-        bottom.setSpacing(Utils.getInstance().getWindowWidth() * 0.15);
+        HBox bottom = (HBox) getBottom();
 
-        // espacement
-        Label blank = new Label("               ");
-        blank.setFont(Utils.getInstance().getFont(2));
-        blank.setTextAlignment(TextAlignment.CENTER);
-
-        //
         TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
         number.setText(number.getText().replaceAll("[^\\d]", ""));
         word.setText(word.getText().replaceAll("[^\\w]", ""));
         this.bottomtextfield.getChildren().clear();
         this.bottomtextfield.getChildren().addAll(word,number);
-        bottom.setMinHeight(50);
+
 
 
         if (this.gestionnairePartie.getRole()) {  // si role == agent
             this.playerLabel.setText("Agent");
-            this.bottomhint.setText("Indice : " +word.getText() + number.getText());
-            bottom.getChildren().addAll(this.bottomhint,end);
+            this.bottomhint.setText(word.getText() + number.getText());
+            bottom.getChildren().set(2,this.bottomhint);
         } else {
             this.playerLabel.setText("Espion");
 
-            bottom.getChildren().addAll(this.bottomtextfield,end);
+            bottom.getChildren().set(2,this.bottomtextfield);
         }
 
         this.setBottom(bottom);
@@ -180,6 +179,11 @@ public class VuePartie extends BorderPane implements Observateur {
             this.setStyle("-fx-background-color:rgb(109, 211, 236)"); // bleu
         } else {
             this.setStyle("-fx-background-color:rgb(255, 124, 124)"); // rouge
+        }
+
+        if (this.gestionnairePartie.getPartie().getGagnant()!=null){
+            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene, this.overlay);
+            this.overlay.ajouterEtAfficherPopup(popupStatistique);
         }
 
 

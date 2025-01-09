@@ -31,8 +31,8 @@ public class VueMenuThemes extends VBox{
 
 
     public VueMenuThemes(ChargeurScene chargeurScene){
-        Font font = Utils.getInstance().getFont(1);
-        Font smallfont = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font smallfont = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         Button escape = new Button("Retour");
         HBox top = new HBox();
@@ -75,7 +75,7 @@ public class VueMenuThemes extends VBox{
 
 
         HBox wordEdit = new HBox();
-        
+
         Button addWord = new Button("Ajouter mot");
         addWord.setFont(smallfont);
         addWord.setOnAction(new EventHandler<ActionEvent>(){
@@ -96,7 +96,7 @@ public class VueMenuThemes extends VBox{
         wordEdit.getChildren().add(addWord);
         wordEdit.setAlignment(Pos.CENTER);
         wordEdit.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
-        
+
         HBox bottom = new HBox();
 
 
@@ -206,7 +206,7 @@ public class VueMenuThemes extends VBox{
     
 
     private Button elementListe(String name, VBox vBox, TextField wordField){
-        Font font = Utils.getInstance().getFont(1);
+        Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
         Button button = new Button(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");

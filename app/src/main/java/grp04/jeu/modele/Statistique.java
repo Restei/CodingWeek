@@ -63,17 +63,17 @@ public class Statistique implements Serializable {
         return TempsTotalEspionBleu;
     }
 
-    public void setTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur, int tempsTotal) {
+    public void incrTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur,int temps) {
         if (typeEquipe == TypeEquipe.ROUGE) {
             if (typeJoueur == TypeJoueur.AGENT) {
-                TempsTotalAgentRouge = tempsTotal;
+                TempsTotalAgentRouge+= temps;
             }
-            TempsTotalEspionRouge = tempsTotal;
+            TempsTotalEspionRouge+=temps;
         }
         if (typeJoueur == TypeJoueur.AGENT) {
-            TempsTotalAgentBleu = tempsTotal;
+            TempsTotalAgentBleu+=temps;
         }
-        TempsTotalEspionBleu = tempsTotal;
+        TempsTotalEspionBleu+=temps;
     }
 
     public int getNbCarteRestante(TypeEquipe typeEquipe) {
@@ -139,6 +139,16 @@ public class Statistique implements Serializable {
 
     public TypeEquipe getGagnant() {
         return gagnant;
+    }
+
+    public String getPerdant() {
+        if (gagnant==TypeEquipe.BLEU) return "rouge";
+        return "bleu";
+    }
+
+
+    public int getNbTourJoue(){
+        return Math.max(this.nbTourJoueParBleu, this.nbTourJoueParRouge);
     }
 
     public void setGagnant(TypeEquipe gagnant) {

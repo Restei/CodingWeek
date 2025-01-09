@@ -12,12 +12,12 @@ public class PopupSauvegarde extends VBox{
     public PopupSauvegarde(Overlay overlay){
 
         Label label = new Label("Partie sauvegardée avec succès !");
-        label.setFont(Utils.getInstance().getFont(0));
+        label.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
         
         Button reprendre = new Button("Ok");
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        reprendre.setFont(Utils.getInstance().getFont(2));
+        reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         reprendre.setOnAction(event -> {
             overlay.fermerDernierPopup();
         });

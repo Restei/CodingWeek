@@ -54,38 +54,55 @@ public class GestionnairePartie extends SujetObserve {
         NotifierObservateurs();
         // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
+            statistique.incrementNbCarteAssassinTrouve(equipe);
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
+                statistique.setGagnant(TypeEquipe.BLEU);
             }
             switchRole();
         }
         else if (carte.getType() == TypeCarte.ROUGE){
+            statistique.dencrementNbCarteRestante(TypeEquipe.ROUGE);
             partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             }
             if (equipe == TypeEquipe.BLEU){
+                statistique.incrementNbCarteRougeTrouveParBleu();
                 switchRole();
             }
         }
         else if (carte.getType() == TypeCarte.BLEU){
+           statistique.dencrementNbCarteRestante(TypeEquipe.BLEU);
            partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
+               statistique.setGagnant(TypeEquipe.BLEU);
            }
            if (equipe == TypeEquipe.ROUGE){
+               statistique.incrementNbCarteBleuTrouveParRouge();
                switchRole();
            }
         }
         // Si les agents de l'équipe trouve une carte civile.
         else {
+            statistique.incrementNbCarteCivileTrouve(equipe);
             switchRole();
         }
     }
 
     public void switchRole(){
+        int total_time;
+        if (partie.getTimer().getType() == INDIVIDUEL) total_time= partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
+        else total_time=partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue());
+        statistique.incrTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(),total_time- time.get());
+        if (partie.getJoueurQuiJoue() == AGENT) {
+            statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
+        }
         if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == ESPION && time.get() <= 0) {
             partie.switchRole();
         }
@@ -95,6 +112,7 @@ public class GestionnairePartie extends SujetObserve {
         NotifierObservateurs();
         time.set(0);
         NotifierObservateurs();
+        lanceTimer();
     }
 
     /**
@@ -230,6 +248,13 @@ public class GestionnairePartie extends SujetObserve {
         };
         timer.schedule(taskTimer, 0, 1000);
     }
+
+    public Statistique getStatistique(){
+        return this.statistique;
+    }
+
+    /** Retourne les statistique */
+
 
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);

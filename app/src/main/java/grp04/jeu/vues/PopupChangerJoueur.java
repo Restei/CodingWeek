@@ -14,8 +14,8 @@ public class PopupChangerJoueur extends VBox{
 
     public PopupChangerJoueur(Overlay overlay, GestionnairePartie gestionnairePartie){
 
-        Font font = Utils.getInstance().getFont(1);
-        Font smallfont = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font smallfont = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         Partie partie = gestionnairePartie.getPartie();
 
@@ -28,7 +28,7 @@ public class PopupChangerJoueur extends VBox{
 
         Button reprendre = new Button("Reprendre");
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        reprendre.setFont(Utils.getInstance().getFont(2));
+        reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         reprendre.setOnAction(event -> {
             gestionnairePartie.lanceTimer();
             overlay.fermerDernierPopup();

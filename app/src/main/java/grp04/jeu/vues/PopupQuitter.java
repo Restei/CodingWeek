@@ -15,7 +15,7 @@ public class PopupQuitter extends VBox {
     public PopupQuitter(Overlay overlay, ChargeurScene chargeurScene, int sceneAQuitter){
     
         Label label = new Label();
-        label.setFont(Utils.getInstance().getFont(0));
+        label.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
         switch (sceneAQuitter) {
             case 0:
                 label.setText("Voulez-vous vraiment quitter le jeu ?");
@@ -33,7 +33,7 @@ public class PopupQuitter extends VBox {
         
         Button no = new Button("Non");
         no.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        no.setFont(Utils.getInstance().getFont(2));
+        no.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         no.setOnAction(event -> {
             overlay.fermerDernierPopup();
         });
@@ -41,7 +41,7 @@ public class PopupQuitter extends VBox {
         
         Button yes = new Button("Oui");
         yes.setStyle(Utils.getInstance().getMainMenuButtonColor());
-        yes.setFont(Utils.getInstance().getFont(2));
+        yes.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         yes.setOnAction(event -> {
             switch (sceneAQuitter) {
                 case 0:
