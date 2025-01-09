@@ -1,8 +1,11 @@
 package grp04.jeu.modele;
 
 import grp04.jeu.ChargeurScene;
+import grp04.jeu.vues.BoutonIncr;
 
-public class GestionnaireMenuNewGame extends SujetObserve{
+public class GestionnaireMenuNewGame extends SujetObserve {
+
+    private BoutonIncr.Type typeBoutonIncrSurvole;  // type du dernier BoutonIncr survolé par la souris
 
     // Début propriétés
 
@@ -149,6 +152,15 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public String getTimerAgentRouge() {
         return Integer.toString(timerAgentRouge);
+    }
+
+    public BoutonIncr.Type getTypeBoutonIncrSurvole() {
+        return typeBoutonIncrSurvole;
+    }
+
+    public void setTypeBoutonIncrSurvole(BoutonIncr.Type typeBoutonIncrSurvole) {
+        this.typeBoutonIncrSurvole = typeBoutonIncrSurvole;
+        NotifierObservateurs();
     }
 
     // Fin méthodes
