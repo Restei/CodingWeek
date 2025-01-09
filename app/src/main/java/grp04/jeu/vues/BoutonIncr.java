@@ -34,7 +34,7 @@ public class BoutonIncr extends HBox implements Observateur {
         fleched.setRotate(180);
         next.setGraphic(fleched);
         this.setAlignment(Pos.CENTER);
-        this.elem.setFont(Utils.getInstance().getFont(2));
+        this.elem.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
 
         Label labelnom = new Label(champs);
         switch (champs){

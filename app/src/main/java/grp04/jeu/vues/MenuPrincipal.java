@@ -2,7 +2,6 @@ package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-import static java.lang.System.exit;
 
 public class MenuPrincipal extends VBox {
 
@@ -75,8 +72,8 @@ public class MenuPrincipal extends VBox {
         quit.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
             {
-                Platform.exit();
-                exit(0);
+                PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene, 0);
+                overlay.ajouterEtAfficherPopup(popupQuitter);
             }
         });
         quit.setFont(font);

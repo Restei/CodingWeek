@@ -23,10 +23,10 @@ public class VueCarteRestante extends VBox implements Observateur {
         this.setMaxHeight(60);;
         this.setMinWidth(200);
         this.team = team;
-        Font font = Utils.getInstance().getFont(1);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
         if (team){
             Label text = new Label("Bleu");
-            text.setFont(Utils.getInstance().getFont(1));
+            text.setFont(font);
             text.setTextAlignment(TextAlignment.CENTER);
             this.getChildren().add(text);
             this.number = new Label(Integer.toString(gest.getNbCarteBleu()));

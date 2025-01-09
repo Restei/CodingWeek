@@ -1,6 +1,7 @@
 package grp04.jeu.modele;
 
-public enum TypeCarte {
+
+public enum TypeCarte  {
 
     BLEU,
     ROUGE,

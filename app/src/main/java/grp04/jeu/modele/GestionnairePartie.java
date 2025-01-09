@@ -5,7 +5,9 @@ import javafx.application.Platform;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javafx.scene.control.Alert;
+import grp04.jeu.vues.Overlay;
+import grp04.jeu.vues.PopupChangerJoueur;
+
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
@@ -20,15 +22,17 @@ public class GestionnairePartie extends SujetObserve {
     // time permet au timer de communiquer le temps à afficher à VueChrono.
     public final AtomicInteger time = new AtomicInteger(0);
     private int sauvTime;
+    private Overlay overlay;
 
     // Fin propriétés
 
 
     // Début constructeurs
 
-    public GestionnairePartie(Partie partie, Statistique statistique) {
+    public GestionnairePartie(Partie partie, Statistique statistique, Overlay overlay) {
         this.partie = partie;
         this.statistique = statistique;
+        this.overlay = overlay;
     }
 
     // Fin constructeurs
@@ -48,53 +52,68 @@ public class GestionnairePartie extends SujetObserve {
         NotifierObservateurs();
         // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
+            statistique.incrementNbCarteAssassinTrouve(equipe);
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
+                statistique.setGagnant(TypeEquipe.BLEU);
             }
             switchRole();
         }
-        else if (carte.getType() == ROUGE){
+        else if (carte.getType() == TypeCarte.ROUGE){
+            statistique.dencrementNbCarteRestante(TypeEquipe.ROUGE);
             partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             }
             if (equipe == TypeEquipe.BLEU){
+                statistique.incrementNbCarteRougeTrouveParBleu();
                 switchRole();
             }
         }
-        else if (carte.getType() == BLEU){
+        else if (carte.getType() == TypeCarte.BLEU){
+           statistique.dencrementNbCarteRestante(TypeEquipe.BLEU);
            partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
+               statistique.setGagnant(TypeEquipe.BLEU);
            }
            if (equipe == TypeEquipe.ROUGE){
+               statistique.incrementNbCarteBleuTrouveParRouge();
                switchRole();
            }
         }
         // Si les agents de l'équipe trouve une carte civile.
         else {
+            statistique.incrementNbCarteCivileTrouve(equipe);
             switchRole();
         }
     }
 
     public void switchRole(){
+        int total_time;
+        if (partie.getTimer().getType() == INDIVIDUEL) total_time= partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
+        else total_time=partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue());
+        statistique.incrTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(),total_time- time.get());
+        if (partie.getJoueurQuiJoue() == AGENT) {
+            statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
+        }
         if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == ESPION && time.get() <= 0) {
             partie.switchRole();
         }
         partie.switchRole();
-        NotifierObservateurs();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
         if (partie.getTimer().getType() == INDIVIDUEL || partie.getJoueurQuiJoue() == ESPION) {
-            time.set(0);
+            time.set(-1);
         }
-        alert.showAndWait();
+        if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == AGENT) {
+            pauseChrono();
+        }
+        PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
+        overlay.ajouterEtAfficherPopup(popupChangerJoueur);
         NotifierObservateurs();
-        lanceTimer();
     }
 
     /**
@@ -103,7 +122,7 @@ public class GestionnairePartie extends SujetObserve {
     public void lanceTimer() {
         boolean chargerTimer = time.get() <= 0;
         TypeTimer type = partie.getTimer().getType();
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -126,7 +145,7 @@ public class GestionnairePartie extends SujetObserve {
         // Si le jeu à un timer en mode equipe
         else {
             if (time.get() <= 0 || partie.getJoueurQuiJoue() == ESPION) {
-                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) + 1);
+                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue())+1);
             }
         }
         if (chargerTimer) {
@@ -172,6 +191,24 @@ public class GestionnairePartie extends SujetObserve {
      */
     public int getTemps() {
         if (sauvTime == 0) {
+            if (time.get() < 0) {
+                if (partie.getTimer().getType()==INDIVIDUEL){
+                    if (partie.getJoueurQuiJoue()==AGENT){
+                        return partie.getTimer().getTimerJoueur(AGENT);
+                    }
+                    else{
+                        return partie.getTimer().getTimerJoueur(ESPION);
+                    }
+                }
+                else{
+                    if (partie.getEquipeQuiJoue() == TypeEquipe.ROUGE){
+                        return partie.getTimer().getTimerEquipe(TypeEquipe.ROUGE);
+                    }
+                    else{
+                        return partie.getTimer().getTimerEquipe(TypeEquipe.BLEU);
+                    }
+                }
+            }
             return this.time.get();
         }
         return sauvTime;
@@ -195,7 +232,7 @@ public class GestionnairePartie extends SujetObserve {
     public void reprendreChrono() {
         time.set(sauvTime);
         sauvTime = 0;
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -212,6 +249,24 @@ public class GestionnairePartie extends SujetObserve {
         };
         timer.schedule(taskTimer, 0, 1000);
     }
+
+    /**
+     * Permet de lancer un nouveau timer si c'est au tour de    l'espion de l'équipe adverse, ou de seulement relancer le chrono si le joueur suivant est un agent, en mode timer équipe.
+     */
+    public void lancerTimerIfEquipeEtEspion() {
+        if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == AGENT) {
+            reprendreChrono();
+        } else {
+            lanceTimer();
+        }
+    }
+
+    public Statistique getStatistique(){
+        return this.statistique;
+    }
+
+    /** Retourne les statistique */
+
 
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);

@@ -23,7 +23,7 @@ public class VueMenuSauvegarde extends VBox{
     private String valeurARetourner = null;
 
     public VueMenuSauvegarde(ChargeurScene chargeurScene){
-        Font font = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         ScrollPane scrollPane = new ScrollPane();
         VBox vBox = new VBox();
@@ -77,6 +77,7 @@ public class VueMenuSauvegarde extends VBox{
                     }
                 }
             });
+            load.setDefaultButton(true);
 
 
         hBox.getChildren().add(cancel);
@@ -92,7 +93,7 @@ public class VueMenuSauvegarde extends VBox{
     }
 
     private Button elementListe(String name, VBox vBox){
-        Font font = Utils.getInstance().getFont(1);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
         Button button = new Button(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");

@@ -1,6 +1,7 @@
 package grp04.jeu.modele;
 
-public enum TypeTimer {
+
+public enum TypeTimer  {
 
     EQUIPE,
     INDIVIDUEL

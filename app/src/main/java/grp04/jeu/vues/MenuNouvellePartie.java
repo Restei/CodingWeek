@@ -16,7 +16,7 @@ public class MenuNouvellePartie extends VBox {
 
         //Titre
         Label titre = new Label("New Game");
-        titre.setFont(Utils.getInstance().getFont(3));
+        titre.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
         HBox titrebox = new HBox();
         titrebox.setAlignment(Pos.CENTER);
@@ -43,11 +43,12 @@ public class MenuNouvellePartie extends VBox {
         HBox controle = new HBox();
         Button retour = new Button("RETOUR");
         Button creer = new Button("CREER");
-        retour.setFont(Utils.getInstance().getFont(2));
+        retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         retour.setOnMouseClicked(e-> menu.retourmenuprincipale());
 
-        creer.setFont(Utils.getInstance().getFont(2));
+        creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         creer.setOnMouseClicked(e-> menu.creationpartie());
+        creer.setDefaultButton(true);
 
         controle.getChildren().addAll(retour, creer);
         controle.setAlignment(Pos.CENTER);
