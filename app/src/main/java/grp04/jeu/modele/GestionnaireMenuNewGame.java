@@ -2,18 +2,22 @@ package grp04.jeu.modele;
 
 import grp04.jeu.ChargeurScene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GestionnaireMenuNewGame extends SujetObserve{
 
     // Début propriétés
 
     ChargeurScene chargeurScene;
-    int taille;
-    int nbCarte;
-    int nbCarteNoire;
-    TypeTimer type;
-    int timerEspionBleu;
-    int timerAgentRouge;
-    Theme theme;
+    private int taille;
+    private int nbCarte;
+    private int nbCarteNoire;
+    private TypeTimer type;
+    private int timerEspionBleu;
+    private int timerAgentRouge;
+    private int indiceTheme;
+    private List<String> mots = new ArrayList<>();
 
     // Fin propriétés
 
@@ -27,7 +31,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         this.type = TypeTimer.INDIVIDUEL;
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
-        this.theme = null;
+        indiceTheme = 0;
     }
 
     // Fin constructeurs
@@ -35,7 +39,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     // Début méthodes
 
     public void creationpartie() {
-        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, theme);
+        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
         chargeurScene.chargerNouvellePartie(partie,statistique);
     }
@@ -136,15 +140,34 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         return "Equipe";
     }
 
-    public void themeSuivant() {}
+    public void themeSuivant() {
+        List<String> listeTheme = GestionnaireThemes.themes();
+        if (indiceTheme < listeTheme.size()-1) {
+            indiceTheme++;
+        } else {
+            indiceTheme = 0;
+        }
+        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        NotifierObservateurs();
+    }
 
-    public void themePrecedent() {}
+    public void themePrecedent() {
+        List<String> listeTheme = GestionnaireThemes.themes();
+        if (indiceTheme > 0) {
+            indiceTheme--;
+        } else {
+            indiceTheme = listeTheme.size()-1;
+        }
+        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        NotifierObservateurs();
+    }
 
     public String getTheme() {
-        if (theme == null) {
+        List<String> listeTheme = GestionnaireThemes.themes();
+        if (listeTheme.isEmpty()) {
             return "Theme de démo";
         }
-        return "A faire"; // TODO
+        return listeTheme.get(indiceTheme);
     }
 
     public String getTimerEspionBleu() {

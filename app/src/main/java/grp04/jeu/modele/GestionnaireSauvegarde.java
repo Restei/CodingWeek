@@ -19,7 +19,7 @@ public class GestionnaireSauvegarde {
             File dossierSaves = new File("sauvegardes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
-                System.err.println("Le dossier 'sauvegardes/' est introuvable !");
+                System.err.println("Le dossier 'sauvegardes/' est introuvable");
                 return liste;
             }
     
@@ -41,7 +41,7 @@ public class GestionnaireSauvegarde {
             File dossierSaves = new File("sauvegardes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
-                System.err.println("Le dossier 'sauvegardes/' est introuvable !");
+                System.err.println("Le dossier 'sauvegarde/' est introuvable !");
                 return;
             }
     
@@ -61,6 +61,12 @@ public class GestionnaireSauvegarde {
     
         public static void sauvegarder(String name, Partie partie, Statistique statistique){
             Sauvegarde sauvegarde = new Sauvegarde(partie, statistique);
+            File dossierSaves = new File("sauvegardes/");
+            if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
+                if (!dossierSaves.mkdir()) {
+                    System.err.println("Le dossier 'sauvegardes/' est introuvable, et n'a pas pu être créé !");
+                }
+            }
             try {
                 FileOutputStream fileOut = new FileOutputStream("sauvegardes/"+name+".sav");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
