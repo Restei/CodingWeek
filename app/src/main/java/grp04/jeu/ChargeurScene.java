@@ -48,6 +48,7 @@ public class ChargeurScene {
     public void menuNouvellePartie(){
         GestionnaireMenuNewGame gestionnaire = new GestionnaireMenuNewGame(this);
         MenuNouvellePartie vueMenuNouvellePartie = new MenuNouvellePartie(gestionnaire);
+        gestionnaire.NotifierObservateurs(); // sert à pré-charger l'affichage de vueNouvellePartie
         Scene scene = new Scene(vueMenuNouvellePartie);
         montrerScene(scene);
     }

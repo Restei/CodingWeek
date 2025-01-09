@@ -2,145 +2,205 @@ package grp04.jeu.vues;
 
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireMenuNewGame;
+import grp04.jeu.modele.TypeTimer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class BoutonIncr extends HBox implements Observateur {
-    private GestionnaireMenuNewGame menu;
-    private Label elem;
-    private String champs;
 
-    public BoutonIncr(GestionnaireMenuNewGame menu,String champs){
-        this.menu = menu;
-        menu.ajouterObservateur(this);
-        this.elem = new Label();
-        this.champs = champs;
+    private final GestionnaireMenuNewGame gestionnaireMenuNewGame;
+    private final Label labelNom;
+    private final Label labelElement;  // label entre les 2 boutons flèches
+    private final Type type;  // type du BoutonIncr
+
+    /**
+     * Types de BoutonIncr.
+     */
+    public enum Type {
+        TAILLE,
+        NB_CARTES,
+        NB_NOIRES,
+        TYPE_TIMER,
+        TIMER_ESPION_OU_EQUIPE_BLEU,  // premier bouton timer
+        TIMER_AGENT_OU_EQUIPE_ROUGE,  // second bouton timer
+        THEME,
+    }
+
+    public BoutonIncr(GestionnaireMenuNewGame gestionnaireMenuNewGame, Type type) {
+        this.gestionnaireMenuNewGame = gestionnaireMenuNewGame;
+        gestionnaireMenuNewGame.ajouterObservateur(this);
+        this.labelElement = new Label();
+        this.labelNom = new Label();
+        this.type = type;
+
+        Region spacing = new Region();
+        HBox.setHgrow(spacing, Priority.ALWAYS);
+
         setSpacing(10);
+
         Button prev = new Button();
-        Button next = new Button();
-        Image fleche = new Image("fleche.png",elem.getHeight(),elem.getHeight(),false,false);
+        Image fleche = new Image("fleche.png", labelElement.getHeight(), labelElement.getHeight(), false, false);
         ImageView flecheg = new ImageView(fleche);
         flecheg.setFitHeight(15);
         flecheg.setFitWidth(15);
         prev.setGraphic(flecheg);
 
+        Button next = new Button();
         ImageView fleched = new ImageView(fleche);
         fleched.setFitHeight(15);
         fleched.setFitWidth(15);
         fleched.setRotate(180);
         next.setGraphic(fleched);
+
         this.setAlignment(Pos.CENTER);
-        this.elem.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        this.labelElement.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        this.labelNom.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
 
-        Label labelnom = new Label(champs);
-        switch (champs){
-            case "taille":
-                this.elem.setText(menu.getTaille());
-                break;
-            case "NbCartes":
-                this.elem.setText(menu.getNbCarte());
-                break;
-            case "NbNoires":
-                this.elem.setText(menu.getNbCarteNoire());
-                break;
-            case "typetime":
-                this.elem.setText(menu.getType());
-                break;
-            case "timer espion":
-                this.elem.setText(menu.getTimerEspionBleu());
-                break;
-            case "timer agent":
-                this.elem.setText(menu.getTimerAgentRouge());
-                break;
-            case "theme":
-                this.elem.setText(menu.getTheme());
-                break;
-        }
+        // gestion des évènements
 
+        // incrémentation
+        next.setOnMouseClicked(e -> {
+            switch (type) {
+                case TAILLE:
+                    gestionnaireMenuNewGame.incrTaille();
+                    break;
+                case NB_CARTES:
+                    gestionnaireMenuNewGame.incrNbCarte();
+                    break;
+                case NB_NOIRES:
+                    gestionnaireMenuNewGame.incrNbCarteNoire();
+                    break;
+                case TYPE_TIMER:
+                    gestionnaireMenuNewGame.switchType();
+                    break;
+                case TIMER_ESPION_OU_EQUIPE_BLEU:
+                    gestionnaireMenuNewGame.incrTimerEspionBleu();
+                    break;
+                case TIMER_AGENT_OU_EQUIPE_ROUGE:
+                    gestionnaireMenuNewGame.incrTimerAgentRouge();
+                    break;
+                case THEME:
+                    gestionnaireMenuNewGame.themeSuivant();
+                    break;
+            }
+        });
 
-        next.setOnMouseClicked(e-> {        switch (champs){
-            case "taille":
-                menu.incrTaille();
-                break;
-            case "NbCartes":
-                menu.incrNbCarte();
-                break;
-            case "NbNoires":
-                menu.incrNbCarteNoire();
-                break;
-            case "typetime":
-                menu.switchType();
-                break;
-            case "timer espion":
-                menu.incrTimerEspionBleu();
-                break;
-            case "timer agent":
-                menu.incrTimerAgentRouge();
-                break;
-            case "theme":
-                menu.themeSuivant();
-                break;
-        }});
+        // décrémentation
+        prev.setOnMouseClicked(e -> {
+            switch (type) {
+                case TAILLE:
+                    gestionnaireMenuNewGame.decrTaille();
+                    break;
+                case NB_CARTES:
+                    gestionnaireMenuNewGame.decrNbCarte();
+                    break;
+                case NB_NOIRES:
+                    gestionnaireMenuNewGame.decrNbCarteNoire();
+                    break;
+                case TYPE_TIMER:
+                    gestionnaireMenuNewGame.switchType();
+                    break;
+                case TIMER_ESPION_OU_EQUIPE_BLEU:
+                    gestionnaireMenuNewGame.decrTimerEspionBleu();
+                    break;
+                case TIMER_AGENT_OU_EQUIPE_ROUGE:
+                    gestionnaireMenuNewGame.decrTimerAgentRouge();
+                    break;
+                case THEME:
+                    gestionnaireMenuNewGame.themePrecedent();
+                    break;
+            }
+        });
 
-        prev.setOnMouseClicked(e-> {
-            switch (champs){
-                case "taille":
-                    menu.decrTaille();
-                    break;
-                case "NbCartes":
-                    menu.decrNbCarte();
-                    break;
-                case "NbNoires":
-                    menu.decrNbCarteNoire();
-                    break;
-                case "typetime":
-                    menu.switchType();
-                    break;
-                case "timer espion":
-                    menu.decrTimerEspionBleu();
-                    break;
-                case "timer agent":
-                    menu.decrTimerAgentRouge();
-                    break;
-                case "theme":
-                    menu.themePrecedent();
-                    break;
-            }});
+        this.setOnMouseEntered(e -> gestionnaireMenuNewGame.setTypeBoutonIncrSurvole(this.type));
 
-
-        getChildren().addAll(labelnom,prev,this.elem,next);
-
+        getChildren().addAll(labelNom, spacing, prev, this.labelElement, next);
 
 
     }
-    public void reagir(){
-        switch (this.champs){
-            case "taille":
-                this.elem.setText(menu.getTaille());
+
+    public void reagir() {
+
+        // gestion du labelNom
+        this.labelNom.setText(getNomParametre(type));
+
+        // gestion du labelElement
+        switch (this.type) {
+            case TAILLE:
+                Object taille = gestionnaireMenuNewGame.getTaille(); // cast car type inconnu a priori
+                this.labelElement.setText(taille + " × " + taille);
                 break;
-            case "NbCartes":
-                this.elem.setText(menu.getNbCarte());
+            case NB_CARTES:
+                this.labelElement.setText(Integer.toString(gestionnaireMenuNewGame.getNbCarte()));
                 break;
-            case "NbNoires":
-                this.elem.setText(menu.getNbCarteNoire());
+            case NB_NOIRES:
+                this.labelElement.setText(gestionnaireMenuNewGame.getNbCarteNoire());
                 break;
-            case "typetime":
-                this.elem.setText(menu.getType());
+            case TYPE_TIMER:
+                String text = "";
+                switch(gestionnaireMenuNewGame.getTypeTimer()) {
+                    case EQUIPE -> text = "Équipe";
+                    case INDIVIDUEL -> text = "Individuel";
+                }
+                this.labelElement.setText(text);
                 break;
-            case "timer espion":
-                this.elem.setText(menu.getTimerEspionBleu());
+            case TIMER_ESPION_OU_EQUIPE_BLEU:
+                this.labelElement.setText(gestionnaireMenuNewGame.getTimerEspionBleu());
                 break;
-            case "timer agent":
-                this.elem.setText(menu.getTimerAgentRouge());
+            case TIMER_AGENT_OU_EQUIPE_ROUGE:
+                this.labelElement.setText(gestionnaireMenuNewGame.getTimerAgentRouge());
                 break;
-            case "theme":
-                this.elem.setText(menu.getTheme());
+            case THEME:
+                this.labelElement.setText(gestionnaireMenuNewGame.getTheme());
                 break;
         }
+
+    }
+
+    /**
+     * Donne le nom du paramètre à afficher avant le système de réglage, en fonction du type du bouton.
+     */
+    private String getNomParametre(Type type) {
+        return switch (this.type) {
+            case TAILLE -> "Taille plateau";
+            case NB_CARTES -> "Nombre total de cartes";
+            case NB_NOIRES -> "Nombre de cartes noires";
+            case TYPE_TIMER -> "Minuteur";
+            case TIMER_ESPION_OU_EQUIPE_BLEU -> {
+                switch (gestionnaireMenuNewGame.getTypeTimer()) {
+                    case INDIVIDUEL -> {
+                        yield "Temps de jeu pour l'espion";
+                    }
+                    case EQUIPE -> {
+                        yield "Temps de jeu équipe bleue";
+                    }
+                    case null, default -> {
+                        yield "ERR IN BoutonIncr.getNomParametre()";
+                    }
+                }
+            }
+            case TIMER_AGENT_OU_EQUIPE_ROUGE -> {
+                switch (gestionnaireMenuNewGame.getTypeTimer()) {
+                    case INDIVIDUEL -> {
+                        yield "Temps de jeu pour l'agent";
+                    }
+                    case EQUIPE -> {
+                        yield "Temps de jeu équipe rouge";
+                    }
+                    case null, default -> {
+                        yield "ERR IN BoutonIncr.getNomParametre()";
+                    }
+                }
+            }
+            case THEME -> "Thème";
+            default -> "MAUVAIS TYPE DE BOUTON";
+        };
 
     }
 
