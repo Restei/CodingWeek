@@ -6,8 +6,6 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
-
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
@@ -46,7 +44,6 @@ public class GestionnairePartie extends SujetObserve {
     public void jouer(int i, int j) {
         Carte carte = partie.getGrille().getCarte(i, j);
         TypeEquipe equipe = partie.getEquipeQuiJoue();
-        int nbCarte;
         carte.reveler();
         NotifierObservateurs();
         // Si les agents de l'équipe trouve une carte noire.

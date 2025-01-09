@@ -7,6 +7,7 @@ import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireSauvegarde;
 import grp04.jeu.modele.Partie;
 import grp04.jeu.modele.Sauvegarde;
+import grp04.jeu.modele.Statistique;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -68,8 +69,8 @@ public class VueMenuSauvegarde extends VBox{
                         try {
                             Sauvegarde sauvegarde = GestionnaireSauvegarde.charger(valeurARetourner);
                             Partie partie = sauvegarde.dataPartie();
-                            //Statistique statistque = sauvegarde.dataStatistique();
-                            chargeurScene.lancerPatie(partie/*, statistique */);
+                            Statistique statistique = sauvegarde.dataStatistique();
+                            chargeurScene.lancerPatie(partie, statistique);
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
