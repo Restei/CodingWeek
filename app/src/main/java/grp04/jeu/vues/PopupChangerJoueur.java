@@ -1,6 +1,7 @@
 package grp04.jeu.vues;
 
 import grp04.jeu.Utils;
+import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.Partie;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,10 +12,12 @@ import javafx.scene.text.Font;
 
 public class PopupChangerJoueur extends VBox{
 
-    public PopupChangerJoueur(Overlay overlay, Partie partie){
+    public PopupChangerJoueur(Overlay overlay, GestionnairePartie gestionnairePartie){
 
         Font font = Utils.getInstance().getFont(1);
         Font smallfont = Utils.getInstance().getFont(0);
+
+        Partie partie = gestionnairePartie.getPartie();
 
         Label top = new Label("Fin de tour");
         top.setFont(font);
@@ -27,6 +30,7 @@ public class PopupChangerJoueur extends VBox{
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
         reprendre.setFont(Utils.getInstance().getFont(2));
         reprendre.setOnAction(event -> {
+            gestionnairePartie.lanceTimer();
             overlay.fermerDernierPopup();
         });
 

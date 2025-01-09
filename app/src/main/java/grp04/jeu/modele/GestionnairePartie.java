@@ -6,6 +6,8 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static grp04.jeu.modele.TypeCarte.*;
+import static grp04.jeu.modele.TypeEquipe.BLEU;
+import static grp04.jeu.modele.TypeEquipe.ROUGE;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
 
@@ -54,7 +56,7 @@ public class GestionnairePartie extends SujetObserve {
             }
             switchRole();
         }
-        else if (carte.getType() == ROUGE){
+        else if (carte.getType() == TypeCarte.ROUGE){
             partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
@@ -63,7 +65,7 @@ public class GestionnairePartie extends SujetObserve {
                 switchRole();
             }
         }
-        else if (carte.getType() == BLEU){
+        else if (carte.getType() == TypeCarte.BLEU){
            partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
@@ -86,7 +88,6 @@ public class GestionnairePartie extends SujetObserve {
         NotifierObservateurs();
         time.set(0);
         NotifierObservateurs();
-        lanceTimer();
     }
 
     /**
@@ -164,6 +165,24 @@ public class GestionnairePartie extends SujetObserve {
      */
     public int getTemps() {
         if (sauvTime == 0) {
+            if (time.get() < 0) {
+                if (partie.getTimer().getType()==INDIVIDUEL){
+                    if (partie.getJoueurQuiJoue()==AGENT){
+                        return partie.getTimer().getTimerJoueur(AGENT);
+                    }
+                    else{
+                        return partie.getTimer().getTimerJoueur(ESPION);
+                    }
+                }
+                else{
+                    if (partie.getEquipeQuiJoue()==ROUGE){
+                        return partie.getTimer().getTimerEquipe(ROUGE);
+                    }
+                    else{
+                        return partie.getTimer().getTimerEquipe(BLEU);
+                    }
+                }
+            }
             return this.time.get();
         }
         return sauvTime;

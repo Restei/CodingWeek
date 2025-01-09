@@ -57,7 +57,7 @@ public class PopupMenuPause extends VBox {
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
         quitter.setFont(Utils.getInstance().getFont(2));
         quitter.setOnAction(event -> {
-            PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene);
+            PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene, 1);
             overlay.ajouterEtAfficherPopup(popupQuitter);
         });
 
