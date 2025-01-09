@@ -86,10 +86,7 @@ public class VuePartie extends BorderPane implements Observateur {
         Label indice = new Label("Indice :");
         indice.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
 
-
-
         bottom.setStyle("-fx-background-color: rgb(230,230,230)"); //blanc-gris
-
 
         //Creation du bouton de fin de tour
         Button end = new Button("Fin du tour");
@@ -180,6 +177,11 @@ public class VuePartie extends BorderPane implements Observateur {
             this.setStyle("-fx-background-color:rgb(109, 211, 236)"); // bleu
         } else {
             this.setStyle("-fx-background-color:rgb(255, 124, 124)"); // rouge
+        }
+
+        if (this.gestionnairePartie.getPartie().getGagnant()!=null){
+            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene, this.overlay);
+            this.overlay.ajouterEtAfficherPopup(popupStatistique);
         }
 
 
