@@ -14,8 +14,8 @@ public class PopupCredits extends VBox{
 
     public PopupCredits(ChargeurScene chargeurScene){
 
-        Font font = Utils.getInstance().getFont(1);
-        Font smallfont = Utils.getInstance().getFont(0);
+        Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
+        Font smallfont = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
         Label title = new Label("Crédits");
         title.setFont(font);
