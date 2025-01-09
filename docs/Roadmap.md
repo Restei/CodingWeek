@@ -45,3 +45,14 @@
 - Ajouter la partie modification et sélection des thèmes
 - Finir les tests unitaires
 - Lancer une partie chargée lorsqu'on appuie sur "charger"
+
+## Jeudi 9
+- Affichage des statistiques lors de la victoire : Russel
+- Finalisation du timer : Joseph
+- Ajout et modification des thèmes : Guillaume
+- Lancer une partie chargée lorsqu'on appuie sur "charger" : Joseph
+- Finalisation du menu creation de partie : Clément
+
+### À faire
+- Améliorer l'esthétique du jeu
+- Faire un boot pour pouvoir jouer seul
