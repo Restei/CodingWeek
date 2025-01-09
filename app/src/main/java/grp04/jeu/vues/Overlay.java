@@ -1,6 +1,5 @@
 package grp04.jeu.vues;
 
-import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -13,7 +12,7 @@ public class Overlay extends StackPane {
     /**
      * Crée un Overlay permettant d'afficher des popups supplémentaires devant un fond.
      */
-    public Overlay(ChargeurScene chargeurScene) {
+    public Overlay() {
         super();
     }
 

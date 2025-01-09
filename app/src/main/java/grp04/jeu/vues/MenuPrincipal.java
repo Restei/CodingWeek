@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import static java.lang.System.exit;
+
 public class MenuPrincipal extends VBox {
 
     public MenuPrincipal(ChargeurScene chargeurScene, Overlay overlay){
@@ -72,8 +74,9 @@ public class MenuPrincipal extends VBox {
         Button quit = new Button("Quitter");
         quit.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) 
-            { 
-                Platform.exit(); 
+            {
+                Platform.exit();
+                exit(0);
             }
         });
         quit.setFont(font);
