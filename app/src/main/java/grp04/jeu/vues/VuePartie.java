@@ -84,11 +84,7 @@ public class VuePartie extends BorderPane implements Observateur {
 
         //Creation du bouton de fin de tour
         this.end = new Button("Fin du tour");
-        this.end.setOnMouseClicked(e -> {this.gestionnairePartie.switchRole();
-            //appel pop-up
-            PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(this.overlay, gestionnairePartie);
-            overlay.ajouterEtAfficherPopup(popupChangerJoueur);
-        });
+        this.end.setOnMouseClicked(e -> {this.gestionnairePartie.switchRole();});
         this.end.setFont(font_small);
         this.end.setTextAlignment(TextAlignment.CENTER);
 
