@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
+import static java.lang.System.exit;
 
 // Classe permettent de gérer une partie déjà créer.
 public class GestionnairePartie extends SujetObserve {
@@ -80,13 +81,18 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     public void switchRole(){
+        if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == ESPION && time.get() <= 0) {
+            partie.switchRole();
+        }
         partie.switchRole();
         NotifierObservateurs();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
-        time.set(0);
+        if (partie.getTimer().getType() == INDIVIDUEL) {
+            time.set(0);
+        }
         alert.showAndWait();
         NotifierObservateurs();
         lanceTimer();
@@ -104,8 +110,11 @@ public class GestionnairePartie extends SujetObserve {
             public void run() {
                 time.set(time.get()-1);
                 Platform.runLater(() -> NotifierObservateurs());
-                if (time.get() <= 0) {
-                    time.set(0);
+                if (time.get() < 0) {
+                    timer.cancel();
+                }
+                if (time.get() == 0) {
+                    Platform.runLater(() -> switchRole());
                     timer.cancel();
                 }
             }
@@ -113,11 +122,13 @@ public class GestionnairePartie extends SujetObserve {
 
         // Si le jeu à un timer en mode individuelle.
         if (type == INDIVIDUEL) {
-            time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()));
+            time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue())+1);
         }
         // Si le jeu à un timer en mode equipe
         else {
-            time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()));
+            if (time.get() <= 0 || partie.getJoueurQuiJoue() == ESPION) {
+                time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) + 1);
+            }
         }
         if (chargerTimer) {
             timer.schedule(taskTimer, 0, 1000);
@@ -176,7 +187,7 @@ public class GestionnairePartie extends SujetObserve {
      */
     public void pauseChrono() {
         sauvTime = time.get();
-        time.set(0);
+        time.set(-1);
     }
 
     /**
@@ -191,8 +202,11 @@ public class GestionnairePartie extends SujetObserve {
             public void run() {
                 time.set(time.get()-1);
                 Platform.runLater(() -> NotifierObservateurs());
-                if (time.get() <= 0) {
-                    time.set(0);
+                if (time.get() < 0) {
+                    timer.cancel();
+                }
+                if (time.get() == 0) {
+                    Platform.runLater(() -> switchRole());
                     timer.cancel();
                 }
             }
