@@ -6,8 +6,8 @@ public class Carte extends SujetObserve implements Serializable {
 
     // Début propriétés
 
-    private TypeCarte type;
-    private String mot;
+    private final TypeCarte type;
+    private final String mot;
     private boolean revele;
     private boolean espion;
 
@@ -33,16 +33,8 @@ public class Carte extends SujetObserve implements Serializable {
         return type;
     }
 
-    public void setType(TypeCarte type) {
-        this.type = type;
-    }
-
     public String getMot() {
         return mot;
-    }
-
-    public void setMot(String mot) {
-        this.mot = mot;
     }
 
     public boolean getRevele(){
@@ -53,15 +45,22 @@ public class Carte extends SujetObserve implements Serializable {
         this.revele = true;
     }
 
+    /**
+     * Fonction qui permet de changer le statue de la carte entre chaque tour.
+     */
     public void switchRole() {
         this.espion = !this.espion;
     }
 
+    /**
+     * Fonction qui renvoie true si c'est un espion et faux sinon
+     * @return boolean
+     */
     public boolean getRole() {
-    //fonction qui renvoie true si c'est un espion et faux sinon
-
         return this.espion;
     }
+
+
 
     // Fin méthodes
 

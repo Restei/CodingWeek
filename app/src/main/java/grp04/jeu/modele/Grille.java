@@ -6,7 +6,7 @@ public class Grille extends SujetObserve implements Serializable {
 
     // Début propriétés
 
-    private Carte[][] grille;
+    private final Carte[][] grille;
 
     // Fin propriétés
 
@@ -30,10 +30,13 @@ public class Grille extends SujetObserve implements Serializable {
         return grille[x][y];
     }
 
+    /**
+     * Permet d'actualiser l'état de la grille après le tour d'un joueur
+     */
     public void switchRole(){
-        for (int i =0;i<grille.length;i++){
-            for (int j = 0;j< grille.length;j++){
-                grille[i][j].switchRole();
+        for (Carte[] cartes : grille) {
+            for (int j = 0; j < grille.length; j++) {
+                cartes[j].switchRole();
             }
         }
     }

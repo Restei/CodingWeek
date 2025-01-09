@@ -122,13 +122,6 @@ public class Statistique implements Serializable {
         }
     }
 
-    public int getNbTourJoue(TypeEquipe typeEquipe) {
-        if (typeEquipe == TypeEquipe.ROUGE) {
-            return nbTourJoueParRouge;
-        }
-        return nbTourJoueParBleu;
-    }
-
     public void incrementNbTourJoue(TypeEquipe typeEquipe) {
         if (typeEquipe == TypeEquipe.ROUGE) {
             nbTourJoueParRouge++;

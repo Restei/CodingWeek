@@ -1,11 +1,14 @@
 package grp04.jeu.modele;
 
 import grp04.jeu.ChargeurScene;
+import grp04.jeu.vues.BoutonIncr;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestionnaireMenuNewGame extends SujetObserve{
+
+    private BoutonIncr.Type typeBoutonIncrSurvole;  // type du dernier BoutonIncr survolé par la souris
 
     // Début propriétés
 
@@ -13,11 +16,13 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     private int taille;
     private int nbCarte;
     private int nbCarteNoire;
-    private TypeTimer type;
+    private TypeTimer typeTimer;
     private int timerEspionBleu;
     private int timerAgentRouge;
     private int indiceTheme;
     private List<String> mots = new ArrayList<>();
+
+    private int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
 
     // Fin propriétés
 
@@ -28,7 +33,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         this.taille = 3;
         this.nbCarte = 2;
         this.nbCarteNoire = 2;
-        this.type = TypeTimer.INDIVIDUEL;
+        this.typeTimer = TypeTimer.INDIVIDUEL;
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
         indiceTheme = 0;
@@ -39,17 +44,19 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     // Début méthodes
 
     public void creationpartie() {
-        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, mots);
+        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
-        chargeurScene.chargerNouvellePartie(partie,statistique);
+        chargeurScene.chargerNouvellePartie(partie, statistique);
     }
 
-    public void retourmenuprincipale(){
+    public void retourmenuprincipale() {
         chargeurScene.chargerMenuPrincipal();
     }
 
     public void incrTaille() {
-        taille++;
+        if (taille < 10) {
+            taille++;
+        }
         NotifierObservateurs();
     }
 
@@ -61,60 +68,65 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     }
 
     public void incrNbCarte() {
-        nbCarte++;
+        if (true) { // TODO Condition pertinente
+            nbCarte++;
+        }
         NotifierObservateurs();
     }
 
     public void decrNbCarte() {
-        if (taille > 0) {
+        if (nbCarte > 0) {
             nbCarte--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarteNoire() {
-        nbCarteNoire++;
+        if (true) {
+            nbCarteNoire++;
+        }
         NotifierObservateurs();
     }
 
     public void decrNbCarteNoire() {
-        if (taille > 0) {
+        if (nbCarteNoire > 0) {
             nbCarteNoire--;
         }
         NotifierObservateurs();
     }
 
     public void incrTimerEspionBleu() {
-        timerEspionBleu++;
+        timerEspionBleu += pasVariationTemps;
         NotifierObservateurs();
     }
 
     public void decrTimerEspionBleu() {
-        if (timerEspionBleu > 0) {
-            timerEspionBleu--;
+        if (timerEspionBleu > pasVariationTemps) {
+            timerEspionBleu -= pasVariationTemps;
         }
         NotifierObservateurs();
     }
 
     public void incrTimerAgentRouge() {
-        timerAgentRouge++;
+        timerAgentRouge += pasVariationTemps;
         NotifierObservateurs();
     }
 
     public void decrTimerAgentRouge() {
-        if (timerAgentRouge > 0) {
-            timerAgentRouge--;
+        if (timerAgentRouge > pasVariationTemps) {
+            timerAgentRouge -= pasVariationTemps;
         }
         NotifierObservateurs();
     }
 
     public void switchType() {
-        if (type == TypeTimer.INDIVIDUEL) {
-            type = TypeTimer.EQUIPE;
+        // TODO éventuellement calculer le temps total dynamiquement
+        if (typeTimer == TypeTimer.INDIVIDUEL) {
+            typeTimer = TypeTimer.EQUIPE;
             timerAgentRouge = 90;
             timerEspionBleu = 90;
         } else {
-            type = TypeTimer.INDIVIDUEL;
+            typeTimer = TypeTimer.INDIVIDUEL;
             timerAgentRouge = 60;
             timerEspionBleu = 30;
         }
@@ -125,19 +137,16 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         return Integer.toString(taille);
     }
 
-    public String getNbCarte() {
-        return Integer.toString(nbCarte);
+    public int getNbCarte() {
+        return nbCarte;
     }
 
     public String getNbCarteNoire() {
         return Integer.toString(nbCarteNoire);
     }
 
-    public String getType() {
-        if (type == TypeTimer.INDIVIDUEL) {
-            return "Individuel";
-        }
-        return "Equipe";
+    public TypeTimer getTypeTimer() {
+        return typeTimer;
     }
 
     public void themeSuivant() {
@@ -147,7 +156,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         } else {
             indiceTheme = 0;
         }
-        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        }
         NotifierObservateurs();
     }
 
@@ -158,7 +169,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         } else {
             indiceTheme = listeTheme.size()-1;
         }
-        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        }
         NotifierObservateurs();
     }
 
@@ -176,6 +189,15 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public String getTimerAgentRouge() {
         return Integer.toString(timerAgentRouge);
+    }
+
+    public BoutonIncr.Type getTypeBoutonIncrSurvole() {
+        return typeBoutonIncrSurvole;
+    }
+
+    public void setTypeBoutonIncrSurvole(BoutonIncr.Type typeBoutonIncrSurvole) {
+        this.typeBoutonIncrSurvole = typeBoutonIncrSurvole;
+        NotifierObservateurs();
     }
 
     // Fin méthodes

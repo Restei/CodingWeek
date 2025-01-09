@@ -8,6 +8,17 @@ import static grp04.jeu.modele.TypeCarte.*;
 
 public class CreateurPartie {
 
+    /**
+     * Permet de créer une partie.
+     * @param taille taille de la grille
+     * @param nbCarte nombre de carte de l'équipe bleu
+     * @param nbCarteNoire nombre de carte noire
+     * @param type type de timer : EQUIPE ou INDIVIDUEL
+     * @param timerEspionBleu timer de l'espion ou de l'équipe bleu
+     * @param timerAgentRouge timer de l'agent ou de l'équipe rouge
+     * @param mots liste de mots utilisée pour générer la grille
+     * @return une partie
+     */
     public static Partie createurPartie(int taille, int nbCarte, int nbCarteNoire, TypeTimer type, int timerEspionBleu, int timerAgentRouge, List<String> mots) {
 
         // Génération de la grille

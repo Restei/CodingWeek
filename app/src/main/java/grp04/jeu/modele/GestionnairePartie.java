@@ -22,9 +22,9 @@ public class GestionnairePartie extends SujetObserve {
     private final Partie partie;
     private final Statistique statistique;
     // time permet au timer de communiquer le temps à afficher à VueChrono.
-    public final AtomicInteger time = new AtomicInteger(0);
+    private final AtomicInteger time = new AtomicInteger(0);
     private int sauvTime;
-    private Overlay overlay;
+    private final Overlay overlay;
 
     // Fin propriétés
 
@@ -100,6 +100,9 @@ public class GestionnairePartie extends SujetObserve {
         }
     }
 
+    /**
+     * Permet de changer les attributs de partie en fonction de la nouvelle situation.
+     */
     public void switchRole(){
         int total_time;
         if (partie.getTimer().getType() == INDIVIDUEL) total_time= partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue());
@@ -271,9 +274,6 @@ public class GestionnairePartie extends SujetObserve {
     public Statistique getStatistique(){
         return this.statistique;
     }
-
-    /** Retourne les statistique */
-
 
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);

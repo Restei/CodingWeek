@@ -8,8 +8,9 @@ import static grp04.jeu.modele.TypeJoueur.*;
 public class Partie implements Serializable {
 
     // Début proriétés
-    private Grille grille;
-    private Timer timer;
+
+    private final Grille grille;
+    private final Timer timer;
     private TypeEquipe equipeQuiJoue = ROUGE;
     private TypeJoueur joueurQuiJoue = ESPION;
     private int nbCarteRouge;
@@ -45,10 +46,6 @@ public class Partie implements Serializable {
         return equipeQuiJoue;
     }
 
-    public void setEquipeQuiJoue(TypeEquipe equipeQuiJoue) {
-        this.equipeQuiJoue = equipeQuiJoue;
-    }
-
     public TypeJoueur getJoueurQuiJoue() {
         return joueurQuiJoue;
     }
@@ -77,6 +74,9 @@ public class Partie implements Serializable {
         this.gagnant = gagnant;
     }
 
+    /**
+     * Permet d'actualiser la partie après qu'un joueur est joué
+     */
     public void switchRole(){
         this.getGrille().switchRole();
         if (joueurQuiJoue == ESPION){
