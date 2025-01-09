@@ -90,7 +90,6 @@ public class GestionnairePartie extends SujetObserve {
     }
 
     public void switchRole(){
-        statistique.setTempsTotal(partie.getEquipeQuiJoue(), partie.getJoueurQuiJoue(), time.get());
         if (partie.getJoueurQuiJoue() == AGENT) {
             statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
         }
@@ -121,6 +120,7 @@ public class GestionnairePartie extends SujetObserve {
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
+                statistique.incrTempsTotal(partie.getEquipeQuiJoue(),partie.getJoueurQuiJoue());
                 time.set(time.get()-1);
                 Platform.runLater(() -> NotifierObservateurs());
                 if (time.get() < 0) {
@@ -233,9 +233,6 @@ public class GestionnairePartie extends SujetObserve {
 
     /** Retourne les statistique */
 
-    public void setStatistique(Statistique statistique) {
-        this.statistique = statistique;
-    }
 
     public void sauvegarderPartie(String nomSauvegarde) {
         GestionnaireSauvegarde.sauvegarder(nomSauvegarde, partie, statistique);

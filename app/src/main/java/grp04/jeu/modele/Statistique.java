@@ -63,17 +63,17 @@ public class Statistique implements Serializable {
         return TempsTotalEspionBleu;
     }
 
-    public void setTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur, int tempsTotal) {
+    public void incrTempsTotal(TypeEquipe typeEquipe, TypeJoueur typeJoueur) {
         if (typeEquipe == TypeEquipe.ROUGE) {
             if (typeJoueur == TypeJoueur.AGENT) {
-                TempsTotalAgentRouge = tempsTotal;
+                TempsTotalAgentRouge++;
             }
-            TempsTotalEspionRouge = tempsTotal;
+            TempsTotalEspionRouge++;
         }
         if (typeJoueur == TypeJoueur.AGENT) {
-            TempsTotalAgentBleu = tempsTotal;
+            TempsTotalAgentBleu++;
         }
-        TempsTotalEspionBleu = tempsTotal;
+        TempsTotalEspionBleu++;
     }
 
     public int getNbCarteRestante(TypeEquipe typeEquipe) {
