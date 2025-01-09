@@ -48,6 +48,7 @@ public class MenuNouvellePartie extends VBox {
 
         creer.setFont(Utils.getInstance().getFont(2));
         creer.setOnMouseClicked(e-> menu.creationpartie());
+        creer.setDefaultButton(true);
 
         controle.getChildren().addAll(retour, creer);
         controle.setAlignment(Pos.CENTER);

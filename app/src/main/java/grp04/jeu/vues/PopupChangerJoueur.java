@@ -33,6 +33,7 @@ public class PopupChangerJoueur extends VBox{
             gestionnairePartie.lanceTimer();
             overlay.fermerDernierPopup();
         });
+        reprendre.setDefaultButton(true);
 
 
         this.getChildren().add(top);

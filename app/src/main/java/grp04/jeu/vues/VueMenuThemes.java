@@ -89,6 +89,7 @@ public class VueMenuThemes extends VBox{
                 }
             }
         });
+        addWord.setDefaultButton(true);
 
 
         wordEdit.getChildren().add(wordField);

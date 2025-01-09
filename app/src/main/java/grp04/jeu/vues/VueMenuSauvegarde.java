@@ -77,6 +77,7 @@ public class VueMenuSauvegarde extends VBox{
                     }
                 }
             });
+            load.setDefaultButton(true);
 
 
         hBox.getChildren().add(cancel);

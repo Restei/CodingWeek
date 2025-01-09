@@ -21,6 +21,7 @@ public class PopupSauvegarde extends VBox{
         reprendre.setOnAction(event -> {
             overlay.fermerDernierPopup();
         });
+        reprendre.setDefaultButton(true);
 
         
         this.getChildren().add(label);

@@ -52,6 +52,7 @@ public class PopupMenuPause extends VBox {
                 overlay.ajouterEtAfficherPopup(popupSauvegarde);
             }
         });
+        sauvegarder.setDefaultButton(true);
 
         Button quitter = new Button("Menu Principal");
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());

@@ -37,6 +37,7 @@ public class PopupQuitter extends VBox {
         no.setOnAction(event -> {
             overlay.fermerDernierPopup();
         });
+        no.setDefaultButton(true);
         
         Button yes = new Button("Oui");
         yes.setStyle(Utils.getInstance().getMainMenuButtonColor());
