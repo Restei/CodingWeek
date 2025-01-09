@@ -13,10 +13,12 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     int taille;
     int nbCarte;
     int nbCarteNoire;
-    TypeTimer type;
+    TypeTimer typeTimer;
     int timerEspionBleu;
     int timerAgentRouge;
     Theme theme;
+
+    private int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
 
     // Fin propriétés
 
@@ -27,7 +29,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
         this.taille = 3;
         this.nbCarte = 2;
         this.nbCarteNoire = 2;
-        this.type = TypeTimer.INDIVIDUEL;
+        this.typeTimer = TypeTimer.INDIVIDUEL;
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
         this.theme = null;
@@ -38,17 +40,19 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     // Début méthodes
 
     public void creationpartie() {
-        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, type, timerEspionBleu, timerAgentRouge, theme);
+        Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, theme);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
-        chargeurScene.chargerNouvellePartie(partie,statistique);
+        chargeurScene.chargerNouvellePartie(partie, statistique);
     }
 
-    public void retourmenuprincipale(){
+    public void retourmenuprincipale() {
         chargeurScene.chargerMenuPrincipal();
     }
 
     public void incrTaille() {
-        taille++;
+        if (taille < 10) {
+            taille++;
+        }
         NotifierObservateurs();
     }
 
@@ -60,19 +64,23 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     }
 
     public void incrNbCarte() {
-        nbCarte++;
+        if (true) { // TODO Condition pertinente
+            nbCarte++;
+        }
         NotifierObservateurs();
     }
 
     public void decrNbCarte() {
-        if (taille > 0) {
+        if (nbCarte > 0) {
             nbCarte--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarteNoire() {
-        nbCarteNoire++;
+        if (true) {
+            nbCarteNoire++;
+        }
         NotifierObservateurs();
     }
 
@@ -84,36 +92,37 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     }
 
     public void incrTimerEspionBleu() {
-        timerEspionBleu++;
+        timerEspionBleu += pasVariationTemps;
         NotifierObservateurs();
     }
 
     public void decrTimerEspionBleu() {
-        if (timerEspionBleu > 0) {
-            timerEspionBleu--;
+        if (timerEspionBleu > pasVariationTemps) {
+            timerEspionBleu -= pasVariationTemps;
         }
         NotifierObservateurs();
     }
 
     public void incrTimerAgentRouge() {
-        timerAgentRouge++;
+        timerAgentRouge += pasVariationTemps;
         NotifierObservateurs();
     }
 
     public void decrTimerAgentRouge() {
-        if (timerAgentRouge > 0) {
-            timerAgentRouge--;
+        if (timerAgentRouge > pasVariationTemps) {
+            timerAgentRouge -= pasVariationTemps;
         }
         NotifierObservateurs();
     }
 
     public void switchType() {
-        if (type == TypeTimer.INDIVIDUEL) {
-            type = TypeTimer.EQUIPE;
+        // TODO éventuellement calculer le temps total dynamiquement
+        if (typeTimer == TypeTimer.INDIVIDUEL) {
+            typeTimer = TypeTimer.EQUIPE;
             timerAgentRouge = 90;
             timerEspionBleu = 90;
         } else {
-            type = TypeTimer.INDIVIDUEL;
+            typeTimer = TypeTimer.INDIVIDUEL;
             timerAgentRouge = 60;
             timerEspionBleu = 30;
         }
@@ -124,24 +133,23 @@ public class GestionnaireMenuNewGame extends SujetObserve {
         return Integer.toString(taille);
     }
 
-    public String getNbCarte() {
-        return Integer.toString(nbCarte);
+    public int getNbCarte() {
+        return nbCarte;
     }
 
     public String getNbCarteNoire() {
         return Integer.toString(nbCarteNoire);
     }
 
-    public String getType() {
-        if (type == TypeTimer.INDIVIDUEL) {
-            return "Individuel";
-        }
-        return "Equipe";
+    public TypeTimer getTypeTimer() {
+        return typeTimer;
     }
 
-    public void themeSuivant() {}
+    public void themeSuivant() {
+    }
 
-    public void themePrecedent() {}
+    public void themePrecedent() {
+    }
 
     public String getTheme() {
         if (theme == null) {

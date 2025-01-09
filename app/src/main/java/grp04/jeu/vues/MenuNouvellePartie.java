@@ -6,10 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class MenuNouvellePartie extends VBox {
+
 
     public MenuNouvellePartie(GestionnaireMenuNewGame gestionnaireMenuNewGame) {
         //Contenu du menu : Taille, Nb Carte, Nb noires , TypeTimer type , Timer Espion, Timer agent, Theme
@@ -31,30 +33,43 @@ public class MenuNouvellePartie extends VBox {
 
         // Espacement après le titre
         Region centerSpacing1 = new Region();
-        VBox.setVgrow(centerSpacing1, javafx.scene.layout.Priority.ALWAYS);
+        VBox.setVgrow(centerSpacing1, Priority.ALWAYS);
         this.getChildren().add(centerSpacing1);
 
         // Conteneur pour le conteneur des boutons et de la description
         HBox centerBox = new HBox();
 
+        Region leftSpacing = new Region();
+        HBox.setHgrow(leftSpacing, Priority.ALWAYS);
+        centerBox.getChildren().add(leftSpacing);
+
         // Conteneur des BoutonIncr : paramètres modifiables
         VBox conteneurParams = new VBox();
+        conteneurParams.setPrefWidth(Utils.getInstance().getWindowWidth() * 0.33);
         conteneurParams.setSpacing(20); // espacement inter-éléments
         BoutonIncr taille = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TAILLE);
         BoutonIncr NbCartes = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.NB_CARTES);
         BoutonIncr NbNoires = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.NB_NOIRES);
         BoutonIncr typetime = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TYPE_TIMER);
-        BoutonIncr timerespion = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TIMER_ESPION);
-        BoutonIncr timeragent = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TIMER_AGENT);
+        BoutonIncr timerespion = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TIMER_ESPION_OU_EQUIPE_BLEU);
+        BoutonIncr timeragent = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TIMER_AGENT_OU_EQUIPE_ROUGE);
         BoutonIncr theme = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.THEME);
         conteneurParams.getChildren().addAll(taille, NbCartes, NbNoires, typetime, timerespion, timeragent, theme);
         centerBox.getChildren().add(conteneurParams);
 
+        // espace au milieu du conteneur central
+        Region middleCenterSpacing = new Region();
+        HBox.setHgrow(middleCenterSpacing, Priority.ALWAYS);
+        centerBox.getChildren().add(middleCenterSpacing);
+
         // Conteneur de la description
         centerBox.getChildren().add(new VueDescriptionParametreNouvellePartie(gestionnaireMenuNewGame));
 
-        this.getChildren().add(centerBox);
+        Region rightSpacing = new Region();
+        HBox.setHgrow(rightSpacing, Priority.ALWAYS);
+        centerBox.getChildren().add(rightSpacing);
 
+        this.getChildren().add(centerBox);
 
         // Espacement après centerBox
         Region centerSpacing2 = new Region();
@@ -63,22 +78,27 @@ public class MenuNouvellePartie extends VBox {
 
         // Conteneur pour les boutons retour et creer
         HBox controlBox = new HBox();
+
+        Region controlBoxLeftSpacing = new Region();
+        HBox.setHgrow(controlBoxLeftSpacing, Priority.ALWAYS);
         Button retour = new Button("RETOUR");
+        Region controlBoxMiddleSpacing = new Region();
+        HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
         Button creer = new Button("CREER");
+        Region controlBoxRightSpacing = new Region();
+        HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
+
+
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
         creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         creer.setOnMouseClicked(e -> gestionnaireMenuNewGame.creationpartie());
 
-        controlBox.getChildren().addAll(retour, creer);
+        controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, creer, controlBoxRightSpacing);
         controlBox.setAlignment(Pos.CENTER);
 
-        //Ajout des boutons de contrôle
-
         getChildren().add(controlBox);
-
-
 
         Region bottomSpacing = new Region();
         VBox.setVgrow(bottomSpacing, javafx.scene.layout.Priority.ALWAYS);
