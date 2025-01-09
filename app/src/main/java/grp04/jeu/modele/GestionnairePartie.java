@@ -1,7 +1,6 @@
 package grp04.jeu.modele;
 
 import javafx.application.Platform;
-
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -35,6 +34,7 @@ public class GestionnairePartie extends SujetObserve {
         this.partie = partie;
         this.statistique = statistique;
         this.overlay = overlay;
+
     }
 
     // Fin constructeurs
@@ -111,8 +111,6 @@ public class GestionnairePartie extends SujetObserve {
         overlay.ajouterEtAfficherPopup(popupChangerJoueur);
         NotifierObservateurs();
         time.set(0);
-        NotifierObservateurs();
-        lanceTimer();
     }
 
     /**
