@@ -73,9 +73,6 @@ public class VuePartie extends BorderPane implements Observateur {
         menu.setFont(font);
         menu.setTextAlignment(TextAlignment.CENTER);
         menu.setOnAction(e -> {
-            Statistique statistique = gestionnairePartie.getStatistique();
-            Partie partie = gestionnairePartie.getPartie();
-            gestionnairePartie.switchRole();
             PopupMenuPause popupMenuPause = new PopupMenuPause(this.gestionnairePartie, this.chargeurScene, this.overlay);
             this.overlay.ajouterEtAfficherPopup(popupMenuPause);
 

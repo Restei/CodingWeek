@@ -15,7 +15,7 @@ public class PopupQuitter extends VBox {
     public PopupQuitter(Overlay overlay, ChargeurScene chargeurScene, int sceneAQuitter){
     
         Label label = new Label();
-        label.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
+        label.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
         switch (sceneAQuitter) {
             case 0:
                 label.setText("Voulez-vous vraiment quitter le jeu ?");
@@ -67,7 +67,7 @@ public class PopupQuitter extends VBox {
 
         this.setAlignment(Pos.CENTER);
         this.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
-        this.setMaxSize(Utils.getInstance().getWindowWidth()*0.55, Utils.getInstance().getWindowHeight()*0.2);
+        this.setMaxSize(Utils.getInstance().getWindowWidth()*0.65, Utils.getInstance().getWindowHeight()*0.2);
         this.setStyle("-fx-background-color:rgb(255, 255, 255)");
         this.setPadding(new Insets(Utils.getInstance().getWindowWidth()*0.05));
     }

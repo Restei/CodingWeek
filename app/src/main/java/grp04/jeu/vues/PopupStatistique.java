@@ -15,16 +15,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class PopupStatistique extends VBox  {
+    
     private final GestionnairePartie gestionnairePartie;
-    private final ChargeurScene chargeurScene;
-    private Statistique statistique;
-    private final Overlay overlay;
 
     public PopupStatistique(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay){
         this.gestionnairePartie= gestionnairePartie;
-        this.overlay = overlay;
-        this.chargeurScene = chargeurScene;
-
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setMaxSize(Utils.getInstance().getWindowWidth() * 0.8, Utils.getInstance().getWindowHeight() * 0.8);
         this.setSpacing(40);

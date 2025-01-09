@@ -106,9 +106,9 @@ public class GestionnairePartie extends SujetObserve {
         if (partie.getTimer().getType() == EQUIPE && partie.getJoueurQuiJoue() == ESPION && time.get() <= 0) {
             partie.switchRole();
         }
+        partie.switchRole();
         PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
         overlay.ajouterEtAfficherPopup(popupChangerJoueur);
-        partie.switchRole();
         NotifierObservateurs();
         time.set(0);
         NotifierObservateurs();
