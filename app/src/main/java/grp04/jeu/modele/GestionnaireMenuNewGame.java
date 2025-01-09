@@ -147,7 +147,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         } else {
             indiceTheme = 0;
         }
-        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        }
         NotifierObservateurs();
     }
 
@@ -158,7 +160,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         } else {
             indiceTheme = listeTheme.size()-1;
         }
-        mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        }
         NotifierObservateurs();
     }
 

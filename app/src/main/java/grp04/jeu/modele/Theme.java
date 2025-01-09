@@ -8,9 +8,9 @@ public class Theme implements Serializable {
 
     // Début propriétés
 
-    private List<String> mots = new ArrayList<>();
-    private String name;
-    private int id;
+    private final List<String> mots = new ArrayList<>();
+    private final String name;
+    private final int id;
     private static int lastId = 0;
 
     // Fin propriétés
@@ -32,10 +32,6 @@ public class Theme implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<String> getMots() {

@@ -9,7 +9,7 @@ public class Timer implements Serializable {
 
     // Début propriétés
 
-    private TypeTimer type;
+    private final TypeTimer type;
     private int timerEspion = 0;
     private int timerAgent = 0;
     private int timerEquipeBleu = 0;

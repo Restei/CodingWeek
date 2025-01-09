@@ -13,9 +13,13 @@ public class GestionnaireSauvegarde {
     public static String gameName;
     
         private GestionnaireSauvegarde(){}
-    
-        public static ArrayList<String> initialisation(){
-            ArrayList<String> liste = new ArrayList<String>();
+
+    /**
+     * Permet de récupérer les différents sauvegardes de parties sauvegardées dans le dossier sauvegardes.
+     * @return une liste des noms des sauvegardes
+     */
+    public static ArrayList<String> initialisation(){
+            ArrayList<String> liste = new ArrayList<>();
             File dossierSaves = new File("sauvegardes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
@@ -53,13 +57,20 @@ public class GestionnaireSauvegarde {
     
             for (File fichier : fichiers){
                 if (fichier.getName().equals(name)){
-                    fichier.delete();
+                    if (!fichier.delete()) {
+                        System.out.println("Erreur de suppression du fichier: " + name);
+                    }
                 }
             }
         }
-    
-    
-        public static void sauvegarder(String name, Partie partie, Statistique statistique){
+
+    /**
+     * Permet de sauvegarder une partie
+     * @param name nom de la sauvegarde
+     * @param partie partie à sauvegarder
+     * @param statistique statistique associée à la partie
+     */
+    public static void sauvegarder(String name, Partie partie, Statistique statistique){
             Sauvegarde sauvegarde = new Sauvegarde(partie, statistique);
             File dossierSaves = new File("sauvegardes/");
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
@@ -77,8 +88,14 @@ public class GestionnaireSauvegarde {
                 i.printStackTrace();
             }
         }
-    
-        public static Sauvegarde charger(String name) throws Exception{
+
+    /**
+     * Permet de charger une sauvegarde
+     * @param name nom de la sauvegarde
+     * @return la partie sauvegarder
+     * @throws Exception si la partie n'est pas chargée
+     */
+    public static Sauvegarde charger(String name) throws Exception{
             try {
                 FileInputStream fileIn = new FileInputStream("sauvegardes/"+name);
                 ObjectInputStream in = new ObjectInputStream(fileIn);

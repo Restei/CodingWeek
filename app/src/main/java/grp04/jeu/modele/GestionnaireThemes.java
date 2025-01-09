@@ -11,9 +11,13 @@ import java.util.Scanner;
 public class GestionnaireThemes {
 
     private GestionnaireThemes(){}
-    
+
+    /**
+     * Permet de retoruner la liste des thèmes sauvegarder dans le dossier themes
+     * @return la liste des noms des thèmes
+     */
     public static ArrayList<String> themes(){
-            ArrayList<String> liste = new ArrayList<String>();
+            ArrayList<String> liste = new ArrayList<>();
             File dossierSaves = new File("themes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
@@ -36,7 +40,12 @@ public class GestionnaireThemes {
         
         }
 
-        public static void ajouterMot(String name, String theme){
+    /**
+     * Permet d'ajouter un mot dans un thème
+     * @param name mot à ajouter
+     * @param theme nom du thème
+     */
+    public static void ajouterMot(String name, String theme){
             try {
                 name = name.toUpperCase();
                 BufferedWriter writer = new BufferedWriter(new FileWriter("themes/"+theme, true));
@@ -49,8 +58,13 @@ public class GestionnaireThemes {
             }
         }
 
-        public static ArrayList<String> mots(String theme){
-            ArrayList<String> liste = new ArrayList<String>();
+    /**
+     * Permet de retourner l'ensemble des mots d'un thème
+     * @param theme nom du thème
+     * @return sa liste de mots
+     */
+    public static ArrayList<String> mots(String theme){
+            ArrayList<String> liste = new ArrayList<>();
             File themeFile = new File("themes/"+theme);
     
             if (!themeFile.exists()) {
