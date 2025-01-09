@@ -70,7 +70,7 @@ public class VueMenuSauvegarde extends VBox{
                             Sauvegarde sauvegarde = GestionnaireSauvegarde.charger(valeurARetourner);
                             Partie partie = sauvegarde.dataPartie();
                             Statistique statistique = sauvegarde.dataStatistique();
-                            chargeurScene.lancerPatie(partie, statistique);
+                            chargeurScene.chargerNouvellePartie(partie, statistique);
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
