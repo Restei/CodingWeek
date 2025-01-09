@@ -36,6 +36,7 @@ public class ChargeurScene {
 
     public void chargerNouvellePartie(Partie partie, Statistique statistique){
         GestionnairePartie gestionnairePartie = new GestionnairePartie(partie, statistique);
+        gestionnairePartie.debutPartie();
         Overlay overlay = new Overlay();
         VuePartie vuePartie = new VuePartie(gestionnairePartie,this,overlay);
         overlay.setFond(vuePartie);
