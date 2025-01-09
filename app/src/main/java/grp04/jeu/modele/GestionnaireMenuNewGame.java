@@ -77,7 +77,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     }
 
     public void decrNbCarteNoire() {
-        if (taille > 0) {
+        if (nbCarteNoire > 0) {
             nbCarteNoire--;
         }
         NotifierObservateurs();
