@@ -5,8 +5,6 @@ import javafx.application.Platform;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javafx.scene.control.Alert;
-
 import static grp04.jeu.modele.TypeCarte.*;
 import static grp04.jeu.modele.TypeJoueur.*;
 import static grp04.jeu.modele.TypeTimer.*;
@@ -83,12 +81,7 @@ public class GestionnairePartie extends SujetObserve {
     public void switchRole(){
         partie.switchRole();
         NotifierObservateurs();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Passez à: " + " " + partie.getJoueurQuiJoue() + " " + partie.getEquipeQuiJoue() + " "  );
         time.set(0);
-        alert.showAndWait();
         NotifierObservateurs();
         lanceTimer();
     }
