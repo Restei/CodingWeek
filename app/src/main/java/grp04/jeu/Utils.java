@@ -1,10 +1,15 @@
 package grp04.jeu;
 
+import java.net.URISyntaxException;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 
-public class Utils {
+public class Utils{
 
     private static Utils instance;
+    private int current = 0;
 
     private int windowWidth = 1200;
     private int windowHeight = 720;
@@ -16,6 +21,56 @@ public class Utils {
 
     public int getWindowWidth() {
         return windowWidth;
+    }
+
+    public void playSound(String name){
+        Media media;
+        try {
+            media = new Media(getClass().getResource("/"+name+".mp3").toURI().toString());
+        
+        MediaPlayer player = new MediaPlayer(media);
+        player.play();
+        player.setOnEndOfMedia(new Runnable() {
+
+            @Override
+            public void run() {
+                player.stop();
+            }
+            
+        });
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void playMusic(){
+        try {
+            MediaPlayer player;
+            if (current==0){
+                current=1;
+                Media media = new Media(getClass().getResource("/secret-double-agent-spy-248968.mp3").toURI().toString());
+                player = new MediaPlayer(media);
+                player.play();
+            }
+            else{
+                current=0;
+                Media media = new Media(getClass().getResource("/spy-always-dies-along-93740.mp3").toURI().toString());
+                player = new MediaPlayer(media);
+                player.play();
+            }
+            player.setOnEndOfMedia(new Runnable() {
+
+                @Override
+                public void run() {
+                    player.stop();
+                    playMusic();
+                }
+                
+            });
+        } 
+        catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getWindowHeight() {

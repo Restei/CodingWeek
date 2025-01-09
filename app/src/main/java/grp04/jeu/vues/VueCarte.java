@@ -5,6 +5,7 @@ import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.TypeCarte;
 import javafx.scene.control.Button;
 
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class VueCarte extends Button implements Observateur {
@@ -67,6 +68,11 @@ public class VueCarte extends Button implements Observateur {
         else {
             this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
         }
-        this.setOnMouseClicked(e -> {if (!carte.getRole()) gestionnaire.jouer(ligne,colonne);});
+        this.setOnMouseClicked(e -> {if (!carte.getRole())
+            try {
+                gestionnaire.jouer(ligne,colonne);
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }});
     }
 }

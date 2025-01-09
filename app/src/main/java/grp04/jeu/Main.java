@@ -6,6 +6,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Main mInstance;
+    
+    public static Main getInstance() {
+        return mInstance;
+    }
+    
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -17,6 +23,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setHeight(Utils.getInstance().getWindowHeight());
         primaryStage.setWidth(Utils.getInstance().getWindowWidth());
+        Utils.getInstance().playMusic();
 
         ChargeurScene chargeurScene = new ChargeurScene(primaryStage);
         chargeurScene.chargerMenuPrincipal();

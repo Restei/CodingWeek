@@ -1,9 +1,12 @@
 package grp04.jeu.modele;
 
 import javafx.application.Platform;
+
+import java.net.URISyntaxException;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import grp04.jeu.Utils;
 import grp04.jeu.vues.Overlay;
 import grp04.jeu.vues.PopupChangerJoueur;
 
@@ -45,7 +48,7 @@ public class GestionnairePartie extends SujetObserve {
      * @param i numéro de la ligne de la carte jouée.
      * @param j numéro de la colonne de la carte jouée.
      */
-    public void jouer(int i, int j) {
+    public void jouer(int i, int j) throws URISyntaxException {
         Carte carte = partie.getGrille().getCarte(i, j);
         TypeEquipe equipe = partie.getEquipeQuiJoue();
         carte.reveler();
@@ -56,9 +59,11 @@ public class GestionnairePartie extends SujetObserve {
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
                 statistique.setGagnant(TypeEquipe.ROUGE);
+                Utils.getInstance().playSound("tada-234709");
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
                 statistique.setGagnant(TypeEquipe.BLEU);
+                Utils.getInstance().playSound("tada-234709");
             }
             switchRole();
         }
@@ -68,6 +73,7 @@ public class GestionnairePartie extends SujetObserve {
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
                 statistique.setGagnant(TypeEquipe.ROUGE);
+                Utils.getInstance().playSound("tada-234709");
             }
             if (equipe == TypeEquipe.BLEU){
                 statistique.incrementNbCarteRougeTrouveParBleu();
@@ -80,6 +86,7 @@ public class GestionnairePartie extends SujetObserve {
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
                statistique.setGagnant(TypeEquipe.BLEU);
+               Utils.getInstance().playSound("tada-234709");
            }
            if (equipe == TypeEquipe.ROUGE){
                statistique.incrementNbCarteBleuTrouveParRouge();
