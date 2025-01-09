@@ -113,11 +113,11 @@ public class GestionnairePartie extends SujetObserve {
 
         // Si le jeu à un timer en mode individuelle.
         if (type == INDIVIDUEL) {
-            time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()) / 1000);
+            time.set(partie.getTimer().getTimerJoueur(partie.getJoueurQuiJoue()));
         }
         // Si le jeu à un timer en mode equipe
         else {
-            time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()) / 1000);
+            time.set(partie.getTimer().getTimerEquipe(partie.getEquipeQuiJoue()));
         }
         if (chargerTimer) {
             timer.schedule(taskTimer, 0, 1000);
