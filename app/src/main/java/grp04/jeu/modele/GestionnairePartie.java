@@ -96,7 +96,7 @@ public class GestionnairePartie extends SujetObserve {
     public void lanceTimer() {
         boolean chargerTimer = time.get() <= 0;
         TypeTimer type = partie.getTimer().getType();
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
@@ -206,7 +206,7 @@ public class GestionnairePartie extends SujetObserve {
     public void reprendreChrono() {
         time.set(sauvTime);
         sauvTime = 0;
-        java.util.Timer timer = new java.util.Timer();
+        java.util.Timer timer = new java.util.Timer(true);
         TimerTask taskTimer = new TimerTask() {
             @Override
             public void run() {
