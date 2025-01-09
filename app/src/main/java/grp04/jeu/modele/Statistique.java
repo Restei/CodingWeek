@@ -8,10 +8,10 @@ public class Statistique implements Serializable {
 
     private int nbCarteCivileTrouveParRouge = 0;
     private int nbCarteCivileTrouveParBleu = 0;
-    private int TempsTotalEspionRouge = 0;
-    private int TempsTotalEspionBleu = 0;
-    private int TempsTotalAgentRouge = 0;
-    private int TempsTotalAgentBleu = 0;
+    private int TempsTotalEspionRouge = 0; //TODO
+    private int TempsTotalEspionBleu = 0; //TODO
+    private int TempsTotalAgentRouge = 0; //TODO
+    private int TempsTotalAgentBleu = 0; //TODO
     private int nbCarteBleuRestante;
     private int nbCarteRougeRestante;
     private int nbCarteRougeTrouveParBleu = 0;

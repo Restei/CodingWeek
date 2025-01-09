@@ -48,38 +48,51 @@ public class GestionnairePartie extends SujetObserve {
         NotifierObservateurs();
         // Si les agents de l'équipe trouve une carte noire.
         if (carte.getType() == NOIRE) {
+            statistique.incrementNbCarteAssassinTrouve(equipe);
             if (equipe == TypeEquipe.BLEU) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             } else {
                 partie.setGagnant(TypeEquipe.BLEU);
+                statistique.setGagnant(TypeEquipe.BLEU);
             }
             switchRole();
         }
         else if (carte.getType() == ROUGE){
+            statistique.dencrementNbCarteRestante(TypeEquipe.ROUGE);
             partie.setNbCarteRouge(partie.getNbCarteRouge() - 1);
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
+                statistique.setGagnant(TypeEquipe.ROUGE);
             }
             if (equipe == TypeEquipe.BLEU){
+                statistique.incrementNbCarteRougeTrouveParBleu();
                 switchRole();
             }
         }
         else if (carte.getType() == BLEU){
+           statistique.dencrementNbCarteRestante(TypeEquipe.BLEU);
            partie.setNbCarteBleu(partie.getNbCarteBleu()-1);
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
+               statistique.setGagnant(TypeEquipe.BLEU);
            }
            if (equipe == TypeEquipe.ROUGE){
+               statistique.incrementNbCarteRougeTrouveParBleu();
                switchRole();
            }
         }
         // Si les agents de l'équipe trouve une carte civile.
         else {
+            statistique.incrementNbCarteCivileTrouve(equipe);
             switchRole();
         }
     }
 
     public void switchRole(){
+        if (partie.getJoueurQuiJoue() == AGENT) {
+            statistique.incrementNbTourJoue(partie.getEquipeQuiJoue());
+        }
         partie.switchRole();
         NotifierObservateurs();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
