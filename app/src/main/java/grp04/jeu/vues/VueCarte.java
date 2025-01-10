@@ -68,6 +68,7 @@ public class VueCarte extends Button implements Observateur {
         else {
             this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
         }
+        this.setOnMouseEntered(e -> System.out.println());
         this.setOnMouseClicked(e -> {if (!carte.getRole()) gestionnaire.jouer(ligne,colonne);});
     }
 }

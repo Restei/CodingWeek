@@ -147,12 +147,13 @@ public class VuePartie extends BorderPane implements Observateur {
     }
 
     public void reagir() {
-
         //Recréation de bottom
         HBox bottom = (HBox) getBottom();
-
-        TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
+        TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
+
+
+
         number.textProperty().addListener((observable,oldvalue,newvalue) -> {
             if (!newvalue.matches("\\d*")){
                 number.setText(newvalue.replaceAll("[\\D]", ""));
@@ -172,14 +173,18 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
 
-        if (this.gestionnairePartie.getRole()) {  // si role == agent
+        if (this.gestionnairePartie.getRole() ) {  // si role == agent
+            if (!(bottom.getChildren().get(2) instanceof Label)){
+                this.bottomhint.setText(word.getText() + "   " +  number.getText());
+            }
+            else {
+                number.clear();
+                word.clear();
+            }
             this.playerLabel.setText("Agent");
-            this.bottomhint.setText(word.getText() + "   " +  number.getText());
             bottom.getChildren().set(2,this.bottomhint);
         } else {
             this.playerLabel.setText("Espion");
-
-
             bottom.getChildren().set(2,this.bottomtextfield);
         }
 
