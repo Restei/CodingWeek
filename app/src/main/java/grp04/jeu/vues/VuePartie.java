@@ -179,7 +179,7 @@ public class VuePartie extends BorderPane implements Observateur {
         }
 
         if (this.gestionnairePartie.getPartie().getGagnant()!=null){
-            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene, this.overlay);
+            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene);
             this.overlay.ajouterEtAfficherPopup(popupStatistique);
         }
 
