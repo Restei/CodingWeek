@@ -42,6 +42,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
         indiceTheme = -2;
+        mots = GestionnaireThemes.motsParDefault(100);
     }
 
     // Fin constructeurs
