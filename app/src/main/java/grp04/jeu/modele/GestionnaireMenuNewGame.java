@@ -131,7 +131,6 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     }
 
     public void switchType() {
-        // TODO éventuellement calculer le temps total dynamiquement
         if (typeTimer == TypeTimer.INDIVIDUEL) {
             typeTimer = TypeTimer.EQUIPE;
             timerAgentRouge = 90;

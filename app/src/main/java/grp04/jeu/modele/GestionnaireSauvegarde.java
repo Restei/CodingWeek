@@ -23,7 +23,9 @@ public class GestionnaireSauvegarde {
             File dossierSaves = new File("sauvegardes/");
     
             if (!dossierSaves.exists() || !dossierSaves.isDirectory()) {
-                System.err.println("Le dossier 'sauvegardes/' est introuvable !");
+                if (!dossierSaves.mkdir()) {
+                    System.err.println("Le dossier 'sauvegardes/' est introuvable, et n'a pas pu être créé !");
+                }
                 return liste;
             }
     
