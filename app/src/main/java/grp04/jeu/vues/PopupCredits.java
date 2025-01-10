@@ -36,7 +36,7 @@ public class PopupCredits extends VBox{
         hbox.getChildren().add(vBoxL);
         hbox.getChildren().add(vBoxR);
         hbox.setSpacing(Utils.getInstance().getWindowWidth()*0.075);
-        Label music = new Label("Musiques :\nhttps://pixabay.com/users/alanajordan-25247407/\nhttps://pixabay.com/");
+        Label music = new Label("Musiques :\nhttps://pixabay.com/users/alanajordan-25247407/\nhttps://pixabay.com/users/magiksolo-29264138/\nhttps://pixabay.com/");
         music.setTextAlignment(TextAlignment.CENTER);
         music.setFont(smallfont);
         MenuButton button = new MenuButton("Retour");

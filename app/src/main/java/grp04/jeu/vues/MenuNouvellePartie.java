@@ -91,7 +91,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         // bouton pour revenir au menu
         MenuButton retour = new MenuButton("Retour");
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
+        retour.onActionAndSound(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
         Region controlBoxMiddleSpacing = new Region();
         HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
@@ -99,7 +99,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         // bouton pour créer une nouvelle partie
         this.buttonCreer = new MenuButton("Créer");
         this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        this.buttonCreer.setOnMouseClicked(e -> {
+        this.buttonCreer.onActionAndSound(e -> {
             if (gestionnaireMenuNewGame.creationPartieAvantCompletion()) {
                 overlay.ajouterEtAfficherPopup(new PopupThemeComplete(overlay, gestionnaireMenuNewGame));
             }

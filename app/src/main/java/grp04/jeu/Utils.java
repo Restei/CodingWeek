@@ -86,6 +86,25 @@ public class Utils {
                 e.printStackTrace();
             }
         }
+        else if (currentSong==1){
+            currentSong=2;
+            try {
+                media = new Media(getClass().getResource("/small_crimes-261103.mp3").toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                mediaPlayer.setVolume(0.9);
+                mediaPlayer.setOnEndOfMedia(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        playMusic();
+                    }
+                    
+                });
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
         else{
             currentSong=0;
             try {
