@@ -44,6 +44,7 @@ public class VuePartie extends BorderPane implements Observateur {
         HBox.setHgrow(regionmilieu, Priority.ALWAYS);
 
 
+
         // polices utilisées
         Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
         Font font_small = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
@@ -62,12 +63,27 @@ public class VuePartie extends BorderPane implements Observateur {
 
         top.getChildren().add(temp);
 
+
+
+
+
+
         // Rôle du joueur actuel
 
         this.playerLabel = new Label("Espion");
         this.playerLabel.setTextAlignment(TextAlignment.CENTER);
         this.playerLabel.setFont(font);
-        top.getChildren().add(this.playerLabel);
+
+        //Mot Actuel
+        VueMotSelectionne mot = new VueMotSelectionne(gestionnairePartie);
+        mot.setTextAlignment(TextAlignment.CENTER);
+        mot.setFont(font);
+
+
+        //Information sur le joueur
+        VBox Info = new VBox();
+        Info.getChildren().addAll(this.playerLabel,mot);
+        top.getChildren().add(Info);
 
         Button menu = new Button("Menu");
         menu.setFont(font);
@@ -119,12 +135,18 @@ public class VuePartie extends BorderPane implements Observateur {
 
         bottom.getChildren().addAll(indice,regiongauche,this.bottomtextfield,regionmilieu,end);
 
-        VBox left = new VueCarteRestante(gestionnairePartie,true);
-        VBox right = new VueCarteRestante(gestionnairePartie,false);
+        VBox right = new VueCarteRestante(gestionnairePartie,true);
+        VBox left = new VueCarteRestante(gestionnairePartie,false);
 
         VueGrille center = new VueGrille(gestionnairePartie);
         center.setAlignment(Pos.CENTER);
         bottom.setMinHeight(50);
+
+        HBox.setMargin(indice,new Insets(15,15,15,15));
+        HBox.setMargin(end,new Insets(10,10,10,10));
+        HBox.setMargin(bottomtextfield,new Insets(10,10,10,10));
+        HBox.setMargin(bottomhint,new Insets(10,10,10,10));
+
         this.setTop(top);
         this.setBottom(bottom);
         this.setLeft(left);
@@ -156,14 +178,14 @@ public class VuePartie extends BorderPane implements Observateur {
 
         number.textProperty().addListener((observable,oldvalue,newvalue) -> {
             if (!newvalue.matches("\\d*")){
-                number.setText(newvalue.replaceAll("[\\D]", ""));
+                number.setText(newvalue.replaceAll("\\D", ""));
             }
         }
         );
         word.textProperty().addListener((observable,oldvalue,newvalue) -> {
                     if (!newvalue.matches("[^\\d\\W]*")){
-                        word.setText(newvalue.replaceAll("[^\\w]", ""));
-                        word.setText(newvalue.replaceAll("[\\d]", ""));
+                        word.setText(newvalue.replaceAll("\\W", ""));
+                        word.setText(newvalue.replaceAll("\\d", ""));
                     }
                 }
         );
