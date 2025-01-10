@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireSauvegarde;
+import grp04.jeu.modele.MenuButton;
 import grp04.jeu.modele.Partie;
 import grp04.jeu.modele.Sauvegarde;
 import grp04.jeu.modele.Statistique;
@@ -12,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,15 +41,15 @@ public class VueMenuSauvegarde extends VBox{
 
 
         HBox hBox = new HBox();
-        Button cancel = new Button("Annuler");
+        MenuButton cancel = new MenuButton("Annuler");
         cancel.setPrefSize(Utils.getInstance().getWindowWidth()*0.1, Utils.getInstance().getWindowHeight()*0.1);
         cancel.setFont(font);
-        cancel.setOnAction(event -> chargeurScene.chargerMenuPrincipal());
+        cancel.onActionAndSound(event -> chargeurScene.chargerMenuPrincipal());
 
-        Button delete = new Button("Supprimer");
+        MenuButton delete = new MenuButton("Supprimer");
         delete.setPrefSize(Utils.getInstance().getWindowWidth()*0.15, Utils.getInstance().getWindowHeight()*0.1);
         delete.setFont(font);
-        delete.setOnAction(new EventHandler<ActionEvent>() {
+        delete.onActionAndSound(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) 
                 {
                     if (valeurARetourner != null){
@@ -59,10 +59,10 @@ public class VueMenuSauvegarde extends VBox{
                 }
             });
 
-        Button load = new Button("Charger");
+        MenuButton load = new MenuButton("Charger");
         load.setPrefSize(Utils.getInstance().getWindowWidth()*0.1, Utils.getInstance().getWindowHeight()*0.1);
         load.setFont(font);
-        load.setOnAction(new EventHandler<ActionEvent>() {
+        load.onActionAndSound(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) 
                 {
                     if (valeurARetourner != null){
@@ -92,13 +92,13 @@ public class VueMenuSauvegarde extends VBox{
 
     }
 
-    private Button elementListe(String name, VBox vBox){
+    private MenuButton elementListe(String name, VBox vBox){
         Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
-        Button button = new Button(name);
+        MenuButton button = new MenuButton(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");
         button.setPrefWidth(Utils.getInstance().getWindowWidth()*0.798);
-        button.setOnAction(new EventHandler<ActionEvent>() {
+        button.onActionAndSound(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) 
                 {
                     valeurARetourner = button.getText();

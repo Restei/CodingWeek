@@ -1,7 +1,10 @@
 package grp04.jeu.modele;
 
 import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.net.URISyntaxException;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -60,6 +63,13 @@ public class GestionnairePartie extends SujetObserve {
                 partie.setGagnant(TypeEquipe.BLEU);
                 statistique.setGagnant(TypeEquipe.BLEU);
             }
+            try {
+                Media media = new Media(getClass().getResource("/marcha-funebre-8-bits-260615.mp3").toURI().toString());
+                MediaPlayer player = new MediaPlayer(media);
+                player.play();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
             switchRole();
         }
         else if (carte.getType() == TypeCarte.ROUGE){
@@ -68,6 +78,13 @@ public class GestionnairePartie extends SujetObserve {
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
                 statistique.setGagnant(TypeEquipe.ROUGE);
+                try {
+                    Media media = new Media(getClass().getResource("/tada-234709.mp3").toURI().toString());
+                    MediaPlayer player = new MediaPlayer(media);
+                    player.play();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
             }
             if (equipe == TypeEquipe.BLEU){
                 statistique.incrementNbCarteRougeTrouveParBleu();
@@ -80,6 +97,13 @@ public class GestionnairePartie extends SujetObserve {
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
                statistique.setGagnant(TypeEquipe.BLEU);
+               try {
+                   Media media = new Media(getClass().getResource("/tada-234709.mp3").toURI().toString());
+                   MediaPlayer player = new MediaPlayer(media);
+                   player.play();
+               } catch (URISyntaxException e) {
+                   e.printStackTrace();
+               }
            }
            if (equipe == TypeEquipe.ROUGE){
                statistique.incrementNbCarteBleuTrouveParRouge();

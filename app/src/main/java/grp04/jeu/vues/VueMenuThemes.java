@@ -10,11 +10,11 @@ import java.util.Scanner;
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireThemes;
+import grp04.jeu.modele.MenuButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -34,13 +34,13 @@ public class VueMenuThemes extends VBox{
         Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
         Font smallfont = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
 
-        Button escape = new Button("Retour");
+        MenuButton escape = new MenuButton("Retour");
         HBox top = new HBox();
         Label blank = new Label("     ");
         Label title = new Label("Thèmes");
         title.setFont(font);
         blank.setFont(font);
-        escape.setOnAction(event->chargeurScene.chargerMenuPrincipal());
+        escape.onActionAndSound(event->chargeurScene.chargerMenuPrincipal());
         escape.setFont(smallfont);
         top.setAlignment(Pos.CENTER);
         top.setSpacing(Utils.getInstance().getWindowWidth()*0.25);
@@ -76,9 +76,9 @@ public class VueMenuThemes extends VBox{
 
         HBox wordEdit = new HBox();
 
-        Button addWord = new Button("Ajouter mot");
+        MenuButton addWord = new MenuButton("Ajouter mot");
         addWord.setFont(smallfont);
-        addWord.setOnAction(new EventHandler<ActionEvent>(){
+        addWord.onActionAndSound(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent e){
                 if (!wordField.getText().trim().isEmpty() && comboBox.getValue()!=null){
                     if (!wordList.contains(wordField.getText().toUpperCase())){
@@ -100,9 +100,9 @@ public class VueMenuThemes extends VBox{
         HBox bottom = new HBox();
 
 
-        Button deleteWord = new Button("Supprimer mot");
+        MenuButton deleteWord = new MenuButton("Supprimer mot");
         deleteWord.setFont(smallfont);
-        deleteWord.setOnAction(new EventHandler<ActionEvent>(){
+        deleteWord.onActionAndSound(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
                 if (valeurSelectionnee!=null){
                     try {
@@ -125,9 +125,9 @@ public class VueMenuThemes extends VBox{
         });
 
 
-        Button addTheme = new Button("Ajouter thème");
+        MenuButton addTheme = new MenuButton("Ajouter thème");
         addTheme.setFont(smallfont);
-        addTheme.setOnAction(new EventHandler<ActionEvent>(){
+        addTheme.onActionAndSound(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
                 if (!wordField.getText().trim().isEmpty() && !themeliste.contains(wordField.getText())){
                     try{
@@ -146,9 +146,9 @@ public class VueMenuThemes extends VBox{
             }
         });
 
-        Button deleteTheme = new Button("Supprimer thème");
+        MenuButton deleteTheme = new MenuButton("Supprimer thème");
         deleteTheme.setFont(smallfont);
-        deleteTheme.setOnAction(new EventHandler<ActionEvent>(){
+        deleteTheme.onActionAndSound(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event){
                 if (comboBox.getValue()!=null){
                     File file = new File("themes/"+comboBox.getValue());
@@ -205,14 +205,14 @@ public class VueMenuThemes extends VBox{
     }
     
 
-    private Button elementListe(String name, VBox vBox, TextField wordField){
+    private MenuButton elementListe(String name, VBox vBox, TextField wordField){
         Font font = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
-        Button button = new Button(name);
+        MenuButton button = new MenuButton(name);
         button.setFont(font);
         button.setStyle("-fx-background-radius: 0;-fx-border-width: 0;-fx-background-color: transparent;");
         button.setMaxWidth(Utils.getInstance().getWindowWidth()*0.798);
         button.setMinWidth(Utils.getInstance().getWindowWidth()*0.797);
-        button.setOnAction(new EventHandler<ActionEvent>() {
+        button.onActionAndSound(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e)
                 {
                     valeurSelectionnee=button.getText();

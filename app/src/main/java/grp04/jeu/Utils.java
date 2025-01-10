@@ -1,5 +1,9 @@
 package grp04.jeu;
 
+import java.net.URISyntaxException;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 
 public class Utils {
@@ -11,6 +15,9 @@ public class Utils {
     private Font title = Font.font("Courier New", 50);
     private Font header = Font.font("Courier New", 30);
     private Font smallfont = Font.font("Courier New", 20);
+    private int currentSong = 0;
+    private Media media;
+    private MediaPlayer mediaPlayer;
 
     private String mainMenuButtonColor = "-fx-background-color:rgb(109, 236, 126)";
 
@@ -57,5 +64,46 @@ public class Utils {
 
     public String getMainMenuButtonColor() {
         return mainMenuButtonColor;
+    }
+
+    public void playMusic(){
+        if (currentSong==0){
+            currentSong=1;
+            try {
+                media = new Media(getClass().getResource("/secret-double-agent-spy-248968.mp3").toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                mediaPlayer.setVolume(0.9);
+                mediaPlayer.setOnEndOfMedia(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        playMusic();
+                    }
+                    
+                });
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            currentSong=0;
+            try {
+                media = new Media(getClass().getResource("/spy-always-dies-along-93740.mp3").toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                mediaPlayer.setVolume(1);
+                mediaPlayer.setOnEndOfMedia(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        playMusic();
+                    }
+                    
+                });
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

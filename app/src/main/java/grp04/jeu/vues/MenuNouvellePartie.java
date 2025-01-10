@@ -3,7 +3,6 @@ package grp04.jeu.vues;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -83,19 +82,19 @@ public class MenuNouvellePartie extends VBox {
 
         Region controlBoxLeftSpacing = new Region();
         HBox.setHgrow(controlBoxLeftSpacing, Priority.ALWAYS);
-        Button retour = new Button("RETOUR");
+        MenuButton retour = new MenuButton("RETOUR");
         Region controlBoxMiddleSpacing = new Region();
         HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
-        Button creer = new Button("CREER");
+        MenuButton creer = new MenuButton("CREER");
         Region controlBoxRightSpacing = new Region();
         HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
 
 
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
+        retour.onActionAndSound(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
         creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        creer.setOnMouseClicked(e-> gestionnaireMenuNewGame.creationpartie());
+        creer.onActionAndSound(e-> gestionnaireMenuNewGame.creationpartie());
         creer.setDefaultButton(true);
 
         controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, creer, controlBoxRightSpacing);

@@ -17,6 +17,16 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setHeight(Utils.getInstance().getWindowHeight());
         primaryStage.setWidth(Utils.getInstance().getWindowWidth());
+        Thread thread = new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                Utils.getInstance().playMusic();
+            }
+            
+        });
+        thread.setDaemon(true);
+        thread.start();
 
         ChargeurScene chargeurScene = new ChargeurScene(primaryStage);
         chargeurScene.chargerMenuPrincipal();

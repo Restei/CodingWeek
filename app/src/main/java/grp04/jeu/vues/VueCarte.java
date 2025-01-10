@@ -4,7 +4,10 @@ import grp04.jeu.modele.Carte;
 import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.TypeCarte;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class VueCarte extends Button implements Observateur {
@@ -67,6 +70,14 @@ public class VueCarte extends Button implements Observateur {
         else {
             this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
         }
-        this.setOnMouseClicked(e -> {if (!carte.getRole()) gestionnaire.jouer(ligne,colonne);});
+        this.setOnMouseClicked(e -> {if (!carte.getRole()) gestionnaire.jouer(ligne,colonne);
+            try {
+                Media media = new Media(getClass().getResource("/card-sounds-35956.mp3").toURI().toString());
+                MediaPlayer player = new MediaPlayer(media);
+                player.play();
+            } catch (URISyntaxException exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 }

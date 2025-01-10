@@ -2,10 +2,10 @@ package grp04.jeu.vues;
 
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
+import grp04.jeu.modele.MenuButton;
 import grp04.jeu.modele.Partie;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -26,10 +26,10 @@ public class PopupChangerJoueur extends VBox{
         body.setFont(smallfont);
 
 
-        Button reprendre = new Button("Reprendre");
+        MenuButton reprendre = new MenuButton("Reprendre");
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
         reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        reprendre.setOnAction(event -> {
+        reprendre.onActionAndSound(event -> {
             gestionnairePartie.lancerTimerIfEquipeEtEspion();
             overlay.fermerDernierPopup();
         });

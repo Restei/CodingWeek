@@ -5,7 +5,6 @@ import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -69,10 +68,10 @@ public class VuePartie extends BorderPane implements Observateur {
         this.playerLabel.setFont(font);
         top.getChildren().add(this.playerLabel);
 
-        Button menu = new Button("Menu");
+        MenuButton menu = new MenuButton("Menu");
         menu.setFont(font);
         menu.setTextAlignment(TextAlignment.CENTER);
-        menu.setOnAction(e -> {
+        menu.onActionAndSound(e -> {
             PopupMenuPause popupMenuPause = new PopupMenuPause(this.gestionnairePartie, this.chargeurScene, this.overlay);
             this.overlay.ajouterEtAfficherPopup(popupMenuPause);
 
@@ -88,8 +87,8 @@ public class VuePartie extends BorderPane implements Observateur {
         bottom.setStyle("-fx-background-color: rgb(230,230,230)"); //blanc-gris
 
         //Creation du bouton de fin de tour
-        Button end = new Button("Fin du tour");
-        end.setOnMouseClicked(e -> this.gestionnairePartie.switchRole());
+        MenuButton end = new MenuButton("Fin du tour");
+        end.onActionAndSound(e -> this.gestionnairePartie.switchRole());
         end.setFont(font_small);
         end.setTextAlignment(TextAlignment.CENTER);
 

@@ -2,10 +2,10 @@ package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
+import grp04.jeu.modele.MenuButton;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,18 +31,18 @@ public class PopupQuitter extends VBox {
 
         HBox hbox = new HBox();
         
-        Button no = new Button("Non");
+        MenuButton no = new MenuButton("Non");
         no.setStyle(Utils.getInstance().getMainMenuButtonColor());
         no.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        no.setOnAction(event -> {
+        no.onActionAndSound(event -> {
             overlay.fermerDernierPopup();
         });
         no.setDefaultButton(true);
         
-        Button yes = new Button("Oui");
+        MenuButton yes = new MenuButton("Oui");
         yes.setStyle(Utils.getInstance().getMainMenuButtonColor());
         yes.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        yes.setOnAction(event -> {
+        yes.onActionAndSound(event -> {
             switch (sceneAQuitter) {
                 case 0:
                     Platform.exit();

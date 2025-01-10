@@ -3,8 +3,8 @@ package grp04.jeu.vues;
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
+import grp04.jeu.modele.MenuButton;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -30,10 +30,10 @@ public class PopupMenuPause extends VBox {
 
         Label space = new Label(" ");  // ugly
 
-        Button reprendre = new Button("Reprendre");
+        MenuButton reprendre = new MenuButton("Reprendre");
         reprendre.setStyle(Utils.getInstance().getMainMenuButtonColor());
         reprendre.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        reprendre.setOnAction(event -> {
+        reprendre.onActionAndSound(event -> {
             this.overlay.fermerDernierPopup();
             this.gestionnairePartie.reprendreChrono();
         });
@@ -43,10 +43,10 @@ public class PopupMenuPause extends VBox {
         nomSauvegarde.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         nomSauvegarde.setMaxWidth(Utils.getInstance().getWindowWidth() * 0.5);
 
-        Button sauvegarder = new Button("Sauvegarder");
+        MenuButton sauvegarder = new MenuButton("Sauvegarder");
         sauvegarder.setStyle(Utils.getInstance().getMainMenuButtonColor());
         sauvegarder.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        sauvegarder.setOnAction(event -> {
+        sauvegarder.onActionAndSound(event -> {
             if (!nomSauvegarde.getText().isEmpty()) {
                 gestionnairePartie.sauvegarderPartie(nomSauvegarde.getText());
                 PopupSauvegarde popupSauvegarde = new PopupSauvegarde(overlay);
@@ -55,10 +55,10 @@ public class PopupMenuPause extends VBox {
         });
         sauvegarder.setDefaultButton(true);
 
-        Button quitter = new Button("Menu Principal");
+        MenuButton quitter = new MenuButton("Menu Principal");
         quitter.setStyle(Utils.getInstance().getMainMenuButtonColor());
         quitter.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        quitter.setOnAction(event -> {
+        quitter.onActionAndSound(event -> {
             PopupQuitter popupQuitter = new PopupQuitter(overlay, chargeurScene, 1);
             overlay.ajouterEtAfficherPopup(popupQuitter);
         });

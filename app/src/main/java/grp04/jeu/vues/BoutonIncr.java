@@ -64,7 +64,7 @@ public class BoutonIncr extends HBox implements Observateur {
         // gestion des évènements
 
         // incrémentation
-        next.setOnMouseClicked(e -> {
+        next.setOnAction(e -> {
             switch (type) {
                 case TAILLE:
                     gestionnaireMenuNewGame.incrTaille();
@@ -91,7 +91,7 @@ public class BoutonIncr extends HBox implements Observateur {
         });
 
         // décrémentation
-        prev.setOnMouseClicked(e -> {
+        prev.setOnAction(e -> {
             switch (type) {
                 case TAILLE:
                     gestionnaireMenuNewGame.decrTaille();

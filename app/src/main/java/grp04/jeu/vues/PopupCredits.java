@@ -2,13 +2,14 @@ package grp04.jeu.vues;
 
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
+import grp04.jeu.modele.MenuButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class PopupCredits extends VBox{
 
@@ -35,8 +36,11 @@ public class PopupCredits extends VBox{
         hbox.getChildren().add(vBoxL);
         hbox.getChildren().add(vBoxR);
         hbox.setSpacing(Utils.getInstance().getWindowWidth()*0.075);
-        Button button = new Button("Retour");
-        button.setOnAction(event->chargeurScene.chargerMenuPrincipal());
+        Label music = new Label("Musiques :\nhttps://pixabay.com/users/alanajordan-25247407/\nhttps://pixabay.com/");
+        music.setTextAlignment(TextAlignment.CENTER);
+        music.setFont(smallfont);
+        MenuButton button = new MenuButton("Retour");
+        button.onActionAndSound(event->chargeurScene.chargerMenuPrincipal());
         button.setFont(smallfont);
 
 
@@ -45,9 +49,10 @@ public class PopupCredits extends VBox{
         this.getChildren().add(title);
         this.getChildren().add(title2);
         this.getChildren().add(hbox);
+        this.getChildren().add(music);
         this.getChildren().add(button);
         this.setMaxWidth(Utils.getInstance().getWindowWidth()*0.6);
-        this.setMaxHeight(Utils.getInstance().getWindowHeight()*0.7);
+        this.setMaxHeight(Utils.getInstance().getWindowHeight()*0.8);
         this.setStyle("-fx-background-color:rgb(255, 255, 255)");
         this.setPadding(new Insets(Utils.getInstance().getWindowWidth()*0.05));
         this.setSpacing(Utils.getInstance().getWindowWidth()*0.05);

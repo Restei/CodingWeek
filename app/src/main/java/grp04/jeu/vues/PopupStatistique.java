@@ -3,11 +3,11 @@ package grp04.jeu.vues;
 import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
+import grp04.jeu.modele.MenuButton;
 import grp04.jeu.modele.Statistique;
 import grp04.jeu.modele.TypeEquipe;
 import grp04.jeu.modele.TypeJoueur;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -109,9 +109,9 @@ public class PopupStatistique extends VBox  {
 
         //Initialisation Retour
 
-        Button Retour = new Button("RETOUR");
+        MenuButton Retour = new MenuButton("RETOUR");
         Retour.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
-        Retour.setOnMouseClicked(e-> { chargeurScene.chargerMenuPrincipal();
+        Retour.onActionAndSound(e-> { chargeurScene.chargerMenuPrincipal();
         });
         //Initialisation PopUp
 
