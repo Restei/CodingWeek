@@ -5,7 +5,6 @@ import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.TypeCarte;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -36,7 +35,7 @@ public class VueCarte extends StackPane implements Observateur {
 
         this.label.setStyle("-fx-padding: 3px;"); // Ajoute un padding pour espacer le texte des bords
         this.getChildren().add(label);
-        this.setAlignment(label, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
 
         label.setText(carte.getMot());
 
