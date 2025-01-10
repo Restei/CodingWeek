@@ -215,7 +215,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
      * @param listeTheme liste des thèmes sauvegardés
      */
     public void actialiserMots(List<String> listeTheme) {
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme >= 0) {
+        if (indiceTheme < listeTheme.size() && indiceTheme >= 0) {
             mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
         } else if (indiceTheme == -1) {
             mots = GestionnaireThemes.aleatoire();
