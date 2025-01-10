@@ -10,7 +10,7 @@ Permet de naviguer entre les différents menus :
 ## Menu de création d'une partie
 
 Permet créer une partie selon différents critères :
-- Taille de la grille : entre 
+- Taille de la grille : entre 2*2 et 10*10
 - Nombre de cartes (correspond au nombre de cartes de l'équipe bleu) : doit être inférieur à la taille de la grille plus le nombre de cartes assassin
 - Nombre de cartes assassin : doit être inférieur à la taille de la grille plus le nombre de cartes
 - Type de timer
