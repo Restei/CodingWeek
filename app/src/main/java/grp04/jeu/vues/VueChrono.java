@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -17,6 +18,7 @@ public class VueChrono extends HBox implements Observateur {
         this.gestionnairePartie = gestionnairePartie;
         this.gestionnairePartie.ajouterObservateur(this);
         this.labelTemps = new Label();
+        labelTemps.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
         Image chronoImage = new Image("chrono.png");
         new ImageView(chronoImage);

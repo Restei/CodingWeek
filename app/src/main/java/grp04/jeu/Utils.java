@@ -15,7 +15,7 @@ public class Utils {
     private Font title = Font.font("Arial", 50);
     private Font header = Font.font("Arial", 30);
     private Font smallfont = Font.font("Arial", 20);
-    private Font minifont = Font.font("Arial",10);
+    private Font minifont = Font.font("Arial",15);
     private int currentSong = 0;
     private Media media;
     private  static MediaPlayer mediaPlayer;

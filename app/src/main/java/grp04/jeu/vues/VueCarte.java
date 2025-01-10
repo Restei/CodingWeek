@@ -83,9 +83,9 @@ public class VueCarte extends StackPane implements Observateur {
 
             } else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)) {
                 cardStyleString += "-fx-background-color: black;";
-                labelStyleString += "-fx-background-color: gray15; -fx-text-fill: white; -fx-border-color: white; ";
+                labelStyleString += "-fx-background-color: gray; -fx-text-fill: white; -fx-border-color: white; ";
 
-            } else {
+            } else {  // BLANC
                 cardStyleString += "-fx-background-color: mintcream;";
                 labelStyleString += "-fx-background-color: white; -fx-border-color: black; ";
             }
