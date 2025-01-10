@@ -15,6 +15,7 @@ public class Utils {
     private Font title = Font.font("Courier New", 50);
     private Font header = Font.font("Courier New", 30);
     private Font smallfont = Font.font("Courier New", 20);
+    private Font minifont = Font.font("Courier New",10);
     private int currentSong = 0;
     private Media media;
     private  static MediaPlayer mediaPlayer;
@@ -43,7 +44,8 @@ public class Utils {
     public enum FontType {
         TITLE, // 3
         HEADER,  // 1
-        SMALL_FONT  // 2
+        SMALL_FONT,  // 2
+        MINI_FONT //4
     }
 
     /** Renvoie une police
@@ -54,6 +56,7 @@ public class Utils {
             case FontType.HEADER -> this.header;
             case SMALL_FONT -> this.smallfont;
             case TITLE -> this.title;
+            case MINI_FONT -> this.minifont;
             default -> {
                 System.err.println("[Utils.getfont()] attention : police chargée par défaut");
                 yield this.smallfont;

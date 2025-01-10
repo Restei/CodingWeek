@@ -6,6 +6,7 @@ import grp04.jeu.modele.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -64,13 +65,13 @@ public class VuePartie extends BorderPane implements Observateur {
         this.playerLabel = new Label("Espion");
         this.playerLabel.setTextAlignment(TextAlignment.CENTER);
         this.playerLabel.setFont(font);
-
         //Mot Actuel
         VueMotSelectionne mot = new VueMotSelectionne(gestionnairePartie);
+
+        mot.setPrefWidth(Region.USE_COMPUTED_SIZE);
+
         mot.setTextAlignment(TextAlignment.CENTER);
-        mot.setFont(font);
-
-
+        mot.setFont(Utils.getInstance().getFont(Utils.FontType.MINI_FONT));
         //Information sur le joueur
         VBox Info = new VBox();
         Info.getChildren().addAll(this.playerLabel,mot);
