@@ -13,10 +13,8 @@ import javafx.scene.layout.VBox;
 public class MenuNouvellePartie extends VBox implements Observateur {
 
     private final GestionnaireMenuNewGame gestionnaireMenuNewGame;
-    private final Button buttonCreer;
-    private Overlay overlay;
-
-
+    private final MenuButton buttonCreer;
+    
     public MenuNouvellePartie(ChargeurScene chargeurScene, GestionnaireMenuNewGame gestionnaireMenuNewGame, Overlay overlay) {
 
         this.gestionnaireMenuNewGame = gestionnaireMenuNewGame;
@@ -91,7 +89,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         HBox.setHgrow(controlBoxLeftSpacing, Priority.ALWAYS);
 
         // bouton pour revenir au menu
-        Button retour = new Button("Retour");
+        MenuButton retour = new MenuButton("Retour");
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
@@ -99,7 +97,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
 
         // bouton pour créer une nouvelle partie
-        this.buttonCreer = new Button("Créer");
+        this.buttonCreer = new MenuButton("Créer");
         this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         this.buttonCreer.setOnMouseClicked(e -> {
             if (gestionnaireMenuNewGame.creationPartieAvantCompletion()) {
