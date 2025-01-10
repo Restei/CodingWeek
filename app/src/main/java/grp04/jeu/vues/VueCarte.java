@@ -14,6 +14,7 @@ public class VueCarte extends Button implements Observateur {
     private GestionnairePartie gestionnaire;
     public void reagir(){
         Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
+        this.setStyle("");
         if (carte.getRevele() || carte.getRole()){
             if (carte.getRevele()){
                 this.setText("");
