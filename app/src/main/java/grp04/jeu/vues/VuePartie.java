@@ -175,7 +175,7 @@ public class VuePartie extends BorderPane implements Observateur {
 
         TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
-        TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
+
 
 
 
