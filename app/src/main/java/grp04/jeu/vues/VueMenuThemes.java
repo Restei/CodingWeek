@@ -51,7 +51,7 @@ public class VueMenuThemes extends VBox{
 
 
         TextField wordField = new TextField();
-        wordField.setPromptText("Ecrire ou choisir un mot");
+        wordField.setPromptText("Ajouter un mot ou un thème :");
         wordField.setFont(smallfont);
         wordField.setPrefWidth(Utils.getInstance().getWindowWidth()*0.6);
 
