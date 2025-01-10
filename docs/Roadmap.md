@@ -64,3 +64,35 @@
 - Compléter les thèmes customisé, qui n'ont pas suffisamment de mots, par des mots du thème par défault : Joseph
 - Changements esthétiques : Clément
 - Correction d'un bug d'affichage lors de la partie : Russel
+
+## Annexe
+
+### Tableau lundi 6
+
+![Illustration Tableau](../figures/figure1.jpg)
+
+![Illustration Tableau](../figures/figure2.jpg)
+
+![Illustration Tableau](../figures/figure3.jpg)
+
+### Tableau jeudi 9
+
+![Illustration Tableau](../figures/figure4.jpg)
+
+![Illustration Tableau](../figures/figure5.jpg)
+
+![Illustration Tableau](../figures/figure6.jpg)
+
+![Illustration Tableau](../figures/figure7.jpg)
+
+### Tableau vendredi 10
+
+![Illustration Tableau](../figures/figure8.jpg)
+
+![Illustration Tableau](../figures/figure9.jpg)
+
+![Illustration Tableau](../figures/figure10.jpg)
+
+![Illustration Tableau](../figures/figure11.jpg)
+
+![Illustration Tableau](../figures/figure12.jpg)
