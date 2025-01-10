@@ -36,7 +36,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         this.typeTimer = TypeTimer.INDIVIDUEL;
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
-        indiceTheme = 0;
+        indiceTheme = -2;
     }
 
     // Fin constructeurs
@@ -154,7 +154,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         if (indiceTheme < listeTheme.size()-1) {
             indiceTheme++;
         } else {
-            indiceTheme = -1;
+            indiceTheme = -2;
         }
         actialiserMots(listeTheme);
         NotifierObservateurs();
@@ -162,7 +162,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public void themePrecedent() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (indiceTheme >= 0) {
+        if (indiceTheme >= -1) {
             indiceTheme--;
         } else {
             indiceTheme = listeTheme.size()-1;
@@ -173,11 +173,11 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public String getTheme() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (listeTheme.isEmpty()) {
-            return "Theme de démo";
-        }
         if (indiceTheme == -1) {
             return "Random";
+        }
+        if (indiceTheme == -2) {
+            return "Thème par défault";
         }
         return listeTheme.get(indiceTheme);
     }
@@ -206,8 +206,10 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void actialiserMots(List<String> listeTheme) {
         if (indiceTheme < listeTheme.size()-1 && indiceTheme >= 0) {
             mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        } else {
+        } else if (indiceTheme == -1) {
             mots = GestionnaireThemes.aleatoire();
+        } else if (indiceTheme == -2) {
+            mots = GestionnaireThemes.motsParDefault(100);
         }
     }
 
