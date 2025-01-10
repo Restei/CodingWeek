@@ -3,84 +3,101 @@ package grp04.jeu.vues;
 import grp04.jeu.modele.Carte;
 import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.TypeCarte;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-public class VueCarte extends Button implements Observateur {
+public class VueCarte extends StackPane implements Observateur {
 
     private final int ligne;
     private final int colonne;
     private final GestionnairePartie gestionnaire;
-    public void reagir(){
-        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
-        this.setStyle("");
-        if (carte.getRevele() || carte.getRole()){
-            if (carte.getRevele()){
-                this.setText("");
-            }
-            if (Objects.equals(carte.getType(), TypeCarte.ROUGE)){
-                this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
-            }
-            else if (Objects.equals(carte.getType(), TypeCarte.BLEU)){
-                this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
+    private final Label label;
 
-            }
-            else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)){
-                this.setStyle("-fx-background-color: black;-fx-text-fill: white");
+    public VueCarte(GestionnairePartie gestionnaire, int ligne, int colonne) {
 
-            }
-            else {
-                this.setStyle("-fx-background-color: white; -fx-text-fill: black");
-            }
-        }
-        else{
-            this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
-        }
-    }
-    public VueCarte(GestionnairePartie gestionnaire,int ligne,int colonne){
-        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
+        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne, colonne);
         this.gestionnaire = gestionnaire;
         this.ligne = ligne;
         this.colonne = colonne;
         gestionnaire.ajouterObservateur(this);
-        this.setPrefSize(100,100);
-        this.setText(carte.getMot());
-        if ( carte.getRevele() || carte.getRole()) {
-            //Vérifie la couleur de la carte et colorie
-            if (Objects.equals(carte.getType(), TypeCarte.ROUGE)){
-                this.setStyle("-fx-background-color: red;-fx-text-fill: white");
 
-            }
-            else if (Objects.equals(carte.getType(), TypeCarte.BLEU)){
-                this.setStyle("-fx-background-color: blue; -fx-text-fill: white");
+        this.setPrefSize(150, 100);
 
-            }
-            else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)){
-                this.setStyle("-fx-background-color: black;-fx-text-fill: white");
+        this.label = new Label();
 
+
+        this.label.setStyle("-fx-padding: 3px;"); // Ajoute un padding pour espacer le texte des bords
+        this.getChildren().add(label);
+        this.setAlignment(label, Pos.BOTTOM_CENTER);
+
+        label.setText(carte.getMot());
+
+
+        this.setOnMouseClicked(e -> {
+            if (!carte.getRole()) {
+                gestionnaire.jouer(ligne, colonne);
+                try {
+                    Media media = new Media(getClass().getResource("/card-sounds-35956.mp3").toURI().toString());
+                    MediaPlayer player = new MediaPlayer(media);
+                    player.play();
+                } catch (URISyntaxException exception) {
+                    exception.printStackTrace();
+                }
             }
-            else {
-                this.setStyle("-fx-background-color: white ;-fx-text-fill: black");
-            }
-        }
-        else {
-            this.setStyle("-fx-background-color: grey ; -fx-text-fill: black");
-        }
-        this.setOnMouseClicked(e -> {if (!carte.getRole()) {gestionnaire.jouer(ligne,colonne);
-            try {
-                Media media = new Media(getClass().getResource("/card-sounds-35956.mp3").toURI().toString());
-                MediaPlayer player = new MediaPlayer(media);
-                player.play();
-            } catch (URISyntaxException exception) {
-                exception.printStackTrace();
-            }}
         });
-        this.setOnMouseEntered(e -> gestionnaire.ModifierCarteActuelle(this.getText()));
+        this.setOnMouseEntered(e -> gestionnaire.ModifierCarteActuelle(this.label.getText()));
         this.setOnMouseExited(e -> gestionnaire.ModifierCarteActuelle(""));
     }
+
+    public void reagir() {
+        Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne, colonne);
+        String cardStyleString = "-fx-border-color: oldlace; " +
+                "-fx-border-width: 5px; " +
+                "-fx-border-radius: 15px; " +
+                "-fx-background-radius: 20px;";
+
+        String labelStyleString = "-fx-border-width: 2px; " +
+                "-fx-border-radius: 10px; " +
+                "-fx-background-radius: 15px; " +
+                "-fx-padding: 5px;"; // Ajoute un padding interne au label
+
+        if (carte.getRevele() || carte.getRole()) {
+
+            if (carte.getRevele()) {
+                this.label.setVisible(false);
+            }
+            if (Objects.equals(carte.getType(), TypeCarte.ROUGE)) {
+                cardStyleString += "-fx-background-color: red;";
+                labelStyleString += "-fx-background-color: lightpink; -fx-border-color: black; ";
+
+            } else if (Objects.equals(carte.getType(), TypeCarte.BLEU)) {
+                cardStyleString += "-fx-background-color: blue;";
+                labelStyleString += "-fx-background-color: lightskyblue; -fx-border-color: black; ";
+
+            } else if (Objects.equals(carte.getType(), TypeCarte.NOIRE)) {
+                cardStyleString += "-fx-background-color: black;";
+                labelStyleString += "-fx-background-color: gray15; -fx-text-fill: white; -fx-border-color: white; ";
+
+            } else {
+                cardStyleString += "-fx-background-color: mintcream;";
+                labelStyleString += "-fx-background-color: white; -fx-border-color: black; ";
+            }
+        } else {
+            cardStyleString += "-fx-background-color: grey;";
+            labelStyleString += "-fx-background-color: lightgray; -fx-border-color: black; ";
+        }
+
+        this.setStyle(cardStyleString);
+        this.label.setStyle(labelStyleString);
+
+    }
+
 }
