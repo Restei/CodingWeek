@@ -122,7 +122,7 @@ public class PopupStatistique extends VBox {
 
         //Initialisation Retour
 
-        MenuButton Retour = new MenuButton("RETOUR");
+        MenuButton Retour = new MenuButton("Retour au menu");
         Retour.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
         Retour.onActionAndSound(e-> { chargeurScene.chargerMenuPrincipal();
         });
