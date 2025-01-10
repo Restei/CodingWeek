@@ -160,6 +160,8 @@ public class BoutonIncr extends HBox implements Observateur {
                 break;
         }
 
+
+
     }
 
     /**

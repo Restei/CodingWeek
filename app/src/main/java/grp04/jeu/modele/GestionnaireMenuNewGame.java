@@ -44,8 +44,14 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     // Début méthodes
 
-    public void creationpartie() {
+    public void creationPartieAvantCompletion() {
         completeMots();
+        if (!estComplete()) {
+            creationPartie();
+        }
+    }
+
+    public void creationPartie() {
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
         chargeurScene.chargerNouvellePartie(partie, statistique);
@@ -219,6 +225,10 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         return motsEstComplete;
     }
 
+    public void setMotsEstComplete(boolean motsEstComplete) {
+        this.motsEstComplete = motsEstComplete;
+    }
+
     public void completeMots() {
         if (mots.size() < taille * taille) {
             motsEstComplete = true;
@@ -226,6 +236,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
             List<String> motsParDefault = GestionnaireThemes.motsParDefault(nbMotsACompletes, mots);
             mots.addAll(motsParDefault);
         }
+        NotifierObservateurs();
     }
 
     // Fin méthodes

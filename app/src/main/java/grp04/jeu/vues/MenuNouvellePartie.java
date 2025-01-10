@@ -90,12 +90,11 @@ public class MenuNouvellePartie extends VBox {
         Region controlBoxRightSpacing = new Region();
         HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
 
-
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
         creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        creer.setOnMouseClicked(e-> gestionnaireMenuNewGame.creationpartie());
+        creer.setOnMouseClicked(e-> gestionnaireMenuNewGame.creationPartieAvantCompletion());
         creer.setDefaultButton(true);
 
         controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, creer, controlBoxRightSpacing);
