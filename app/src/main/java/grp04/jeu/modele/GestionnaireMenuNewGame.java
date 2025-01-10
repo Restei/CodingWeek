@@ -23,7 +23,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     private int timerEspionBleu;
     private int timerAgentRouge;
     private int indiceTheme;
-    private List<String> mots = new ArrayList<>();
+    private List<String> mots = new ArrayList<>(); //GestionnaireThemes.motsParDefault(100);
 
     private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
     private final int tailleMaxGrille = 10; // taille maximum du côté du plateau
@@ -215,11 +215,13 @@ public class GestionnaireMenuNewGame extends SujetObserve {
      * @param listeTheme liste des thèmes sauvegardés
      */
     public void actialiserMots(List<String> listeTheme) {
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme >= 0) {
+        if (indiceTheme < listeTheme.size() && indiceTheme >= 0) {
             mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        } else if (indiceTheme == -1) {
+        }
+        if (indiceTheme == -1) {
             mots = GestionnaireThemes.aleatoire();
-        } else if (indiceTheme == -2) {
+        }
+        if (indiceTheme == -2) {
             mots = GestionnaireThemes.motsParDefault(100);
         }
     }
