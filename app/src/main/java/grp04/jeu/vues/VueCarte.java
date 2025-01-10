@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class VueCarte extends Button implements Observateur {
 
-    private int ligne;
-    private int colonne;
-    private GestionnairePartie gestionnaire;
+    private final int ligne;
+    private final int colonne;
+    private final GestionnairePartie gestionnaire;
     public void reagir(){
         Carte carte = gestionnaire.getPartie().getGrille().getCarte(ligne,colonne);
         this.setStyle("");
