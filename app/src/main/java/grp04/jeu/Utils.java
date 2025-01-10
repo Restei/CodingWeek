@@ -17,7 +17,7 @@ public class Utils {
     private Font smallfont = Font.font("Courier New", 20);
     private int currentSong = 0;
     private Media media;
-    private MediaPlayer mediaPlayer;
+    private  static MediaPlayer mediaPlayer;
 
     private String mainMenuButtonColor = "-fx-background-color:rgb(109, 236, 126)";
 

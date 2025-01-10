@@ -2,8 +2,8 @@ package grp04.jeu.vues;
 
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnaireMenuNewGame;
+import grp04.jeu.modele.MenuButton;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,14 +43,14 @@ public class BoutonIncr extends HBox implements Observateur {
 
         setSpacing(10);
 
-        Button prev = new Button();
+        MenuButton prev = new MenuButton();
         Image fleche = new Image("fleche.png", labelElement.getHeight(), labelElement.getHeight(), false, false);
         ImageView flecheg = new ImageView(fleche);
         flecheg.setFitHeight(15);
         flecheg.setFitWidth(15);
         prev.setGraphic(flecheg);
 
-        Button next = new Button();
+        MenuButton next = new MenuButton();
         ImageView fleched = new ImageView(fleche);
         fleched.setFitHeight(15);
         fleched.setFitWidth(15);
@@ -64,7 +64,7 @@ public class BoutonIncr extends HBox implements Observateur {
         // gestion des évènements
 
         // incrémentation
-        next.setOnAction(e -> {
+        next.onActionAndSound(e -> {
             switch (type) {
                 case TAILLE:
                     gestionnaireMenuNewGame.incrTaille();
@@ -91,7 +91,7 @@ public class BoutonIncr extends HBox implements Observateur {
         });
 
         // décrémentation
-        prev.setOnAction(e -> {
+        prev.onActionAndSound(e -> {
             switch (type) {
                 case TAILLE:
                     gestionnaireMenuNewGame.decrTaille();

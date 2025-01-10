@@ -3,6 +3,7 @@ package grp04.jeu.modele;
 import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.util.TimerTask;
@@ -158,7 +159,30 @@ public class GestionnairePartie extends SujetObserve {
                 if (time.get() < 0) {
                     timer.cancel();
                 }
+                if (time.get() <= 10 && time.get()>0){
+                    Platform.runLater(() -> {
+                        try {
+                            Media media = new Media(getClass().getResource("/tic-tac-81751.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(media);
+                            mediaPlayer.setStopTime(new Duration(1000));
+                            mediaPlayer.play();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 if (time.get() == 0) {
+                    Platform.runLater(() -> {
+                        try {
+                            Media media = new Media(getClass().getResource("/analog-timer-74998.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(media);
+                            mediaPlayer.setStartTime(new Duration(14000));
+                            mediaPlayer.setStopTime(new Duration(16000));
+                            mediaPlayer.play();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     Platform.runLater(() -> switchRole());
                     timer.cancel();
                 }
@@ -268,7 +292,30 @@ public class GestionnairePartie extends SujetObserve {
                 if (time.get() < 0) {
                     timer.cancel();
                 }
+                if (time.get() <= 10 && time.get()>0){
+                    Platform.runLater(() -> {
+                        try {
+                            Media media = new Media(getClass().getResource("/tic-tac-81751.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(media);
+                            mediaPlayer.setStopTime(new Duration(1000));
+                            mediaPlayer.play();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 if (time.get() == 0) {
+                    Platform.runLater(() -> {
+                        try {
+                            Media media = new Media(getClass().getResource("/analog-timer-74998.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(media);
+                            mediaPlayer.setStartTime(new Duration(14000));
+                            mediaPlayer.setStopTime(new Duration(16000));
+                            mediaPlayer.play();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     Platform.runLater(() -> switchRole());
                     timer.cancel();
                 }
