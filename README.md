@@ -10,4 +10,4 @@ La liste des fonctionnalités de l'application se trouve dans le fichier [Foncti
 ### Lancement du jeu
 
 ### Compilation du jeu
-Utiliser le gradle fournie dans le git.
+Utiliser le gradle fournie dans le git, en laçant la commande `./gradlew run`  depuis le répertoire grp04.
