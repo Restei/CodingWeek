@@ -188,7 +188,7 @@ public class GestionnaireMenuNewGame extends SujetObserve {
             return "Random";
         }
         if (indiceTheme == -2) {
-            return "Thème par défault";
+            return "Thème par défaut";
         }
         return listeTheme.get(indiceTheme);
     }
