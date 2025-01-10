@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Pos;
@@ -14,9 +15,10 @@ public class MenuNouvellePartie extends VBox implements Observateur {
 
     private final GestionnaireMenuNewGame gestionnaireMenuNewGame;
     private final Button buttonCreer;
+    private Overlay overlay;
 
 
-    public MenuNouvellePartie(GestionnaireMenuNewGame gestionnaireMenuNewGame) {
+    public MenuNouvellePartie(ChargeurScene chargeurScene, GestionnaireMenuNewGame gestionnaireMenuNewGame, Overlay overlay) {
 
         this.gestionnaireMenuNewGame = gestionnaireMenuNewGame;
         this.gestionnaireMenuNewGame.ajouterObservateur(this);
@@ -100,7 +102,11 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         // bouton pour créer une nouvelle partie
         this.buttonCreer = new Button("Créer");
         this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        this.buttonCreer.setOnMouseClicked(e -> gestionnaireMenuNewGame.creationPartieAvantCompletion());
+        this.buttonCreer.setOnMouseClicked(e -> {
+            if (gestionnaireMenuNewGame.creationPartieAvantCompletion()) {
+                overlay.ajouterEtAfficherPopup(new PopupThemeComplete(overlay, gestionnaireMenuNewGame));
+            }
+        });
         this.buttonCreer.setDefaultButton(true);
 
         Region controlBoxRightSpacing = new Region();
@@ -123,7 +129,5 @@ public class MenuNouvellePartie extends VBox implements Observateur {
     public void reagir() {
         // désactive le bouton si la config n'est pas valide
         buttonCreer.setDisable(!this.gestionnaireMenuNewGame.estUneConfigValide());
-
-
     }
 }

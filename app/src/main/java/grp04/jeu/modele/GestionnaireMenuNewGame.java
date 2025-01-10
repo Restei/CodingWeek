@@ -24,7 +24,6 @@ public class GestionnaireMenuNewGame extends SujetObserve {
     private int timerAgentRouge;
     private int indiceTheme;
     private List<String> mots = new ArrayList<>();
-    private boolean motsEstComplete = false;
 
     private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
     private final int tailleMaxGrille = 10; // taille maximum du côté du plateau
@@ -49,14 +48,16 @@ public class GestionnaireMenuNewGame extends SujetObserve {
 
     // Début méthodes
 
-    public void creationPartieAvantCompletion() {
-        completeMots();
-        if (!estComplete()) {
+    public boolean creationPartieAvantCompletion() {
+        boolean estAComplete = taille * taille - mots.size() > 0;
+        if (!estAComplete) {
             creationPartie();
         }
+        return estAComplete;
     }
 
     public void creationPartie() {
+        completeMots();
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
         chargeurScene.chargerNouvellePartie(partie, statistique);
@@ -222,22 +223,12 @@ public class GestionnaireMenuNewGame extends SujetObserve {
         }
     }
 
-    public boolean estComplete() {
-        return motsEstComplete;
-    }
-
-    public void setMotsEstComplete(boolean motsEstComplete) {
-        this.motsEstComplete = motsEstComplete;
-    }
-
     public void completeMots() {
         if (mots.size() < taille * taille) {
-            motsEstComplete = true;
             int nbMotsACompletes = taille * taille - mots.size();
             List<String> motsParDefault = GestionnaireThemes.motsParDefault(nbMotsACompletes, mots);
             mots.addAll(motsParDefault);
         }
-        NotifierObservateurs();
     }
 
     /**
