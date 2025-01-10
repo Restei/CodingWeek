@@ -135,8 +135,8 @@ public class Statistique implements Serializable {
     }
 
     public String getPerdant() {
-        if (gagnant==TypeEquipe.BLEU) return "rouge";
-        return "bleu";
+        if (gagnant==TypeEquipe.BLEU) return "ROUGE";
+        return "BLEUE";
     }
 
 

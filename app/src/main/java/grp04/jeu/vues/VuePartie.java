@@ -161,11 +161,11 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
         if (this.gestionnairePartie.getRole()) {  // si role == agent
-            this.playerLabel.setText("Agent");
+            this.playerLabel.setText("AGENT");
             this.bottomhint.setText(word.getText() + number.getText());
             bottom.getChildren().set(2,this.bottomhint);
         } else {
-            this.playerLabel.setText("Espion");
+            this.playerLabel.setText("ESPION");
 
             bottom.getChildren().set(2,this.bottomtextfield);
         }

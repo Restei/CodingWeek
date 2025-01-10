@@ -29,7 +29,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
         this.getChildren().add(topSpacing);
 
         // Titre
-        Label titre = new Label("New Game");
+        Label titre = new Label("Nouvelle partie");
         titre.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
         HBox titrebox = new HBox();
