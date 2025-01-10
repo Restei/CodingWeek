@@ -43,6 +43,7 @@ public class VuePartie extends BorderPane implements Observateur {
         HBox.setHgrow(regionmilieu, Priority.ALWAYS);
 
 
+
         // polices utilisées
         Font font = Utils.getInstance().getFont(Utils.FontType.HEADER);
         Font font_small = Utils.getInstance().getFont(Utils.FontType.SMALL_FONT);
@@ -61,12 +62,27 @@ public class VuePartie extends BorderPane implements Observateur {
 
         top.getChildren().add(temp);
 
+
+
+
+
+
         // Rôle du joueur actuel
 
         this.playerLabel = new Label("Espion");
         this.playerLabel.setTextAlignment(TextAlignment.CENTER);
         this.playerLabel.setFont(font);
-        top.getChildren().add(this.playerLabel);
+
+        //Mot Actuel
+        VueMotSelectionne mot = new VueMotSelectionne(gestionnairePartie);
+        mot.setTextAlignment(TextAlignment.CENTER);
+        mot.setFont(font);
+
+
+        //Information sur le joueur
+        VBox Info = new VBox();
+        Info.getChildren().addAll(this.playerLabel,mot);
+        top.getChildren().add(Info);
 
         MenuButton menu = new MenuButton("Menu");
         menu.setFont(font);
@@ -118,12 +134,18 @@ public class VuePartie extends BorderPane implements Observateur {
 
         bottom.getChildren().addAll(indice,regiongauche,this.bottomtextfield,regionmilieu,end);
 
-        VBox left = new VueCarteRestante(gestionnairePartie,true);
-        VBox right = new VueCarteRestante(gestionnairePartie,false);
+        VBox right = new VueCarteRestante(gestionnairePartie,true);
+        VBox left = new VueCarteRestante(gestionnairePartie,false);
 
         VueGrille center = new VueGrille(gestionnairePartie);
         center.setAlignment(Pos.CENTER);
         bottom.setMinHeight(50);
+
+        HBox.setMargin(indice,new Insets(15,15,15,15));
+        HBox.setMargin(end,new Insets(10,10,10,10));
+        HBox.setMargin(bottomtextfield,new Insets(10,10,10,10));
+        HBox.setMargin(bottomhint,new Insets(10,10,10,10));
+
         this.setTop(top);
         this.setBottom(bottom);
         this.setLeft(left);
@@ -152,19 +174,40 @@ public class VuePartie extends BorderPane implements Observateur {
 
         TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
-        number.setText(number.getText().replaceAll("[^\\d]", ""));
-        word.setText(word.getText().replaceAll("[^\\w]", ""));
+
+
+
+
+        number.textProperty().addListener((observable,oldvalue,newvalue) -> {
+            if (!newvalue.matches("\\d*")){
+                number.setText(newvalue.replaceAll("\\D", ""));
+            }
+        }
+        );
+        word.textProperty().addListener((observable,oldvalue,newvalue) -> {
+                    if (!newvalue.matches("[^\\d\\W]*")){
+                        word.setText(newvalue.replaceAll("\\W", ""));
+                        word.setText(newvalue.replaceAll("\\d", ""));
+                    }
+                }
+        );
+
         this.bottomtextfield.getChildren().clear();
         this.bottomtextfield.getChildren().addAll(word,number);
 
 
-
-        if (this.gestionnairePartie.getRole()) {  // si role == agent
-            this.playerLabel.setText("Agent");
-            this.bottomhint.setText(word.getText() + number.getText());
+        if (this.gestionnairePartie.getRole() ) {  // si role == agent
+            if (!(bottom.getChildren().get(2) instanceof Label)){
+                this.bottomhint.setText(word.getText() + "   " +  number.getText());
+            }
+            else {
+                number.clear();
+                word.clear();
+            }
+            this.playerLabel.setText("AGENT");
             bottom.getChildren().set(2,this.bottomhint);
         } else {
-            this.playerLabel.setText("Espion");
+            this.playerLabel.setText("ESPION");
 
             bottom.getChildren().set(2,this.bottomtextfield);
         }
@@ -178,7 +221,7 @@ public class VuePartie extends BorderPane implements Observateur {
         }
 
         if (this.gestionnairePartie.getPartie().getGagnant()!=null){
-            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene, this.overlay);
+            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene,this.overlay);
             this.overlay.ajouterEtAfficherPopup(popupStatistique);
         }
 

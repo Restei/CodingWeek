@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Grille extends SujetObserve implements Serializable {
 
     // Début propriétés
-
+    private String CarteActuelle = "";
     private final Carte[][] grille;
 
     // Fin propriétés
@@ -42,6 +42,14 @@ public class Grille extends SujetObserve implements Serializable {
     }
     public int size(){
         return grille.length;
+    }
+
+    public String getCarteActuelle(){
+        return this.CarteActuelle;
+    }
+
+    public void setCarteActuelle(String CarteActuelle){
+        this.CarteActuelle = CarteActuelle;
     }
 
     // Fin méthodes

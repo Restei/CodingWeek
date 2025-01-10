@@ -14,98 +14,111 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class PopupStatistique extends VBox  {
-    
+/**
+ * Popup affiché en fin de partie.
+ */
+public class PopupStatistique extends VBox {
+
     private final GestionnairePartie gestionnairePartie;
 
-    public PopupStatistique(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay){
-        this.gestionnairePartie= gestionnairePartie;
+    public PopupStatistique(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay) {
+        this.gestionnairePartie = gestionnairePartie;
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setMaxSize(Utils.getInstance().getWindowWidth() * 0.8, Utils.getInstance().getWindowHeight() * 0.8);
-        this.setSpacing(40);
+        this.setSpacing(30);
         this.setAlignment(Pos.CENTER);
 
         Statistique statistique = gestionnairePartie.getStatistique();
         this.gestionnairePartie.pauseChrono();
+
         //Initalisation des partie de la vue
 
-        Label Titre = new Label("Victoire de l'équipe :" + statistique.getGagnant());
+        String equipeGagnante = "";
+        if (statistique.getGagnant() == TypeEquipe.ROUGE) {
+            equipeGagnante = "ROUGE";
+        } else if (statistique.getGagnant() == TypeEquipe.BLEU) {
+            equipeGagnante = "BLEUE";
+        } else {
+            System.err.println("[PopupStatistique] mauvais type d'équipe");
+            equipeGagnante = "BROKEN";
+        }
+
+        Label Titre = new Label("Victoire de l'équipe " + equipeGagnante + " !");
         Titre.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
-        Label NumeroTour = new Label("Nombre de tour joué :" + Integer.toString(statistique.getNbTourJoue()));
+        Label NumeroTour = new Label();
+        int nbToursJoues = statistique.getNbTourJoue();
+        if (nbToursJoues == 1) {
+            NumeroTour.setText("1 tour joué.");
+        } else {
+            NumeroTour.setText(nbToursJoues + " tours joués.");
+        }
         NumeroTour.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
         Label DefaiteAssassin = new Label("");
         DefaiteAssassin.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
-        if (statistique.getNbCarteAssassinTrouve(TypeEquipe.BLEU)+ statistique.getNbCarteAssassinTrouve(TypeEquipe.ROUGE)>0){
-            DefaiteAssassin.setText("L'équipe " + statistique.getPerdant() + " a pioché une carte assassin");
+        if (statistique.getNbCarteAssassinTrouve(TypeEquipe.BLEU) + statistique.getNbCarteAssassinTrouve(TypeEquipe.ROUGE) > 0) {
+            DefaiteAssassin.setText("L'équipe " + statistique.getPerdant() + " a pioché une carte assassin.");
         }
 
+        // données centrales
         HBox Milieu = new HBox();
 
-
-        //Initialisation listes
-
-        Region regiongauche = new Region();
-        Region regiondroite = new Region();
-
-        HBox.setHgrow(regiongauche, Priority.ALWAYS);
-        HBox.setHgrow(regiondroite, Priority.ALWAYS);
-
+        // données
         VBox listedescription = new VBox();
+        listedescription.setAlignment(Pos.CENTER_LEFT);
         VBox listebleu = new VBox();
+        listebleu.setAlignment(Pos.CENTER);
         VBox listerouge = new VBox();
+        listerouge.setAlignment(Pos.CENTER);
 
-        Label equipe = new Label("Equipe : ");
-        Label civile = new Label("Nombre de cartes civiles pioché : ");
-        Label TempsEspion = new Label("temps total utilisés par l'espion : ");
-        Label TempsAgent = new Label("temps total utilisés par l'agent : ");
-        Label CarteRestante = new Label("Nombre de carte restante : ");
-        Label CarteAdverse = new Label("Nombre de cartes de l'équipe adverse pioché : ");
+        Label equipe = new Label("Équipe : ");
+        Label civile = new Label("Cartes civiles piochées : ");
+        Label TempsEspion = new Label("Temps total utilisé par l'ESPION : ");
+        Label TempsAgent = new Label("Temps total utilisé par les AGENTS : ");
+        Label CarteRestante = new Label("Cartes restantes : ");
+        Label CarteAdverse = new Label("Cartes de l'équipe adverse piochées : ");
 
-        equipe.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        civile.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsEspion.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsAgent.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        CarteRestante.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        CarteAdverse.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        Label equipeBleu = new Label("BLEU");
+        Label nbCivileBleu = new Label(formatCarteLabel(statistique.getNbCarteCivileTrouve(TypeEquipe.BLEU)));
+        Label TempsTotalEspionBleu = new Label(statistique.getTempsTotal(TypeEquipe.BLEU, TypeJoueur.ESPION) + " s");
+        Label TempsTotalAgentBleu = new Label(statistique.getTempsTotal(TypeEquipe.BLEU, TypeJoueur.AGENT) + " s");
+        Label nbCarteBleuRestante = new Label(formatCarteLabel(statistique.getNbCarteRestante(TypeEquipe.BLEU)));
+        Label nbCarteRougeTrouveParBleu = new Label(formatCarteLabel(statistique.getNbCarteRougeTrouveParBleu()));
 
-        Label equipeBleu = new Label("Bleu");
-        Label nbCivileBleu = new Label(Integer.toString(statistique.getNbCarteCivileTrouve(TypeEquipe.BLEU)));
-        Label TempsTotalEspionBleu = new Label(Integer.toString(statistique.getTempsTotal(TypeEquipe.BLEU, TypeJoueur.ESPION)));
-        Label TempsTotalAgentBleu = new Label(  Integer.toString(statistique.getTempsTotal(TypeEquipe.BLEU, TypeJoueur.AGENT)));
-        Label nbCarteBleuRestante = new Label(Integer.toString(statistique.getNbCarteRestante(TypeEquipe.BLEU)));
-        Label nbCarteRougeTrouveParBleu = new Label(Integer.toString(statistique.getNbCarteRougeTrouveParBleu()));
+        Label equipeRouge = new Label("ROUGE");
+        Label nbCivileRouge = new Label(formatCarteLabel(statistique.getNbCarteCivileTrouve(TypeEquipe.ROUGE)));
+        Label TempsTotalEspionRouge = new Label(statistique.getTempsTotal(TypeEquipe.ROUGE, TypeJoueur.ESPION) + " s");
+        Label TempsTotalAgentRouge = new Label(statistique.getTempsTotal(TypeEquipe.ROUGE, TypeJoueur.AGENT) + " s");
+        Label nbCarteRougeRestante = new Label(formatCarteLabel(statistique.getNbCarteRestante(TypeEquipe.ROUGE)));
+        Label nbCarteBleuTrouveParRouge = new Label(formatCarteLabel(statistique.getNbCarteBleuTrouveParRouge()));
 
-        equipeBleu.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCivileBleu.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsTotalEspionBleu.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsTotalAgentBleu.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCarteBleuRestante.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCarteRougeTrouveParBleu.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        // tous les labels utilisés
+        Label[] allLabel = {equipe, civile, TempsEspion, TempsAgent, CarteRestante, CarteAdverse, equipeBleu, nbCivileBleu, TempsTotalEspionBleu, TempsTotalAgentBleu, nbCarteBleuRestante, nbCarteRougeTrouveParBleu, equipeRouge, nbCivileRouge, TempsTotalEspionRouge, TempsTotalAgentRouge, nbCarteRougeRestante, nbCarteBleuTrouveParRouge};
 
-        Label equipeRouge = new Label("Rouge");
-        Label nbCivileRouge = new Label(Integer.toString(statistique.getNbCarteCivileTrouve(TypeEquipe.ROUGE)));
-        Label TempsTotalEspionRouge = new Label(Integer.toString(statistique.getTempsTotal(TypeEquipe.ROUGE, TypeJoueur.ESPION)));
-        Label TempsTotalAgentRouge = new Label(Integer.toString(statistique.getTempsTotal(TypeEquipe.ROUGE, TypeJoueur.AGENT)));
-        Label nbCarteRougeRestante = new Label(Integer.toString(statistique.getNbCarteRestante(TypeEquipe.ROUGE)));
-        Label nbCarteBleuTrouveParRouge = new Label(Integer.toString(statistique.getNbCarteBleuTrouveParRouge()));
+        for (Label label : allLabel) {
+            label.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        }
 
-        equipeRouge.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCivileRouge.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsTotalEspionRouge.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        TempsTotalAgentRouge.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCarteRougeRestante.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        nbCarteBleuTrouveParRouge.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        listedescription.getChildren().addAll(equipe, CarteRestante, civile, TempsEspion, TempsAgent, CarteAdverse);
+        listebleu.getChildren().addAll(equipeBleu, nbCarteBleuRestante, nbCivileBleu, TempsTotalEspionBleu, TempsTotalAgentBleu, nbCarteRougeTrouveParBleu);
+        listerouge.getChildren().addAll(equipeRouge, nbCarteRougeRestante, nbCivileRouge, TempsTotalEspionRouge, TempsTotalAgentRouge, nbCarteBleuTrouveParRouge);
 
-        listedescription.getChildren().addAll(equipe,CarteRestante,civile,TempsEspion,TempsAgent,CarteAdverse);
-        listebleu.getChildren().addAll(equipeBleu,nbCarteBleuRestante,nbCivileBleu,TempsTotalEspionBleu,TempsTotalAgentBleu,nbCarteRougeTrouveParBleu);
-        listerouge.getChildren().addAll(equipeRouge,nbCarteRougeRestante,nbCivileRouge,TempsTotalEspionRouge,TempsTotalAgentRouge,nbCarteBleuTrouveParRouge);
+        // espacements
+        Region spacingMilieu1 = new Region();
+        Region spacingMilieu2 = new Region();
+        Region spacingMilieu3 = new Region();
+        Region spacingMilieu4 = new Region();
+
+        HBox.setHgrow(spacingMilieu1, Priority.ALWAYS);
+        HBox.setHgrow(spacingMilieu2, Priority.ALWAYS);
+        HBox.setHgrow(spacingMilieu3, Priority.ALWAYS);
+        HBox.setHgrow(spacingMilieu4, Priority.ALWAYS);
+
 
         //Initialisation milieu
-
-        Milieu.getChildren().addAll(listedescription,listebleu,regiongauche,regiondroite,listerouge);
+        Milieu.getChildren().addAll(spacingMilieu1, listedescription, spacingMilieu2, listebleu, spacingMilieu3, listerouge, spacingMilieu4);
 
         //Initialisation Retour
 
@@ -115,9 +128,23 @@ public class PopupStatistique extends VBox  {
         });
         //Initialisation PopUp
 
-        getChildren().addAll(Titre,NumeroTour,DefaiteAssassin,Milieu,Retour);
+        getChildren().addAll(Titre, NumeroTour, DefaiteAssassin, Milieu, Retour);
 
 
     }
+
+
+    /**
+     * Formate un libellé indiquant le nombre de cartes, en gérant le singulier et le pluriel.
+     *
+     * @param nbCartes Le nombre de cartes à afficher.
+     * @return Une chaîne de caractères représentant le nombre de cartes,
+     * avec "carte" au singulier si {@code nbCartes} vaut 1,
+     * sinon "cartes" au pluriel.
+     */
+    private String formatCarteLabel(int nbCartes) {
+        return nbCartes + (nbCartes == 1 ? " carte" : " cartes");
+    }
+
 
 }

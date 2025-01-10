@@ -68,12 +68,17 @@ public class Statistique implements Serializable {
             if (typeJoueur == TypeJoueur.AGENT) {
                 TempsTotalAgentRouge+= temps;
             }
-            TempsTotalEspionRouge+=temps;
+            else {
+                TempsTotalEspionRouge += temps;
+            }
         }
-        if (typeJoueur == TypeJoueur.AGENT) {
-            TempsTotalAgentBleu+=temps;
+        else {
+            if (typeJoueur == TypeJoueur.AGENT) {
+                TempsTotalAgentBleu += temps;
+            } else {
+                TempsTotalEspionBleu += temps;
+            }
         }
-        TempsTotalEspionBleu+=temps;
     }
 
     public int getNbCarteRestante(TypeEquipe typeEquipe) {
@@ -135,8 +140,8 @@ public class Statistique implements Serializable {
     }
 
     public String getPerdant() {
-        if (gagnant==TypeEquipe.BLEU) return "rouge";
-        return "bleu";
+        if (gagnant==TypeEquipe.BLEU) return "ROUGE";
+        return "BLEUE";
     }
 
 

@@ -27,7 +27,6 @@ public class GestionnairePartie extends SujetObserve {
     private final AtomicInteger time = new AtomicInteger(0);
     private int sauvTime;
     private final Overlay overlay;
-
     // Fin propriétés
 
 
@@ -141,6 +140,7 @@ public class GestionnairePartie extends SujetObserve {
         }
         PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
         overlay.ajouterEtAfficherPopup(popupChangerJoueur);
+
         NotifierObservateurs();
     }
 
@@ -346,6 +346,13 @@ public class GestionnairePartie extends SujetObserve {
     public void debutPartie() {
         lanceTimer();
     }
+
+    public void ModifierCarteActuelle(String text) {
+        partie.getGrille().setCarteActuelle(text);
+        NotifierObservateurs();
+    }
+
+
 
     // Fin méthodes
 
