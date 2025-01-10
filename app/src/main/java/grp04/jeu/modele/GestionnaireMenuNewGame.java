@@ -6,7 +6,7 @@ import grp04.jeu.vues.BoutonIncr;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionnaireMenuNewGame extends SujetObserve{
+public class GestionnaireMenuNewGame extends SujetObserve {
 
     private BoutonIncr.Type typeBoutonIncrSurvole;  // type du dernier BoutonIncr survolé par la souris
 
@@ -14,6 +14,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     ChargeurScene chargeurScene;
     private int taille;
+    /**
+     * Nombre de cartes de l'équipe qui ne commence pas (équipe bleue).
+     */
     private int nbCarte;
     private int nbCarteNoire;
     private TypeTimer typeTimer;
@@ -24,6 +27,8 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     private boolean motsEstComplete = false;
 
     private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
+    private final int tailleMaxGrille = 10; // taille maximum du côté du plateau
+    private final int tailleMinGrille = 2; // taille minmum du côté du plateau
 
     // Fin propriétés
 
@@ -62,37 +67,33 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     }
 
     public void incrTaille() {
-        if (taille < 10) {
+        if (taille < tailleMaxGrille) {
             taille++;
         }
         NotifierObservateurs();
     }
 
     public void decrTaille() {
-        if (taille > 0) {
+        if (taille > tailleMinGrille) {
             taille--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarte() {
-        if (true) { // TODO Condition pertinente
-            nbCarte++;
-        }
+        nbCarte++;
         NotifierObservateurs();
     }
 
     public void decrNbCarte() {
-        if (nbCarte > 0) {
+        if (nbCarte > 1) {
             nbCarte--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarteNoire() {
-        if (true) {
-            nbCarteNoire++;
-        }
+        nbCarteNoire++;
         NotifierObservateurs();
     }
 
@@ -159,7 +160,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public void themeSuivant() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (indiceTheme < listeTheme.size()-1) {
+        if (indiceTheme < listeTheme.size() - 1) {
             indiceTheme++;
         } else {
             indiceTheme = -2;
@@ -173,7 +174,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         if (indiceTheme >= -1) {
             indiceTheme--;
         } else {
-            indiceTheme = listeTheme.size()-1;
+            indiceTheme = listeTheme.size() - 1;
         }
         actialiserMots(listeTheme);
         NotifierObservateurs();
@@ -237,6 +238,29 @@ public class GestionnaireMenuNewGame extends SujetObserve{
             mots.addAll(motsParDefault);
         }
         NotifierObservateurs();
+    }
+
+    /**
+     * Indique si les valeurs fournies permettent de créer une partie valide.
+     *
+     * @param taille             taille du côté de la grille
+     * @param nbCartesEquipeBleu nombre de cartes à deviner pour l'équipe qui ne commence pas
+     * @param nbCartesNoires     nombre de cartes noires sur le plateau
+     * @return true si les paramètres permettent de créer une partie valide
+     */
+    public boolean estUneConfigValide(int taille, int nbCartesEquipeBleu, int nbCartesNoires) {
+        if (taille <= 0 || taille > tailleMaxGrille) {
+            return false;
+        }
+        int nbCartesEquipeRouge = nbCartesEquipeBleu + 1;
+        return (taille * taille >= nbCartesEquipeBleu + nbCartesEquipeRouge + nbCartesNoires);
+    }
+
+    /**
+     * Indique si la configuration actuelle permet de créer une partie valide.
+     */
+    public boolean estUneConfigValide() {
+        return estUneConfigValide(this.taille, this.nbCarte, this.nbCarteNoire);
     }
 
     // Fin méthodes
