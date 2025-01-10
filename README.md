@@ -5,7 +5,3 @@ Pour le confort sonore, mettre le son de l'ordinateur entre 25% et 30%.
 
 Pour lancer l'application, exécuter la commande :
 java -jar --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media .\grp04.jar
-
-
-Pour compiler le projet, exécuter la commance :
-javac -d ./app/bin/ --module-path JavaFX\lib --add-modules=javafx.controls,javafx.fxml,javafx.media ./src/main/*.java
