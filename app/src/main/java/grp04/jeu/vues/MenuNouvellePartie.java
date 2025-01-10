@@ -51,7 +51,7 @@ public class MenuNouvellePartie extends VBox implements Observateur {
 
         // Conteneur des BoutonIncr : paramètres modifiables
         VBox conteneurParams = new VBox();
-        conteneurParams.setPrefWidth(Utils.getInstance().getWindowWidth() * 0.33);
+        conteneurParams.setPrefWidth(Utils.getInstance().getWindowWidth() * 0.34);
         conteneurParams.setSpacing(20); // espacement inter-éléments
         BoutonIncr taille = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.TAILLE);
         BoutonIncr NbCartes = new BoutonIncr(gestionnaireMenuNewGame, BoutonIncr.Type.NB_CARTES);
@@ -95,7 +95,6 @@ public class MenuNouvellePartie extends VBox implements Observateur {
 
         Region controlBoxMiddleSpacing = new Region();
         HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
-
         // bouton pour créer une nouvelle partie
         this.buttonCreer = new MenuButton("Créer");
         this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));

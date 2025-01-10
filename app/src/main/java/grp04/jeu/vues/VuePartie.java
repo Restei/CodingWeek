@@ -57,14 +57,7 @@ public class VuePartie extends BorderPane implements Observateur {
         top.setSpacing(Utils.getInstance().getWindowWidth() * 0.3);
 
         // vue chrono
-        VueChrono temp = new VueChrono(gestionnairePartie);
-
-
-
-
-
-
-
+        VueChrono temps = new VueChrono(gestionnairePartie);
 
         // Rôle du joueur actuel
 
@@ -91,8 +84,10 @@ public class VuePartie extends BorderPane implements Observateur {
             this.overlay.ajouterEtAfficherPopup(popupMenuPause);
 
         } );
-        top.getChildren().addAll(temp,regiongauche,Info,regiondroite,menu);
-
+        Info.setPrefWidth(750);
+        temps.setMinWidth(150);
+        menu.setMinWidth(150);
+        top.getChildren().addAll(temps,Info,menu);
         // creation de barre d'indice
         HBox bottom = new HBox();
 
