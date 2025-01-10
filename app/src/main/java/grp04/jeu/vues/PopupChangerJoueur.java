@@ -3,6 +3,7 @@ package grp04.jeu.vues;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.GestionnairePartie;
 import grp04.jeu.modele.Partie;
+import grp04.jeu.modele.TypeEquipe;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -22,7 +23,16 @@ public class PopupChangerJoueur extends VBox{
         Label top = new Label("Fin de tour");
         top.setFont(font);
 
-        Label body = new Label("Passez à l'"+partie.getJoueurQuiJoue()+" de l'équipe "+partie.getEquipeQuiJoue()+".");
+        String couleurEquipe = "";
+        if (partie.getEquipeQuiJoue() == TypeEquipe.ROUGE) {
+            couleurEquipe = "ROUGE";
+        } else if (partie.getEquipeQuiJoue() == TypeEquipe.BLEU) {
+            couleurEquipe = "BLEUE";
+        } else {
+            System.err.println("[PopupChangerJoueur] mauvais type d'équipe");
+            couleurEquipe = "BROKEN";
+        }
+        Label body = new Label("Passez à l'"+partie.getJoueurQuiJoue()+" de l'équipe "+ couleurEquipe+".");
         body.setFont(smallfont);
 
 

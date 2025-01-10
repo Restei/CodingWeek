@@ -174,10 +174,10 @@ public class BoutonIncr extends HBox implements Observateur {
             case TIMER_ESPION_OU_EQUIPE_BLEU -> {
                 switch (gestionnaireMenuNewGame.getTypeTimer()) {
                     case INDIVIDUEL -> {
-                        yield "Temps de jeu pour l'espion";
+                        yield "Temps de jeu pour l'ESPION";
                     }
                     case EQUIPE -> {
-                        yield "Temps de jeu équipe bleue";
+                        yield "Temps de jeu équipe BLEUE";
                     }
                     case null, default -> {
                         yield "ERR IN BoutonIncr.getNomParametre()";
@@ -187,10 +187,10 @@ public class BoutonIncr extends HBox implements Observateur {
             case TIMER_AGENT_OU_EQUIPE_ROUGE -> {
                 switch (gestionnaireMenuNewGame.getTypeTimer()) {
                     case INDIVIDUEL -> {
-                        yield "Temps de jeu pour l'agent";
+                        yield "Temps de jeu pour l'AGENT";
                     }
                     case EQUIPE -> {
-                        yield "Temps de jeu équipe rouge";
+                        yield "Temps de jeu équipe ROUGE";
                     }
                     case null, default -> {
                         yield "ERR IN BoutonIncr.getNomParametre()";

@@ -169,8 +169,11 @@ public class VuePartie extends BorderPane implements Observateur {
     }
 
     public void reagir() {
+
         //Recréation de bottom
         HBox bottom = (HBox) getBottom();
+
+        TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
         TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
 
@@ -194,7 +197,6 @@ public class VuePartie extends BorderPane implements Observateur {
         this.bottomtextfield.getChildren().addAll(word,number);
 
 
-
         if (this.gestionnairePartie.getRole() ) {  // si role == agent
             if (!(bottom.getChildren().get(2) instanceof Label)){
                 this.bottomhint.setText(word.getText() + "   " +  number.getText());
@@ -203,10 +205,11 @@ public class VuePartie extends BorderPane implements Observateur {
                 number.clear();
                 word.clear();
             }
-            this.playerLabel.setText("Agent");
+            this.playerLabel.setText("AGENT");
             bottom.getChildren().set(2,this.bottomhint);
         } else {
-            this.playerLabel.setText("Espion");
+            this.playerLabel.setText("ESPION");
+
             bottom.getChildren().set(2,this.bottomtextfield);
         }
 
@@ -219,7 +222,7 @@ public class VuePartie extends BorderPane implements Observateur {
         }
 
         if (this.gestionnairePartie.getPartie().getGagnant()!=null){
-            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene);
+            PopupStatistique popupStatistique = new PopupStatistique(this.gestionnairePartie, this.chargeurScene,this.overlay);
             this.overlay.ajouterEtAfficherPopup(popupStatistique);
         }
 

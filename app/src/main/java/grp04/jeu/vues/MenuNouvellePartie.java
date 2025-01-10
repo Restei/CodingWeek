@@ -10,11 +10,16 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class MenuNouvellePartie extends VBox {
+public class MenuNouvellePartie extends VBox implements Observateur {
+
+    private final GestionnaireMenuNewGame gestionnaireMenuNewGame;
+    private final Button buttonCreer;
 
 
     public MenuNouvellePartie(GestionnaireMenuNewGame gestionnaireMenuNewGame) {
-        //Contenu du menu : Taille, Nb Carte, Nb noires , TypeTimer type , Timer Espion, Timer agent, Theme
+
+        this.gestionnaireMenuNewGame = gestionnaireMenuNewGame;
+        this.gestionnaireMenuNewGame.ajouterObservateur(this);
 
         this.setSpacing(10);
 
@@ -24,7 +29,7 @@ public class MenuNouvellePartie extends VBox {
         this.getChildren().add(topSpacing);
 
         // Titre
-        Label titre = new Label("New Game");
+        Label titre = new Label("Nouvelle partie");
         titre.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
         HBox titrebox = new HBox();
@@ -83,29 +88,42 @@ public class MenuNouvellePartie extends VBox {
 
         Region controlBoxLeftSpacing = new Region();
         HBox.setHgrow(controlBoxLeftSpacing, Priority.ALWAYS);
-        Button retour = new Button("RETOUR");
-        Region controlBoxMiddleSpacing = new Region();
-        HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
-        Button creer = new Button("CREER");
-        Region controlBoxRightSpacing = new Region();
-        HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
 
-
+        // bouton pour revenir au menu
+        Button retour = new Button("Retour");
         retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
         retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
 
-        creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        creer.setOnMouseClicked(e-> gestionnaireMenuNewGame.creationpartie());
-        creer.setDefaultButton(true);
+        Region controlBoxMiddleSpacing = new Region();
+        HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
 
-        controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, creer, controlBoxRightSpacing);
+        // bouton pour créer une nouvelle partie
+        this.buttonCreer = new Button("Créer");
+        this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        this.buttonCreer.setOnMouseClicked(e -> gestionnaireMenuNewGame.creationpartie());
+        this.buttonCreer.setDefaultButton(true);
+
+        Region controlBoxRightSpacing = new Region();
+        HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
+
+        controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, this.buttonCreer, controlBoxRightSpacing);
         controlBox.setAlignment(Pos.CENTER);
 
         getChildren().add(controlBox);
 
+
+        // espacement en bas de l'écran
         Region bottomSpacing = new Region();
         VBox.setVgrow(bottomSpacing, javafx.scene.layout.Priority.ALWAYS);
         this.getChildren().add(bottomSpacing);
+
+    }
+
+    @Override
+    public void reagir() {
+        // désactive le bouton si la config n'est pas valide
+        buttonCreer.setDisable(!this.gestionnaireMenuNewGame.estUneConfigValide());
+
 
     }
 }
