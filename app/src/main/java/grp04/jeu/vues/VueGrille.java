@@ -8,8 +8,8 @@ public class VueGrille extends GridPane{
 
 
     public VueGrille(GestionnairePartie gestionnaire){
-        this.setHgap(5);
-        this.setVgap(5);
+        this.setHgap(8);
+        this.setVgap(8);
         this.grille = new VueCarte[gestionnaire.getPartie().getGrille().size()][gestionnaire.getPartie().getGrille().size()];
         for (int i =0;i<gestionnaire.getPartie().getGrille().size();i++) {
             for (int j = 0; j < gestionnaire.getPartie().getGrille().size(); j++) {
