@@ -126,4 +126,41 @@ public class GestionnaireThemes {
             return mots.subList(0, n);
         }
 
+    public static List<String> motsParDefault(int n, List<String> mots) {
+        List<String> motsParDefault = Arrays.asList(
+                "ABEILLE", "ABRICOT", "ACTEUR", "AIGLE", "ALERTE",
+                "AMAZONE", "AMOUR", "ANGLE", "ANIMAL", "ANTIQUE",
+                "ARBRE", "ARC", "ARGENT", "ARMÉE", "ART",
+                "ATLANTIDE", "AVENTURE", "BALEINE", "BANANE", "BARRIÈRE",
+                "BATEAU", "BIÈRE", "BISON", "BLÉ", "BOMBE",
+                "BONBON", "BOUCLIER", "BOULANGER", "BOUTON", "BRUME",
+                "BULLE", "CACTUS", "CAMÉLÉON", "CANYON", "CAPITAINE",
+                "CAROTTE", "CAVALIER", "CENTAURE", "CHÂTEAU", "CHEVAL",
+                "CHOCOLAT", "CLÉ", "CŒUR", "COMÈTE", "CORBEAU",
+                "COTON", "CRAYON", "CROIX", "DÉSERT", "DIAMANT",
+                "DRAGON", "ÉCOLE", "ÉCRAN", "ÉCUREUIL", "ÉLÉPHANT",
+                "ÉTOILE", "FÉE", "FEU", "FLÈCHE", "FLEUR",
+                "FORÊT", "FOURMI", "FUSÉE", "GALAXIE", "GÂTEAU",
+                "GÉNIE", "GLACE", "GRENOUILLE", "GRIFFE", "GUERRIER",
+                "HARMONIE", "HÉROS", "HIBOU", "HORLOGE", "IGLOO",
+                "ÎLE", "JARDIN", "JUNGLE", "KOALA", "LAC",
+                "LANTERNE", "LICORNE", "LION", "LUNE", "MIROIR",
+                "MONTAGNE", "NINJA", "NUAGE", "OCÉAN", "OR",
+                "OURS", "PAPILLON", "PARFUM", "PHARE", "PIRATE",
+                "PLUME", "ROBOT", "ROCHE", "SABLE", "SERPENT"
+        );
+        Collections.shuffle(motsParDefault);
+        List<String> motsRetournes = new ArrayList<>();
+        int i = 0;
+        int j = 0;
+        while (i < motsParDefault.size() && j < n) {
+            if (!mots.contains(motsParDefault.get(i))) {
+                motsRetournes.add(motsParDefault.get(i));
+                j++;
+            }
+            i++;
+        }
+        return motsRetournes;
+    }
+
 }

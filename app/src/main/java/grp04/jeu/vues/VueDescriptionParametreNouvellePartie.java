@@ -68,7 +68,10 @@ public class VueDescriptionParametreNouvellePartie extends Label implements Obse
                 }
             }
             case THEME -> {
-                setText("Choisir le thème des mots qui seront présents sur les cartes.");
+                setText("""
+                        Choisir le thème des mots qui seront présents sur les cartes.
+                        Thème par défault : 100 mots.
+                        Random : séléctionne les mots parmis l'ensemble des mots des thèmes.""");
             }
             case null, default -> {}  // ne rien mettre
         }

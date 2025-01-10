@@ -21,6 +21,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     private int timerAgentRouge;
     private int indiceTheme;
     private List<String> mots = new ArrayList<>();
+    private boolean motsEstComplete = false;
 
     private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
 
@@ -44,6 +45,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     // Début méthodes
 
     public void creationpartie() {
+        completeMots();
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
         chargeurScene.chargerNouvellePartie(partie, statistique);
@@ -210,6 +212,19 @@ public class GestionnaireMenuNewGame extends SujetObserve{
             mots = GestionnaireThemes.aleatoire();
         } else if (indiceTheme == -2) {
             mots = GestionnaireThemes.motsParDefault(100);
+        }
+    }
+
+    public boolean estComplete() {
+        return motsEstComplete;
+    }
+
+    public void completeMots() {
+        if (mots.size() < taille * taille) {
+            motsEstComplete = true;
+            int nbMotsACompletes = taille * taille - mots.size();
+            List<String> motsParDefault = GestionnaireThemes.motsParDefault(nbMotsACompletes, mots);
+            mots.addAll(motsParDefault);
         }
     }
 
