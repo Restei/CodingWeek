@@ -12,9 +12,9 @@ public class Utils {
 
     private int windowWidth = 1200;
     private int windowHeight = 720;
-    private Font title = Font.font("Courier New", 50);
-    private Font header = Font.font("Courier New", 30);
-    private Font smallfont = Font.font("Courier New", 20);
+    private Font title = Font.font("Arial", 50);
+    private Font header = Font.font("Arial", 30);
+    private Font smallfont = Font.font("Arial", 20);
     private int currentSong = 0;
     private Media media;
     private  static MediaPlayer mediaPlayer;
@@ -89,10 +89,10 @@ public class Utils {
         else if (currentSong==1){
             currentSong=2;
             try {
-                media = new Media(getClass().getResource("/small_crimes-261103.mp3").toURI().toString());
+                media = new Media(getClass().getResource("/small-crimes-261103.mp3").toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.play();
-                mediaPlayer.setVolume(0.9);
+                mediaPlayer.setVolume(0.8);
                 mediaPlayer.setOnEndOfMedia(new Runnable(){
 
                     @Override
