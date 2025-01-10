@@ -44,7 +44,6 @@
 - Faire en sorte que le tour du joueur s'arrête si le timer tombe à 0
 - Ajouter la partie modification et sélection des thèmes
 - Finir les tests unitaires
-- Lancer une partie chargée lorsqu'on appuie sur "charger"
 
 ## Jeudi 9
 - Affichage des statistiques lors de la victoire : Russel
@@ -53,6 +52,15 @@
 - Lancer une partie chargée lorsqu'on appuie sur "charger" : Joseph
 - Finalisation du menu creation de partie : Clément
 
-### À faire
+### À faire ensuite
 - Améliorer l'esthétique du jeu
 - Faire un boot pour pouvoir jouer seul
+
+## Vendredi 10
+- Ajout de musique et de son dans le jeu : Guillaume
+- Ajout de limite lors de la création d'une partie : ne pas pouvoir sélectionner moins de cartes que de case dans la grille, ne pas pouvoir mettre les timer à 0 ... : Clément
+- Correction d'un bug dans l'affcichage des statistiques : Russel
+- Ajout d'un thème par défault : Joseph 
+- Compléter les thèmes customisé, qui n'ont pas suffisamment de mots, par des mots du thème par défault : Joseph
+- Changements esthétiques : Clément
+- Correction d'un bug d'affichage lors de la partie : Russel
