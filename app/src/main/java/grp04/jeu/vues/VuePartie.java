@@ -39,8 +39,8 @@ public class VuePartie extends BorderPane implements Observateur {
         HBox.setHgrow(regiongauche, Priority.ALWAYS);
 
 
-        Region regionmilieu = new Region();
-        HBox.setHgrow(regionmilieu, Priority.ALWAYS);
+        Region regiondroite = new Region();
+        HBox.setHgrow(regiondroite, Priority.ALWAYS);
 
 
 
@@ -60,7 +60,6 @@ public class VuePartie extends BorderPane implements Observateur {
         VueChrono temp = new VueChrono(gestionnairePartie);
 
 
-        top.getChildren().add(temp);
 
 
 
@@ -82,7 +81,7 @@ public class VuePartie extends BorderPane implements Observateur {
         //Information sur le joueur
         VBox Info = new VBox();
         Info.getChildren().addAll(this.playerLabel,mot);
-        top.getChildren().add(Info);
+
 
         MenuButton menu = new MenuButton("Menu");
         menu.setFont(font);
@@ -92,7 +91,7 @@ public class VuePartie extends BorderPane implements Observateur {
             this.overlay.ajouterEtAfficherPopup(popupMenuPause);
 
         } );
-        top.getChildren().add(menu);
+        top.getChildren().addAll(temp,regiongauche,Info,regiondroite,menu);
 
         // creation de barre d'indice
         HBox bottom = new HBox();
@@ -132,7 +131,7 @@ public class VuePartie extends BorderPane implements Observateur {
 
 
 
-        bottom.getChildren().addAll(indice,regiongauche,this.bottomtextfield,regionmilieu,end);
+        bottom.getChildren().addAll(indice,regiongauche,this.bottomtextfield,regiondroite,end);
 
         VBox right = new VueCarteRestante(gestionnairePartie,true);
         VBox left = new VueCarteRestante(gestionnairePartie,false);
