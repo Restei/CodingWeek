@@ -6,7 +6,7 @@ import grp04.jeu.vues.BoutonIncr;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionnaireMenuNewGame extends SujetObserve{
+public class GestionnaireMenuNewGame extends SujetObserve {
 
     private BoutonIncr.Type typeBoutonIncrSurvole;  // type du dernier BoutonIncr survolé par la souris
 
@@ -14,6 +14,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     ChargeurScene chargeurScene;
     private int taille;
+    /**
+     * Nombre de cartes de l'équipe qui ne commence pas (équipe bleue).
+     */
     private int nbCarte;
     private int nbCarteNoire;
     private TypeTimer typeTimer;
@@ -22,7 +25,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     private int indiceTheme;
     private List<String> mots = new ArrayList<>();
 
-    private int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
+    private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
+    private final int tailleMaxGrille = 10; // taille maximum du côté du plateau
+    private final int tailleMinGrille = 2; // taille minmum du côté du plateau
 
     // Fin propriétés
 
@@ -36,14 +41,23 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         this.typeTimer = TypeTimer.INDIVIDUEL;
         this.timerAgentRouge = 60;
         this.timerEspionBleu = 30;
-        indiceTheme = 0;
+        indiceTheme = -2;
     }
 
     // Fin constructeurs
 
     // Début méthodes
 
-    public void creationpartie() {
+    public boolean creationPartieAvantCompletion() {
+        boolean estAComplete = taille * taille - mots.size() > 0;
+        if (!estAComplete) {
+            creationPartie();
+        }
+        return estAComplete;
+    }
+
+    public void creationPartie() {
+        completeMots();
         Partie partie = CreateurPartie.createurPartie(taille, nbCarte, nbCarteNoire, typeTimer, timerEspionBleu, timerAgentRouge, mots);
         Statistique statistique = new Statistique(partie.getNbCarteRouge(), partie.getNbCarteBleu());
         chargeurScene.chargerNouvellePartie(partie, statistique);
@@ -54,37 +68,33 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     }
 
     public void incrTaille() {
-        if (taille < 10) {
+        if (taille < tailleMaxGrille) {
             taille++;
         }
         NotifierObservateurs();
     }
 
     public void decrTaille() {
-        if (taille > 0) {
+        if (taille > tailleMinGrille) {
             taille--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarte() {
-        if (true) { // TODO Condition pertinente
-            nbCarte++;
-        }
+        nbCarte++;
         NotifierObservateurs();
     }
 
     public void decrNbCarte() {
-        if (nbCarte > 0) {
+        if (nbCarte > 1) {
             nbCarte--;
         }
         NotifierObservateurs();
     }
 
     public void incrNbCarteNoire() {
-        if (true) {
-            nbCarteNoire++;
-        }
+        nbCarteNoire++;
         NotifierObservateurs();
     }
 
@@ -151,34 +161,33 @@ public class GestionnaireMenuNewGame extends SujetObserve{
 
     public void themeSuivant() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (indiceTheme < listeTheme.size()-1) {
+        if (indiceTheme < listeTheme.size() - 1) {
             indiceTheme++;
         } else {
-            indiceTheme = 0;
+            indiceTheme = -2;
         }
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
-            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        }
+        actialiserMots(listeTheme);
         NotifierObservateurs();
     }
 
     public void themePrecedent() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (indiceTheme > 0) {
+        if (indiceTheme >= -1) {
             indiceTheme--;
         } else {
-            indiceTheme = listeTheme.size()-1;
+            indiceTheme = listeTheme.size() - 1;
         }
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
-            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        }
+        actialiserMots(listeTheme);
         NotifierObservateurs();
     }
 
     public String getTheme() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (listeTheme.isEmpty()) {
-            return "Theme de démo";
+        if (indiceTheme == -1) {
+            return "Random";
+        }
+        if (indiceTheme == -2) {
+            return "Thème par défault";
         }
         return listeTheme.get(indiceTheme);
     }
@@ -198,6 +207,51 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void setTypeBoutonIncrSurvole(BoutonIncr.Type typeBoutonIncrSurvole) {
         this.typeBoutonIncrSurvole = typeBoutonIncrSurvole;
         NotifierObservateurs();
+    }
+
+    /**
+     * Permet d'actualiser mots en fonction du thème sélectionné
+     * @param listeTheme liste des thèmes sauvegardés
+     */
+    public void actialiserMots(List<String> listeTheme) {
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme >= 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        } else if (indiceTheme == -1) {
+            mots = GestionnaireThemes.aleatoire();
+        } else if (indiceTheme == -2) {
+            mots = GestionnaireThemes.motsParDefault(100);
+        }
+    }
+
+    public void completeMots() {
+        if (mots.size() < taille * taille) {
+            int nbMotsACompletes = taille * taille - mots.size();
+            List<String> motsParDefault = GestionnaireThemes.motsParDefault(nbMotsACompletes, mots);
+            mots.addAll(motsParDefault);
+        }
+    }
+
+    /**
+     * Indique si les valeurs fournies permettent de créer une partie valide.
+     *
+     * @param taille             taille du côté de la grille
+     * @param nbCartesEquipeBleu nombre de cartes à deviner pour l'équipe qui ne commence pas
+     * @param nbCartesNoires     nombre de cartes noires sur le plateau
+     * @return true si les paramètres permettent de créer une partie valide
+     */
+    public boolean estUneConfigValide(int taille, int nbCartesEquipeBleu, int nbCartesNoires) {
+        if (taille <= 0 || taille > tailleMaxGrille) {
+            return false;
+        }
+        int nbCartesEquipeRouge = nbCartesEquipeBleu + 1;
+        return (taille * taille >= nbCartesEquipeBleu + nbCartesEquipeRouge + nbCartesNoires);
+    }
+
+    /**
+     * Indique si la configuration actuelle permet de créer une partie valide.
+     */
+    public boolean estUneConfigValide() {
+        return estUneConfigValide(this.taille, this.nbCarte, this.nbCarteNoire);
     }
 
     // Fin méthodes

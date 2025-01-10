@@ -46,10 +46,13 @@ public class ChargeurScene {
     }
 
     public void menuNouvellePartie(){
+        Overlay overlay = new Overlay();
         GestionnaireMenuNewGame gestionnaire = new GestionnaireMenuNewGame(this);
-        MenuNouvellePartie vueMenuNouvellePartie = new MenuNouvellePartie(gestionnaire);
+        MenuNouvellePartie vueMenuNouvellePartie = new MenuNouvellePartie(this, gestionnaire, overlay);
         gestionnaire.NotifierObservateurs(); // sert à pré-charger l'affichage de vueNouvellePartie
-        Scene scene = new Scene(vueMenuNouvellePartie);
+        overlay.setFond(vueMenuNouvellePartie);
+
+        Scene scene = new Scene(overlay);
         montrerScene(scene);
     }
 

@@ -1,5 +1,6 @@
 package grp04.jeu.vues;
 
+import grp04.jeu.ChargeurScene;
 import grp04.jeu.Utils;
 import grp04.jeu.modele.*;
 import javafx.geometry.Pos;
@@ -9,11 +10,17 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class MenuNouvellePartie extends VBox {
+public class MenuNouvellePartie extends VBox implements Observateur {
+
+    private final GestionnaireMenuNewGame gestionnaireMenuNewGame;
+    private final Button buttonCreer;
+    private Overlay overlay;
 
 
-    public MenuNouvellePartie(GestionnaireMenuNewGame gestionnaireMenuNewGame) {
-        //Contenu du menu : Taille, Nb Carte, Nb noires , TypeTimer type , Timer Espion, Timer agent, Theme
+    public MenuNouvellePartie(ChargeurScene chargeurScene, GestionnaireMenuNewGame gestionnaireMenuNewGame, Overlay overlay) {
+
+        this.gestionnaireMenuNewGame = gestionnaireMenuNewGame;
+        this.gestionnaireMenuNewGame.ajouterObservateur(this);
 
         this.setSpacing(10);
 
@@ -82,29 +89,44 @@ public class MenuNouvellePartie extends VBox {
 
         Region controlBoxLeftSpacing = new Region();
         HBox.setHgrow(controlBoxLeftSpacing, Priority.ALWAYS);
-        MenuButton retour = new MenuButton("RETOUR");
+
+        // bouton pour revenir au menu
+        Button retour = new Button("Retour");
+        retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        retour.setOnMouseClicked(e -> gestionnaireMenuNewGame.retourmenuprincipale());
+
         Region controlBoxMiddleSpacing = new Region();
         HBox.setHgrow(controlBoxMiddleSpacing, Priority.ALWAYS);
-        MenuButton creer = new MenuButton("CREER");
+
+        // bouton pour créer une nouvelle partie
+        this.buttonCreer = new Button("Créer");
+        this.buttonCreer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
+        this.buttonCreer.setOnMouseClicked(e -> {
+            if (gestionnaireMenuNewGame.creationPartieAvantCompletion()) {
+                overlay.ajouterEtAfficherPopup(new PopupThemeComplete(overlay, gestionnaireMenuNewGame));
+            }
+        });
+        this.buttonCreer.setDefaultButton(true);
+
         Region controlBoxRightSpacing = new Region();
         HBox.setHgrow(controlBoxRightSpacing, Priority.ALWAYS);
 
-
-        retour.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        retour.onActionAndSound(e -> gestionnaireMenuNewGame.retourmenuprincipale());
-
-        creer.setFont(Utils.getInstance().getFont(Utils.FontType.SMALL_FONT));
-        creer.onActionAndSound(e-> gestionnaireMenuNewGame.creationpartie());
-        creer.setDefaultButton(true);
-
-        controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, creer, controlBoxRightSpacing);
+        controlBox.getChildren().addAll(controlBoxLeftSpacing, retour, controlBoxMiddleSpacing, this.buttonCreer, controlBoxRightSpacing);
         controlBox.setAlignment(Pos.CENTER);
 
         getChildren().add(controlBox);
 
+
+        // espacement en bas de l'écran
         Region bottomSpacing = new Region();
         VBox.setVgrow(bottomSpacing, javafx.scene.layout.Priority.ALWAYS);
         this.getChildren().add(bottomSpacing);
 
+    }
+
+    @Override
+    public void reagir() {
+        // désactive le bouton si la config n'est pas valide
+        buttonCreer.setDisable(!this.gestionnaireMenuNewGame.estUneConfigValide());
     }
 }

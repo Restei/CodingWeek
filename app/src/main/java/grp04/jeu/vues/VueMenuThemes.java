@@ -184,19 +184,22 @@ public class VueMenuThemes extends VBox{
         
         VBox vBox = new VBox();
         ArrayList<String> liste = new ArrayList<String>();
-        try {
-            File myObj = new File("themes/"+filename);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                liste.add(myReader.nextLine());
+        File themesDirectory = new File("themes/");
+        // Permet de vérifier si le dossier n'est pas vide.
+        if (themesDirectory.isDirectory() && themesDirectory.listFiles().length > 0) {
+            try {
+                File myObj = new File("themes/" + filename);
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    liste.add(myReader.nextLine());
+                }
+                myReader.close();
+                wordList = liste;
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
-            myReader.close();
-            wordList = liste;
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
-        
         for (String name : liste){
             vBox.getChildren().add(elementListe(name, vBox, wordField));
         }
