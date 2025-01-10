@@ -68,6 +68,7 @@ public class GestionnairePartie extends SujetObserve {
             if (partie.getNbCarteRouge()==0) {
                 partie.setGagnant(TypeEquipe.ROUGE);
                 statistique.setGagnant(TypeEquipe.ROUGE);
+                switchRole();
             }
             if (equipe == TypeEquipe.BLEU){
                 statistique.incrementNbCarteRougeTrouveParBleu();
@@ -80,6 +81,7 @@ public class GestionnairePartie extends SujetObserve {
            if (partie.getNbCarteBleu()==0){
                partie.setGagnant(TypeEquipe.BLEU);
                statistique.setGagnant(TypeEquipe.BLEU);
+               switchRole();
            }
            if (equipe == TypeEquipe.ROUGE){
                statistique.incrementNbCarteBleuTrouveParRouge();
@@ -116,6 +118,7 @@ public class GestionnairePartie extends SujetObserve {
         }
         PopupChangerJoueur popupChangerJoueur = new PopupChangerJoueur(overlay, this);
         overlay.ajouterEtAfficherPopup(popupChangerJoueur);
+
         NotifierObservateurs();
     }
 

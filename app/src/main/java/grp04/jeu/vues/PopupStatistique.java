@@ -15,24 +15,21 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class PopupStatistique extends VBox  {
-    
-    private final GestionnairePartie gestionnairePartie;
 
-    public PopupStatistique(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene, Overlay overlay){
-        this.gestionnairePartie= gestionnairePartie;
+    public PopupStatistique(GestionnairePartie gestionnairePartie, ChargeurScene chargeurScene){
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setMaxSize(Utils.getInstance().getWindowWidth() * 0.8, Utils.getInstance().getWindowHeight() * 0.8);
         this.setSpacing(40);
         this.setAlignment(Pos.CENTER);
 
         Statistique statistique = gestionnairePartie.getStatistique();
-        this.gestionnairePartie.pauseChrono();
+        gestionnairePartie.pauseChrono();
         //Initalisation des partie de la vue
 
         Label Titre = new Label("Victoire de l'équipe :" + statistique.getGagnant());
         Titre.setFont(Utils.getInstance().getFont(Utils.FontType.TITLE));
 
-        Label NumeroTour = new Label("Nombre de tour joué :" + Integer.toString(statistique.getNbTourJoue()));
+        Label NumeroTour = new Label("Nombre de tour joué :" + statistique.getNbTourJoue());
         NumeroTour.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
 
         Label DefaiteAssassin = new Label("");
@@ -105,14 +102,13 @@ public class PopupStatistique extends VBox  {
 
         //Initialisation milieu
 
-        Milieu.getChildren().addAll(listedescription,listebleu,regiongauche,regiondroite,listerouge);
+        Milieu.getChildren().addAll(listedescription,listerouge,regiongauche,regiondroite,listebleu);
 
         //Initialisation Retour
 
         Button Retour = new Button("RETOUR");
         Retour.setFont(Utils.getInstance().getFont(Utils.FontType.HEADER));
-        Retour.setOnMouseClicked(e-> { chargeurScene.chargerMenuPrincipal();
-        });
+        Retour.setOnMouseClicked(e-> chargeurScene.chargerMenuPrincipal());
         //Initialisation PopUp
 
         getChildren().addAll(Titre,NumeroTour,DefaiteAssassin,Milieu,Retour);

@@ -68,12 +68,17 @@ public class Statistique implements Serializable {
             if (typeJoueur == TypeJoueur.AGENT) {
                 TempsTotalAgentRouge+= temps;
             }
-            TempsTotalEspionRouge+=temps;
+            else {
+                TempsTotalEspionRouge += temps;
+            }
         }
-        if (typeJoueur == TypeJoueur.AGENT) {
-            TempsTotalAgentBleu+=temps;
+        else {
+            if (typeJoueur == TypeJoueur.AGENT) {
+                TempsTotalAgentBleu += temps;
+            } else {
+                TempsTotalEspionBleu += temps;
+            }
         }
-        TempsTotalEspionBleu+=temps;
     }
 
     public int getNbCarteRestante(TypeEquipe typeEquipe) {
