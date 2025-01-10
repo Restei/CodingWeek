@@ -153,8 +153,20 @@ public class VuePartie extends BorderPane implements Observateur {
 
         TextField word = (TextField) this.bottomtextfield.getChildren().getFirst();
         TextField number = (TextField) this.bottomtextfield.getChildren().getLast();
-        number.setText(number.getText().replaceAll("[^\\d]", ""));
-        word.setText(word.getText().replaceAll("[^\\w]", ""));
+        number.textProperty().addListener((observable,oldvalue,newvalue) -> {
+            if (!newvalue.matches("\\d*")){
+                number.setText(newvalue.replaceAll("[\\D]", ""));
+            }
+        }
+        );
+        word.textProperty().addListener((observable,oldvalue,newvalue) -> {
+                    if (!newvalue.matches("[^\\d\\W]*")){
+                        word.setText(newvalue.replaceAll("[^\\w]", ""));
+                        word.setText(newvalue.replaceAll("[\\d]", ""));
+                    }
+                }
+        );
+
         this.bottomtextfield.getChildren().clear();
         this.bottomtextfield.getChildren().addAll(word,number);
 
@@ -162,10 +174,11 @@ public class VuePartie extends BorderPane implements Observateur {
 
         if (this.gestionnairePartie.getRole()) {  // si role == agent
             this.playerLabel.setText("Agent");
-            this.bottomhint.setText(word.getText() + number.getText());
+            this.bottomhint.setText(word.getText() + "   " +  number.getText());
             bottom.getChildren().set(2,this.bottomhint);
         } else {
             this.playerLabel.setText("Espion");
+
 
             bottom.getChildren().set(2,this.bottomtextfield);
         }
