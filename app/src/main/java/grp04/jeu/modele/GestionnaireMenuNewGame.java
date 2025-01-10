@@ -22,7 +22,7 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     private int indiceTheme;
     private List<String> mots = new ArrayList<>();
 
-    private int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
+    private final int pasVariationTemps = 10;  // pas pour le réglage des paramètres de temps
 
     // Fin propriétés
 
@@ -154,24 +154,20 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         if (indiceTheme < listeTheme.size()-1) {
             indiceTheme++;
         } else {
-            indiceTheme = 0;
+            indiceTheme = -1;
         }
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
-            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        }
+        actialiserMots(listeTheme);
         NotifierObservateurs();
     }
 
     public void themePrecedent() {
         List<String> listeTheme = GestionnaireThemes.themes();
-        if (indiceTheme > 0) {
+        if (indiceTheme >= 0) {
             indiceTheme--;
         } else {
             indiceTheme = listeTheme.size()-1;
         }
-        if (indiceTheme < listeTheme.size()-1 && indiceTheme > 0) {
-            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
-        }
+        actialiserMots(listeTheme);
         NotifierObservateurs();
     }
 
@@ -179,6 +175,9 @@ public class GestionnaireMenuNewGame extends SujetObserve{
         List<String> listeTheme = GestionnaireThemes.themes();
         if (listeTheme.isEmpty()) {
             return "Theme de démo";
+        }
+        if (indiceTheme == -1) {
+            return "Random";
         }
         return listeTheme.get(indiceTheme);
     }
@@ -198,6 +197,18 @@ public class GestionnaireMenuNewGame extends SujetObserve{
     public void setTypeBoutonIncrSurvole(BoutonIncr.Type typeBoutonIncrSurvole) {
         this.typeBoutonIncrSurvole = typeBoutonIncrSurvole;
         NotifierObservateurs();
+    }
+
+    /**
+     * Permet d'actualiser mots en fonction du thème sélectionné
+     * @param listeTheme liste des thèmes sauvegardés
+     */
+    public void actialiserMots(List<String> listeTheme) {
+        if (indiceTheme < listeTheme.size()-1 && indiceTheme >= 0) {
+            mots = GestionnaireThemes.mots(listeTheme.get(indiceTheme));
+        } else {
+            mots = GestionnaireThemes.aleatoire();
+        }
     }
 
     // Fin méthodes

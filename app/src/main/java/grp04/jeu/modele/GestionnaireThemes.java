@@ -84,4 +84,20 @@ public class GestionnaireThemes {
             return liste;
         }
 
+    /**
+     * Permet de sélectionner tous les mots de tous les thèmes
+     * @return une liste contenant tous les mots de tout les thèmes
+     */
+    public static ArrayList<String> aleatoire() {
+            ArrayList<String> listeMots = new ArrayList<>();
+            for (String theme : themes()) {
+                for (String mot : mots(theme)) {
+                    if (!listeMots.contains(mot)) {
+                        listeMots.add(mot);
+                    }
+                }
+            }
+            return listeMots;
+        }
+
 }
