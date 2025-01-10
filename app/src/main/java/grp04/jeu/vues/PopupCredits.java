@@ -52,10 +52,10 @@ public class PopupCredits extends VBox{
         this.getChildren().add(music);
         this.getChildren().add(button);
         this.setMaxWidth(Utils.getInstance().getWindowWidth()*0.6);
-        this.setMaxHeight(Utils.getInstance().getWindowHeight()*0.8);
+        this.setMaxHeight(Utils.getInstance().getWindowHeight()*0.7);
         this.setStyle("-fx-background-color:rgb(255, 255, 255)");
         this.setPadding(new Insets(Utils.getInstance().getWindowWidth()*0.05));
-        this.setSpacing(Utils.getInstance().getWindowWidth()*0.05);
+        this.setSpacing(Utils.getInstance().getWindowWidth()*0.02);
     }
     
 }
